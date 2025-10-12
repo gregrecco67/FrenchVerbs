@@ -4,21 +4,21 @@ namespace gwr::frvb {
 
     void App::draw(visage::Canvas &canvas) {
         canvas.setColor(0xffffffff);
-        canvas.fill(0, 0, 900, 700);
+        canvas.fill(0, 0, 1200, 900);
         canvas.setColor(0xffcccccc);
         for (int i = 0; i < 70; ++i)
         {
-            canvas.rectangle(0, i * 10, 900, 1);
+            canvas.rectangle(0, i * 10, 1200, 1);
         }
         for (int i = 0; i < 90; ++i)
         {
-            canvas.rectangle(i * 10, 0, 1, 700);
+            canvas.rectangle(i * 10, 0, 1, 900);
         }
         canvas.setColor(0xff000000);
         for (int i = 0; i < 10; ++i)
         {
-            canvas.rectangle(0, i * 70, 900, 1);
-            canvas.rectangle(i * 90, 0, 1, 700);
+            canvas.rectangle(0, i * 70, 1200, 1);
+            canvas.rectangle(i * 90, 0, 1, 900);
         }
         canvas.setColor(0xff000000);
         canvas.text(visage::String("abc"), font, visage::Font::Justification::kCenter, 50, 0, 350,

@@ -10,8 +10,6 @@ class App : public visage::ApplicationWindow {
 public:
     const visage::Font font{800, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
-
-
 };
 
 }
