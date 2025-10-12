@@ -1,12 +1,10 @@
 .vs
 .vscode
-libs/
 out/
 build/
 ninja-build/
 xcode-build/
 xcb/
-libs/visage
 .idea/
 .env
 # Prerequisites
