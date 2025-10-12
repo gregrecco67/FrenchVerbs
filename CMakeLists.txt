@@ -18,7 +18,7 @@ if (MSVC)
   )
 endif()
 
-set(PROJECT_NAME "VisageWasmExample")
+set(PROJECT_NAME "FrenchVerbs")
 project(${PROJECT_NAME} VERSION 0.1.0 LANGUAGES CXX C)
 
 # assuming visage has been added as a submodule
@@ -58,6 +58,7 @@ add_library(SQLite::SQLite3 ALIAS sqlite3)
 
 add_executable(${PROJECT_NAME} 
   src/main.cpp
+  src/App.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

@@ -4,6 +4,7 @@ out/
 build/
 ninja-build/
 xcode-build/
+web-build/
 xcb/
 .idea/
 .env
