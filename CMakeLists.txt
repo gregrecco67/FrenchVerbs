@@ -21,6 +21,20 @@ endif()
 set(PROJECT_NAME "FrenchVerbs")
 project(${PROJECT_NAME} VERSION 0.1.0 LANGUAGES CXX C)
 
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_LINUX")
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_MACOS")
+    add_compile_options(-mmacosx-version-min=15.0)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC -D_GLIBCXX_USE_CXX11_ABI=1)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_WINDOWS")
+endif()
+
 # assuming visage has been added as a submodule
 add_subdirectory(libs/visage)
 
@@ -29,42 +43,18 @@ add_embedded_resources(EmbeddedFontResources "example_fonts.h" "resources::fonts
 file(GLOB_RECURSE IMAGE_FILES images/*.png)
 add_embedded_resources(EmbeddedImageResources "example_images.h" "resources::images" "${IMAGE_FILES}")
 
-#find_library(SQL sqlite3 HINTS ENV "/Users/grecco/dev/sqlite3/ext/wasm/bld")
-FetchContent_Declare(
-    SQLite3
-    URL https://www.sqlite.org/2025/sqlite-amalgamation-3500100.zip
-    URL_HASH
-        SHA3_256=65e5176c171aff92ff31f3ab4d431a879d648de93f139816f9331a7074859092
-)
-
-FetchContent_MakeAvailable(sqlite3)
-
-add_library(sqlite3)
-target_sources(sqlite3 PRIVATE
-    ${sqlite3_SOURCE_DIR}/sqlite3.c
-    ${sqlite3_SOURCE_DIR}/sqlite3.h
-    ${sqlite3_SOURCE_DIR}/sqlite3ext.h
-)
-
-target_include_directories(sqlite3 PUBLIC ${sqlite3_SOURCE_DIR})
-target_compile_options(sqlite3 PRIVATE -g3)
-
-### Compile options ###
-# refer to https://www.sqlite.org/compile.html
-# target_compile_definitions(sqlite3 PUBLIC)
-
-# Use the same name as the FindSQLite3 script of CMake uses
-add_library(SQLite::SQLite3 ALIAS sqlite3)
+add_subdirectory(libs/SQLiteCpp)
 
 add_executable(${PROJECT_NAME} 
   src/main.cpp
   src/App.cpp
+  src/DbManager.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE TRUE)
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
-include_directories(PUBLIC libs/visage libs/unibetacode src)
+include_directories(PUBLIC libs/visage libs/SQLiteCpp src)
 
 if (EMSCRIPTEN)
     MESSAGE(STATUS "Building for WebAssembly")    
@@ -90,5 +80,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
   visage
   EmbeddedFontResources
   EmbeddedImageResources
+  SQLiteCpp
   sqlite3 # ${SQL} 
 )

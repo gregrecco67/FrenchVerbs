@@ -2,15 +2,17 @@
 
 namespace gwr::frvb {
 
+    App::App(std::string &dbName) : dbm(dbName) {}
+
     void App::draw(visage::Canvas &canvas) {
         canvas.setColor(0xffffffff);
         canvas.fill(0, 0, 1200, 900);
         canvas.setColor(0xffcccccc);
-        for (int i = 0; i < 70; ++i)
+        for (int i = 0; i < 90; ++i)
         {
             canvas.rectangle(0, i * 10, 1200, 1);
         }
-        for (int i = 0; i < 90; ++i)
+        for (int i = 0; i < 120; ++i)
         {
             canvas.rectangle(i * 10, 0, 1, 900);
         }
@@ -21,7 +23,7 @@ namespace gwr::frvb {
             canvas.rectangle(i * 90, 0, 1, 900);
         }
         canvas.setColor(0xff000000);
-        canvas.text(visage::String("abc"), font, visage::Font::Justification::kCenter, 50, 0, 350,
+        canvas.text(visage::String("abc"), font, visage::Font::Justification::kCenter, 50, 0, 500,
                     700);
         canvas.rectangleBorder(50, 250, 800, 200, 2.0f);
         canvas.rectangle(0, 349, 900, 3);
