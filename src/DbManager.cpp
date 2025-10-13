@@ -10,11 +10,12 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
     try
     {
         db.exec(dbschema);
-        auto st = getStmt("INSERT INTO frenchVerbs (infinitive) values (?)");
-        
-        const unsigned char* db_char = resources::dbs::conjugations_json.data;
-        st.bind(1, "avaler");
-        st.exec();
+        // auto st = getStmt("INSERT INTO frenchVerbs (infinitive) values (?)");
+        // const unsigned char* db_char = resources::dbs::conjugations_json.data;
+        // st.bind(1, "avaler");
+        // st.exec();
+        auto st = getStmt("");
+
     }
     catch (std::exception &e)
     {

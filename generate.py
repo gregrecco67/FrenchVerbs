@@ -55,16 +55,16 @@ for verb in data:
     except KeyError:
         continue
     
-    print("st.bind(1, \"{0}\");\n".format(inf))
-    print("st.bind(2, \"{0}\");\n".format(pres))
-    print("st.bind(3, \"{0}\");\n".format(impf))
-    print("st.bind(4, \"{0}\");\n".format(pc))
-    print("st.bind(5, \"{0}\");\n".format(pastp))
-    print("st.bind(6, \"{0}\");\n".format(presp))
-    print("st.bind(7, \"{0}\");\n".format(passeSimple))
-    print("st.bind(8, \"{0}\");\n".format(future))
-    print("st.bind(9, \"{0}\");\n".format(conditional))
-    print("st.bind(10, \"{0}\");\nst.exec();\nst.clear();\n".format(subjunctive))
+    print("st.bind(1, \'{0}\');".format(inf))
+    print("st.bind(2, \'{0}\');".format(pres))
+    print("st.bind(3, \'{0}\');".format(impf))
+    print("st.bind(4, \'{0}\');".format(pc))
+    print("st.bind(5, \'{0}\');".format(pastp))
+    print("st.bind(6, \'{0}\');".format(presp))
+    print("st.bind(7, \'{0}\');".format(passeSimple))
+    print("st.bind(8, \'{0}\');".format(future))
+    print("st.bind(9, \'{0}\');".format(conditional))
+    print("st.bind(10, \'{0}\');st.exec();\nst.clear();\n".format(subjunctive))
     
     #cur.execute("""INSERT INTO frenchVerbs (infinitive, present, imperfect, passeCompose, pastParticiple, presParticiple, passeSimple, future, conditional, subjunctivePres) 
     #            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (inf, pres, impf, pc, pastp, presp, passeSimple, future, conditional, subjunctive))
