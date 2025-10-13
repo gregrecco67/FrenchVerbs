@@ -1,0 +1,3 @@
+DbManager should write db on launch from embedded json file
+
+or adequately, use script to generate dbmanager init code

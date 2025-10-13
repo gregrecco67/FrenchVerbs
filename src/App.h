@@ -10,9 +10,9 @@ namespace gwr::frvb
 
 class App : public visage::ApplicationWindow {
 public:
-    App(std::string &dbname);
+    App();
     DbManager dbm;
-    const visage::Font font{300, resources::fonts::Lato_Regular_ttf};
+    const visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
 };
 
