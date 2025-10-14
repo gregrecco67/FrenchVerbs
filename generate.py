@@ -1,4 +1,5 @@
 import json
+import re
 
 with open("dbs/conjugations.json", "r") as f:
     data = json.load(f)
@@ -55,23 +56,40 @@ for verb in data:
     except KeyError:
         continue
     
-    print("st.bind(1, \"{0}\");".format(inf))
-    print("st.bind(2, \"{0}\");".format(pres))
-    print("st.bind(3, \"{0}\");".format(impf))
-    print("st.bind(4, \"{0}\");".format(pc))
-    print("st.bind(5, \"{0}\");".format(pastp))
-    print("st.bind(6, \"{0}\");".format(presp))
-    print("st.bind(7, \"{0}\");".format(passeSimple))
-    print("st.bind(8, \"{0}\");".format(future))
-    print("st.bind(9, \"{0}\");".format(conditional))
-    print("st.bind(10, \"{0}\");st.exec();\nst.reset();\nst.clearBindings();\n".format(subjunctive))
+    try:
+        pastParticiple = json.dumps(verb["participePasse"])
+    except KeyError:
+        continue
+
+    try:
+        presParticiple = json.dumps(verb["participePresent"])
+    except KeyError:
+        continue
+
+    forms = [inf, pres, impf, pc, passeSimple, pastParticiple, presParticiple, passeSimple, future, conditional, subjunctive]
+    for i, item in enumerate(forms):
+        forms[i] = re.sub(r'[\"\[\]]', '', forms[i])
+        forms[i] = re.sub(r'\\u00e7', 'ç', forms[i])
+        forms[i] = re.sub(r'\\u00e9', 'é', forms[i])
+        forms[i] = re.sub(r'\\u00e8', 'è', forms[i])
+        forms[i] = re.sub(r'\\u00ea', 'ê', forms[i])
+        
+        forms[i] = re.sub(r'\\u00ee', 'î', forms[i])
+        forms[i] = re.sub(r'\\u00ef', 'ï', forms[i])
+        forms[i] = re.sub(r'\\u00e2', 'â', forms[i])
+        forms[i] = re.sub(r'\\u00fb', 'û', forms[i])
     
-    #cur.execute("""INSERT INTO frenchVerbs (infinitive, present, imperfect, passeCompose, pastParticiple, presParticiple, passeSimple, future, conditional, subjunctivePres) 
-    #            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (inf, pres, impf, pc, pastp, presp, passeSimple, future, conditional, subjunctive))
-# con.commit()
+    print("st.bind(1, \"{0}\");".format(forms[0]))
+    print("st.bind(2, \"{0}\");".format(forms[1]))
+    print("st.bind(3, \"{0}\");".format(forms[2]))
+    print("st.bind(4, \"{0}\");".format(forms[3]))
+    print("st.bind(5, \"{0}\");".format(forms[4]))
+    print("st.bind(6, \"{0}\");".format(forms[5]))
+    print("st.bind(7, \"{0}\");".format(forms[6]))
+    print("st.bind(8, \"{0}\");".format(forms[7]))
+    print("st.bind(9, \"{0}\");".format(forms[8]))
+    print("st.bind(10, \"{0}\");\nst.exec();\nst.clear();\n".format(forms[9]))
 
-
-# con.close()
 
 # CREATE TABLE frenchVerbs(
 # verbID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -87,3 +105,4 @@ for verb in data:
 # conditional TEXT,
 # subjunctivePres TEXT
 # );
+
