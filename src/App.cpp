@@ -6,22 +6,21 @@ namespace gwr::frvb {
         addChild(&newBtn);
         newBtn.setBounds(10, 10, 200, 70);
         newBtn.setVisible(true);
-        newBtn.setFont(font);
+        newBtn.setFont(font.withSize(25.f));
+        newBtn.setFlexLayout(true);
+        newBtn.layout().setPadding(5.f);
         newBtn.onMouseDown() = [&](const visage::MouseEvent &e) {
             redraw(); // later, create new quiz
         };
 
-        addChild(&newFrm);
-        newFrm.setBounds(220, 10, 200, 70);
-        newFrm.setVisible(true);
-        newFrm.onMouseDown() = [&](const visage::MouseEvent &e) {
+        addChild(&markBtn);
+        markBtn.setBounds(220, 10, 200, 70);
+        markBtn.setVisible(true);
+        markBtn.setFont(font.withSize(25.f));
+        markBtn.setFlexLayout(true);
+        markBtn.layout().setPadding(5.f);
+        markBtn.onMouseDown() = [&](const visage::MouseEvent &e) {
             redraw();
-        };
-        newFrm.onDraw() = [&](visage::Canvas &canvas) {
-            std::string msg;
-            msg = "New";
-            canvas.setColor(0xff000000);
-            canvas.text(msg, font, visage::Font::Justification::kLeft, 0, 0, 200, 70);
         };
     }
 

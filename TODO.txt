@@ -1,3 +1,6 @@
-DbManager should write db on launch from embedded json file
-
-or adequately, use script to generate dbmanager init code
+We have (most of) the buttons we need.
+Move infintive to better spot
+Draw grid of text editors and labels (for the pronouns)
+Parse input, parse db entry, mark.
+Make button for selecting which part of text, w/display.
+Make db column for part number from above.

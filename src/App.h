@@ -15,8 +15,7 @@ public:
     DbManager dbm;
     visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
-    visage::UiButton newBtn{"New"};
-    visage::Frame newFrm;
+    visage::UiButton newBtn{"New"}, markBtn{"Mark"};
 };
 
 } // namespace gwr::frvb
