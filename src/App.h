@@ -13,9 +13,10 @@ class App : public visage::ApplicationWindow {
 public:
     App();
     DbManager dbm;
-    const visage::Font font{80, resources::fonts::Lato_Regular_ttf};
+    visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
     visage::UiButton newBtn{"New"};
+    visage::Frame newFrm;
 };
 
 } // namespace gwr::frvb

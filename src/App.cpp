@@ -8,37 +8,34 @@ namespace gwr::frvb {
         newBtn.setVisible(true);
         newBtn.setFont(font);
         newBtn.onMouseDown() = [&](const visage::MouseEvent &e) {
+            redraw(); // later, create new quiz
+        };
+
+        addChild(&newFrm);
+        newFrm.setBounds(220, 10, 200, 70);
+        newFrm.setVisible(true);
+        newFrm.onMouseDown() = [&](const visage::MouseEvent &e) {
             redraw();
+        };
+        newFrm.onDraw() = [&](visage::Canvas &canvas) {
+            std::string msg;
+            msg = "New";
+            canvas.setColor(0xff000000);
+            canvas.text(msg, font, visage::Font::Justification::kLeft, 0, 0, 200, 70);
         };
     }
 
     void App::draw(visage::Canvas &canvas) {
         canvas.setColor(0xffffffff);
         canvas.fill(0, 0, 1200, 900);
-        canvas.setColor(0xffcccccc);
-        for (int i = 0; i < 90; ++i)
-        {
-            canvas.rectangle(0, i * 10, 1200, 1);
-        }
-        for (int i = 0; i < 120; ++i)
-        {
-            canvas.rectangle(i * 10, 0, 1, 900);
-        }
-        canvas.setColor(0xff000000);
-        for (int i = 0; i < 10; ++i)
-        {
-            canvas.rectangle(0, i * 70, 1200, 1);
-            canvas.rectangle(i * 90, 0, 1, 900);
-        }
-        canvas.setColor(0xff000000);
         auto st = dbm.getStmt("select infinitive from frenchVerbs order by random() limit 1;");
         std::string infinitive;
         while (st.executeStep()) {
             infinitive = st.getColumn("infinitive").getString();
         }
-        canvas.text(visage::String(infinitive), font, visage::Font::Justification::kCenter, 50, 0, 500,
+        canvas.setColor(0xff000000);
+        canvas.text(visage::String(infinitive), font, visage::Font::Justification::kLeft, 50, 0, 500,
                     700);
         canvas.rectangleBorder(50, 250, 800, 200, 2.0f);
-        canvas.rectangle(0, 349, 900, 3);
     }
 }
