@@ -4,6 +4,7 @@
 #include <visage_file_embed/embedded_file.h>
 #include "embedded/example_fonts.h"
 #include "DbManager.h"
+#include <visage_widgets/button.h>
 
 namespace gwr::frvb 
 {
@@ -14,6 +15,7 @@ public:
     DbManager dbm;
     const visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
+    visage::UiButton newBtn{"New"};
 };
 
 } // namespace gwr::frvb

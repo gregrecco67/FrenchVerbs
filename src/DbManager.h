@@ -3,8 +3,6 @@
 #include <SQLiteCpp/SQLiteCpp.h>
 #include <iostream>
 #include <visage_file_embed/embedded_file.h>
-#include "embedded/example_dbs.h"
-
 
 namespace gwr::frvb
 {

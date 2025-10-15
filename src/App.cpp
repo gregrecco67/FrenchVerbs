@@ -2,7 +2,15 @@
 
 namespace gwr::frvb {
 
-    App::App() : dbm(":memory:") {}
+    App::App() : dbm(":memory:") {
+        addChild(&newBtn);
+        newBtn.setBounds(10, 10, 200, 70);
+        newBtn.setVisible(true);
+        newBtn.setFont(font);
+        newBtn.onMouseDown() = [&](const visage::MouseEvent &e) {
+            redraw();
+        };
+    }
 
     void App::draw(visage::Canvas &canvas) {
         canvas.setColor(0xffffffff);
@@ -23,7 +31,7 @@ namespace gwr::frvb {
             canvas.rectangle(i * 90, 0, 1, 900);
         }
         canvas.setColor(0xff000000);
-        auto st = dbm.getStmt("select infinitive from frenchVerbs where true limit 1;");
+        auto st = dbm.getStmt("select infinitive from frenchVerbs order by random() limit 1;");
         std::string infinitive;
         while (st.executeStep()) {
             infinitive = st.getColumn("infinitive").getString();
