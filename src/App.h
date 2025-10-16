@@ -9,6 +9,7 @@
 #include <visage_utils/dimension.h>
 #include "Label.h"
 #include "Conj.h"
+#include <iostream>
 
 namespace gwr::frvb 
 {

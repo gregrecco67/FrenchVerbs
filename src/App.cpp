@@ -7,6 +7,7 @@ namespace gwr::frvb
 
 App::App() : dbm(":memory:")
 {
+    
     setFlexLayout(true);
     layout().setFlexRows(true);
     addChild(header, true);
@@ -92,19 +93,20 @@ void App::newQuiz()
 {
 
     // CREATE TABLE frenchVerbs(
-    // verbID INTEGER PRIMARY KEY AUTOINCREMENT,
-    // infinitive TEXT,
-    // pastParticiple TEXT,
-    // presParticiple TEXT,
-    // auxiliary TEXT,
-    // present TEXT,
-    // imperfect TEXT,
-    // passeCompose TEXT,
-    // passeSimple TEXT,
-    // future TEXT,
-    // conditional TEXT,
-    // subjunctivePres TEXT
-    // );
+        // verbID INTEGER PRIMARY KEY AUTOINCREMENT,
+        // infinitive TEXT,
+        // pastParticiple TEXT,
+        // presParticiple TEXT,
+        // auxiliary TEXT,
+        // present TEXT,
+        // imperfect TEXT,
+        // passeCompose TEXT,
+        // passeSimple TEXT,
+        // future TEXT,
+        // conditional TEXT,
+        // subjunctivePres TEXT
+        // );
+        
 
     auto st = dbm.getStmt("select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple from frenchVerbs order by random() limit 1;");
     std::string verb, pres, impf, pc, fut, cond, ps;
@@ -115,7 +117,7 @@ void App::newQuiz()
         impf = st.getColumn("imperfect").getString();
         pc = st.getColumn("passeCompose").getString();
         fut = st.getColumn("future").getString();
-        cond = st.getColumn("conditonal").getString();
+        cond = st.getColumn("conditional").getString();
         ps = st.getColumn("passeSimple").getString();
     }
     headword.setText(verb);

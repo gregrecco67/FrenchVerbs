@@ -8,6 +8,9 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15 CACHE STRING "Build for 10.14")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+set(PROJECT_NAME "FrenchVerbs")
+project(${PROJECT_NAME} VERSION 0.1.0 LANGUAGES CXX C)
+
 if (APPLE AND NOT EMSCRIPTEN)
   enable_language(OBJC)
   enable_language(OBJCXX)
@@ -16,23 +19,6 @@ if (MSVC)
   add_compile_options(
     $<$<COMPILE_LANGUAGE:CXX>:/Zc:__cplusplus>
   )
-endif()
-
-set(PROJECT_NAME "FrenchVerbs")
-project(${PROJECT_NAME} VERSION 0.1.0 LANGUAGES CXX C)
-
-
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_LINUX")
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-endif()
-if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_MACOS")
-    add_compile_options(-mmacosx-version-min=15.0)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC -D_GLIBCXX_USE_CXX11_ABI=1)
-endif()
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_WINDOWS")
 endif()
 
 # assuming visage has been added as a submodule
@@ -51,6 +37,19 @@ add_executable(${PROJECT_NAME}
   src/DbManager.cpp
   src/Conj.cpp
 )
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_LINUX")
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_MACOS")
+    add_compile_options(-mmacosx-version-min=15.0)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC -D_GLIBCXX_USE_CXX11_ABI=1)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_WINDOWS")
+endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE TRUE)
