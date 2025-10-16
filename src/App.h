@@ -8,6 +8,7 @@
 #include <visage_widgets/text_editor.h>
 #include <visage_utils/dimension.h>
 #include "Label.h"
+#include "Conj.h"
 
 namespace gwr::frvb 
 {
@@ -20,9 +21,10 @@ public:
     visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
     visage::UiButton newBtn{"New"}, markBtn{"Mark"};
-    visage::TextEditor pres1s, pres2s, pres3s, pres1p, pres2p, pres3p;
-    Label header, body;
-    Label headword, present, presSing, presPl, pronPresSing, pronPresPl;
+    // visage::TextEditor pres1s, pres2s, pres3s, pres1p, pres2p, pres3p;
+    Label header, body, headword;
+    // Label headword, present, presSing, presPl, pronPresSing, pronPresPl;
+    Conjugation conjPres;
 };
 
 } // namespace gwr::frvb

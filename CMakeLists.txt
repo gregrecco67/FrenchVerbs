@@ -49,6 +49,7 @@ add_executable(${PROJECT_NAME}
   src/main.cpp
   src/App.cpp
   src/DbManager.cpp
+  src/Conj.cpp
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

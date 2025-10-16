@@ -1,3 +1,5 @@
+#pragma once
+
 #include <visage/app.h>
 #include "embedded/example_fonts.h"
 class Label : public visage::Frame
@@ -5,8 +7,8 @@ class Label : public visage::Frame
   public:
     Label() = default;
     visage::String text_;
+    bool outline{true};
     std::vector<visage::String> tokens_;
-    bool isParse{false};
     visage::Font fontEn{25, resources::fonts::Lato_Regular_ttf};
     visage::Color color_{visage::Color(0xff000000)};
     void setColor(const visage::Color &color)
@@ -42,7 +44,9 @@ class Label : public visage::Frame
     void draw(visage::Canvas &canvas) override
     {
         canvas.setColor(0xff000000);
-        canvas.rectangleBorder(0, 0, width(), height(), 1.0f);
+        if (outline) {
+            canvas.rectangleBorder(0, 0, width(), height(), 1.0f);
+        }
         if (text_.isEmpty())
         {
             return;
