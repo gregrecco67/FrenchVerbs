@@ -4,8 +4,8 @@
 5. Make button for selecting which part of text, w/display.
 6. Make db column for part number from above.
 
+SPLIT STRING from db
 
-On (3), make a generic container for all six forms, with labels for pronouns, and fields for strings
 
 header
 New / Mark / Infinitive

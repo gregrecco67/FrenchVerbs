@@ -46,7 +46,6 @@ namespace gwr::frvb {
         conjPres.setFlexLayout(true);
         conjPres.layout().setDimensions(50_vw, 30_vh);
         conjPres.name_ = "Present";
-        conjPres.e1.setText("hello");
     }
 
     void App::newQuiz() {
