@@ -68,6 +68,7 @@ if (EMSCRIPTEN)
       -s STACK_SIZE=32MB
       "-sEXPORTED_FUNCTIONS=['_main', '_pasteCallback']"
       "-sEXPORTED_RUNTIME_METHODS=['ccall', 'cwrap', 'UTF8ToString']"
+      "-sNO_DISABLE_EXCEPTION_CATCHING"
   )
 
   set_target_properties(${PROJECT_NAME} PROPERTIES

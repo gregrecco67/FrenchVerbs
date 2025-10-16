@@ -66,7 +66,7 @@ for verb in data:
     except KeyError:
         continue
 
-    forms = [inf, pres, impf, pc, passeSimple, pastParticiple, presParticiple, passeSimple, future, conditional, subjunctive]
+    forms = [inf, pres, impf, pc, pastParticiple, presParticiple, passeSimple, future, conditional, subjunctive]
     for i, item in enumerate(forms):
         forms[i] = re.sub(r'[\"\[\]]', '', forms[i])
         forms[i] = re.sub(r'\\u00e7', 'ç', forms[i])
@@ -88,7 +88,7 @@ for verb in data:
     print("st.bind(7, \"{0}\");".format(forms[6]))
     print("st.bind(8, \"{0}\");".format(forms[7]))
     print("st.bind(9, \"{0}\");".format(forms[8]))
-    print("st.bind(10, \"{0}\");\nst.exec();\nst.clear();\n".format(forms[9]))
+    print("st.bind(10, \"{0}\");\nst.exec();\nst.reset();\nst.clearBindings();\n".format(forms[9]))
 
 
 # CREATE TABLE frenchVerbs(
