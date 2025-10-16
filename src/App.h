@@ -26,8 +26,7 @@ public:
     Label header, body, headword;
     // Label headword, present, presSing, presPl, pronPresSing, pronPresPl;
     Conjugation conjPres, conjImpf, conjPc;
-    
-
+    visage::Frame left, right;
 };
 
 } // namespace gwr::frvb

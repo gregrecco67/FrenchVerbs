@@ -16,9 +16,12 @@ App::App() : dbm(":memory:")
     header.layout().setFlexRows(false);
     header.layout().setFlexGap(1_vw);
     header.layout().setPadding(8_vh);
+    header.outline = false;
+
     header.addChild(newBtn, true);
     header.addChild(markBtn, true);
     header.addChild(headword, true);
+
     newBtn.layout().setDimensions(15_vw, 100_vh);
     markBtn.layout().setDimensions(15_vw, 100_vh);
     headword.layout().setDimensions(35_vw, 100_vh);
@@ -37,6 +40,7 @@ App::App() : dbm(":memory:")
     body.layout().setFlexRows(true);
     body.layout().setFlexGap(5.f);
     body.layout().setPadding(5.f);
+    body.outline = false;
 
     body.addChild(conjPres, true);
     body.addChild(conjImpf, true);
@@ -104,8 +108,6 @@ void App::newQuiz()
     conjPc.e4.setText(entries[3]);
     conjPc.e5.setText(entries[4]);
     conjPc.e6.setText(entries[5]);
-    
-    
 }
 
 void App::draw(visage::Canvas &canvas)
