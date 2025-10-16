@@ -27,11 +27,9 @@ App::App() : dbm(":memory:")
     newBtn.onMouseDown() = [&](const visage::MouseEvent &e) { newQuiz(); };
 
     markBtn.setFont(font.withSize(25.f));
-    markBtn.onMouseDown() = [&](const visage::MouseEvent &e) { newQuiz(); };
+    // markBtn.onMouseDown() = [&](const visage::MouseEvent &e) { newQuiz(); };
 
     headword.setFont(font.withSize(25.f));
-    headword.setText("hello");
-
     // ============================
 
     body.setFlexLayout(true);
@@ -41,9 +39,20 @@ App::App() : dbm(":memory:")
     body.layout().setPadding(5.f);
 
     body.addChild(conjPres, true);
+    body.addChild(conjImpf, true);
+    body.addChild(conjPc, true);
+
     conjPres.setFlexLayout(true);
     conjPres.layout().setDimensions(50_vw, 30_vh);
     conjPres.name_ = "Present";
+
+    conjImpf.setFlexLayout(true);
+    conjImpf.layout().setDimensions(50_vw, 30_vh);
+    conjImpf.name_ = "Imperfect";
+
+    conjPc.setFlexLayout(true);
+    conjPc.layout().setDimensions(50_vw, 30_vh);
+    conjPc.name_ = "Compound Past";
 }
 
 void App::newQuiz()
@@ -64,12 +73,14 @@ void App::newQuiz()
     // subjunctivePres TEXT
     // );
 
-    auto st = dbm.getStmt("select infinitive, present from frenchVerbs order by random() limit 1;");
-    std::string verb, pres;
+    auto st = dbm.getStmt("select infinitive, present, imperfect, passeCompose from frenchVerbs order by random() limit 1;");
+    std::string verb, pres, impf, pc;
     while (st.executeStep())
     {
         verb = st.getColumn("infinitive").getString();
         pres = st.getColumn("present").getString();
+        impf = st.getColumn("imperfect").getString();
+        pc = st.getColumn("passeCompose").getString();
     }
     headword.setText(verb);
     auto entries = splitForms(pres);
@@ -79,6 +90,21 @@ void App::newQuiz()
     conjPres.e4.setText(entries[3]);
     conjPres.e5.setText(entries[4]);
     conjPres.e6.setText(entries[5]);
+    entries = splitForms(impf);
+    conjImpf.e1.setText(entries[0]);
+    conjImpf.e2.setText(entries[1]);
+    conjImpf.e3.setText(entries[2]);
+    conjImpf.e4.setText(entries[3]);
+    conjImpf.e5.setText(entries[4]);
+    conjImpf.e6.setText(entries[5]);
+    entries = splitForms(pc);
+    conjPc.e1.setText(entries[0]);
+    conjPc.e2.setText(entries[1]);
+    conjPc.e3.setText(entries[2]);
+    conjPc.e4.setText(entries[3]);
+    conjPc.e5.setText(entries[4]);
+    conjPc.e6.setText(entries[5]);
+    
     
 }
 
