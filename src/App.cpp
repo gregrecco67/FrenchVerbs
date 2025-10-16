@@ -91,7 +91,7 @@ void App::draw(visage::Canvas &canvas)
 std::vector<std::string> App::splitForms(std::string entry)
 {
     std::vector<std::string> entries;
-    int pos{0};
+    size_t pos{0};
     std::string::size_type n;
     n = entry.find(", ");
     if (n != std::string::npos)
@@ -99,28 +99,28 @@ std::vector<std::string> App::splitForms(std::string entry)
         entries.push_back(entry.substr(0, n));
         pos = n+2;
     }
-    n = entry.substr(pos).find(", ");
+    n = entry.find(", ", pos);
     if (n != std::string::npos)
     {
-        entries.push_back(entry.substr(pos, n));
+        entries.push_back(entry.substr(pos, n - pos));
         pos = n+2;
     }
-    n = entry.substr(pos).find(", ");
+    n = entry.find(", ", pos);
     if (n != std::string::npos)
     {
-        entries.push_back(entry.substr(pos, n));
+        entries.push_back(entry.substr(pos, n - pos));
         pos = n+2;
     }
-    n = entry.substr(pos).find(", ");
+    n = entry.find(", ", pos);
     if (n != std::string::npos)
     {
-        entries.push_back(entry.substr(pos, n));
+        entries.push_back(entry.substr(pos, n - pos));
         pos = n+2;
     }
-    n = entry.substr(pos).find(", ");
+    n = entry.find(", ", pos);
     if (n != std::string::npos)
     {
-        entries.push_back(entry.substr(pos, n));
+        entries.push_back(entry.substr(pos, n - pos));
         pos = n+2;
     }
     entries.push_back(entry.substr(pos, n));
