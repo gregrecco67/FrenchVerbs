@@ -1,11 +1,10 @@
-3. Draw grid of text editors and labels (for the pronouns)
-
 4. Parse input, parse db entry, mark.
 5. Make button for selecting which part of text, w/display.
 6. Make db column for part number from above.
 
-SPLIT STRING from db
-
+-- Incorporate subjunctive present and imperfect
+-- imperative? participle?
+-- fit into display
 
 header
 New / Mark / Infinitive
