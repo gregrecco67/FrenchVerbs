@@ -1,7 +1,7 @@
 import json
 import re
 
-with open("dbs/conjugations.json", "r") as f:
+with open("conjugations.json", "r") as f:
     data = json.load(f)
 
 for verb in data:
