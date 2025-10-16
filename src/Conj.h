@@ -10,7 +10,7 @@ class Conjugation : public visage::Frame {
 public:
     std::string name_{""};
     std::array<std::string, 6> forms;
-    visage::Font font{25, resources::fonts::Lato_Regular_ttf};
+    visage::Font font{20, resources::fonts::Lato_Regular_ttf};
     Conjugation();
     void draw(visage::Canvas &canvas);
     Label pn1, pn2, pn3, pn4, pn5, pn6;

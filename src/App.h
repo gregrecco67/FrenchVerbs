@@ -26,7 +26,7 @@ public:
     // visage::TextEditor pres1s, pres2s, pres3s, pres1p, pres2p, pres3p;
     Label header, body, headword;
     // Label headword, present, presSing, presPl, pronPresSing, pronPresPl;
-    Conjugation conjPres, conjImpf, conjPc, conjFut, conjCond, conjPs;
+    Conjugation conjPres, conjImpf, conjPc, conjFut, conjCond, conjPs, conjSubjPr, conjSubjImpf;
     visage::Frame left, right;
 };
 

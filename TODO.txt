@@ -6,6 +6,12 @@
 -- imperative? participle?
 -- fit into display
 
+-- deal with asseoir, rasseoir (multiple entries)
+-- look around for other doubled entries (in conjugations.json)
+
+-- update generate.py to pick up subjunctive imperfect
+
+
 header
 New / Mark / Infinitive
 

@@ -8,7 +8,7 @@ Conjugation::Conjugation() {
         addChild(header, true);
         addChild(body, true);
         header.setFlexLayout(true);
-        header.layout().setDimensions(100_vw, 15_vh);
+        header.layout().setDimensions(100_vw, 18_vh);
         body.setFlexLayout(true);
         body.layout().setFlexRows(false);
         body.layout().setDimensions(100_vw, 75_vh);
@@ -59,7 +59,7 @@ Conjugation::Conjugation() {
 
         for (auto& fr : {&e1, &e2, &e3, &e4, &e5, &e6}) {
             fr->setFlexLayout(true);
-            fr->setFont(font.withSize(25.f));
+            fr->setFont(font.withSize(20.f));
             fr->setDefaultText("...");
             fr->setJustification(visage::Font::Justification::kCenter);
             fr->layout().setDimensions(95_vw, 28_vh);

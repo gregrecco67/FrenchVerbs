@@ -45,45 +45,57 @@ App::App() : dbm(":memory:")
 
     left.setFlexLayout(true);
     left.layout().setDimensions(49_vw, 100_vh);
-    left.layout().setFlexGap(5.f);
+    left.layout().setFlexGap(2.f);
     left.layout().setPadding(5.f);
 
     left.addChild(conjPres, true);
     left.addChild(conjImpf, true);
     left.addChild(conjPc, true);
+    left.addChild(conjPs, true);
 
     conjPres.setFlexLayout(true);
-    conjPres.layout().setDimensions(100_vw, 30_vh);
+    conjPres.layout().setDimensions(100_vw, 24_vh);
     conjPres.name_ = "Present";
 
     conjImpf.setFlexLayout(true);
-    conjImpf.layout().setDimensions(100_vw, 30_vh);
+    conjImpf.layout().setDimensions(100_vw, 24_vh);
     conjImpf.name_ = "Imperfect";
 
     conjPc.setFlexLayout(true);
-    conjPc.layout().setDimensions(100_vw, 30_vh);
+    conjPc.layout().setDimensions(100_vw, 24_vh);
     conjPc.name_ = "Compound Past";
+
+    conjPs.setFlexLayout(true);
+    conjPs.layout().setDimensions(100_vw, 24_vh);
+    conjPs.name_ = "Simple Past";
 
     right.setFlexLayout(true);
     right.layout().setDimensions(49_vw, 100_vh);
-    right.layout().setFlexGap(5.f);
+    right.layout().setFlexGap(2.f);
     right.layout().setPadding(5.f);
 
     right.addChild(conjFut, true);
     right.addChild(conjCond, true);
-    right.addChild(conjPs, true);
+    right.addChild(conjSubjPr, true);
+    right.addChild(conjSubjImpf, true);
 
     conjFut.setFlexLayout(true);
-    conjFut.layout().setDimensions(100_vw, 30_vh);
+    conjFut.layout().setDimensions(100_vw, 24_vh);
     conjFut.name_ = "Future";
 
     conjCond.setFlexLayout(true);
-    conjCond.layout().setDimensions(100_vw, 30_vh);
+    conjCond.layout().setDimensions(100_vw, 24_vh);
     conjCond.name_ = "Conditional";
 
-    conjPs.setFlexLayout(true);
-    conjPs.layout().setDimensions(100_vw, 30_vh);
-    conjPs.name_ = "Simple Past";
+    conjSubjPr.setFlexLayout(true);
+    conjSubjPr.layout().setDimensions(100_vw, 24_vh);
+    conjSubjPr.name_ = "Subjunctive Present";
+
+    conjSubjImpf.setFlexLayout(true);
+    conjSubjImpf.layout().setDimensions(100_vw, 24_vh);
+    conjSubjImpf.name_ = "Subjunctive Imperfect";
+
+
 
 
 
@@ -108,7 +120,7 @@ void App::newQuiz()
         // );
         
 
-    auto st = dbm.getStmt("select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple from frenchVerbs order by random() limit 1;");
+    auto st = dbm.getStmt("select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, subjunctivePres from frenchVerbs order by random() limit 1;");
     std::string verb, pres, impf, pc, fut, cond, ps;
     while (st.executeStep())
     {
