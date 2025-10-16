@@ -6,6 +6,8 @@
 #include "DbManager.h"
 #include <visage_widgets/button.h>
 #include <visage_widgets/text_editor.h>
+#include <visage_utils/dimension.h>
+#include "Label.h"
 
 namespace gwr::frvb 
 {
@@ -13,11 +15,14 @@ namespace gwr::frvb
 class App : public visage::ApplicationWindow {
 public:
     App();
+    void newQuiz();
     DbManager dbm;
     visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
     visage::UiButton newBtn{"New"}, markBtn{"Mark"};
     visage::TextEditor pres1s, pres2s, pres3s, pres1p, pres2p, pres3p;
+    Label header, body;
+    Label headword, present, presSing, presPl, pronPresSing, pronPresPl;
 };
 
 } // namespace gwr::frvb

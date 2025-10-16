@@ -1,11 +1,19 @@
-1. We have (most of) the buttons we need.
-
-2. Move infintive to better spot
-
 3. Draw grid of text editors and labels (for the pronouns)
 
 4. Parse input, parse db entry, mark.
-
 5. Make button for selecting which part of text, w/display.
-
 6. Make db column for part number from above.
+
+
+On (3), make a generic container for all six forms, with labels for pronouns, and fields for strings
+
+header
+New / Mark / Infinitive
+
+body
+present ---- / imperfect / passComp
+
+-------
+
+present
+pronouns editors pronouns editors
