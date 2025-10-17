@@ -64,7 +64,7 @@ if (EMSCRIPTEN)
       -sGL_ENABLE_GET_PROC_ADDRESS
       -sALLOW_MEMORY_GROWTH=1
       --bind
-      -s STACK_SIZE=32MB
+      -s STACK_SIZE=48MB
       "-sEXPORTED_FUNCTIONS=['_main', '_pasteCallback']"
       "-sEXPORTED_RUNTIME_METHODS=['ccall', 'cwrap', 'UTF8ToString']"
       "-sNO_DISABLE_EXCEPTION_CATCHING"

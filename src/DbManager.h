@@ -13,6 +13,7 @@ class DbManager
     SQLite::Database db;
     DbManager(std::string dbFileName);
     SQLite::Statement getStmt(std::string s);
+    void secondHalf();
     const char *dbschema = R"foo(
 CREATE TABLE frenchVerbs(
 verbID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -26,7 +27,8 @@ passeCompose TEXT,
 passeSimple TEXT,
 future TEXT,
 conditional TEXT,
-subjunctivePres TEXT
+subjunctivePres TEXT,
+subjunctiveImpf TEXT
 );
 
  )foo";

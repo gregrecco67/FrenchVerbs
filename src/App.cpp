@@ -105,23 +105,24 @@ void App::newQuiz()
 {
 
     // CREATE TABLE frenchVerbs(
-        // verbID INTEGER PRIMARY KEY AUTOINCREMENT,
-        // infinitive TEXT,
-        // pastParticiple TEXT,
-        // presParticiple TEXT,
-        // auxiliary TEXT,
-        // present TEXT,
-        // imperfect TEXT,
-        // passeCompose TEXT,
-        // passeSimple TEXT,
-        // future TEXT,
-        // conditional TEXT,
-        // subjunctivePres TEXT
-        // );
-        
+    // CREATE TABLE frenchVerbs(
+    // verbID INTEGER PRIMARY KEY AUTOINCREMENT,
+    // infinitive TEXT,
+    // pastParticiple TEXT,
+    // presParticiple TEXT,
+    // auxiliary TEXT,
+    // present TEXT,
+    // imperfect TEXT,
+    // passeCompose TEXT,
+    // passeSimple TEXT,
+    // future TEXT,
+    // conditional TEXT,
+    // subjunctivePres TEXT,
+    // subjunctiveImpf TEXT
+    // );             
 
-    auto st = dbm.getStmt("select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, subjunctivePres from frenchVerbs order by random() limit 1;");
-    std::string verb, pres, impf, pc, fut, cond, ps;
+    auto st = dbm.getStmt("select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, subjunctivePres, subjunctiveImpf from frenchVerbs order by random() limit 1;");
+    std::string verb, pres, impf, pc, fut, cond, ps, subjPres, subjImpf;
     while (st.executeStep())
     {
         verb = st.getColumn("infinitive").getString();
@@ -131,6 +132,9 @@ void App::newQuiz()
         fut = st.getColumn("future").getString();
         cond = st.getColumn("conditional").getString();
         ps = st.getColumn("passeSimple").getString();
+        subjPres = st.getColumn("subjunctivePres").getString();
+        subjImpf = st.getColumn("subjunctiveImpf").getString();
+
     }
     headword.setText(verb);
     auto entries = splitForms(pres);
@@ -175,6 +179,20 @@ void App::newQuiz()
     conjPs.e4.setText(entries[3]);
     conjPs.e5.setText(entries[4]);
     conjPs.e6.setText(entries[5]);
+    entries = splitForms(subjPres);
+    conjSubjPr.e1.setText(entries[0]);
+    conjSubjPr.e2.setText(entries[1]);
+    conjSubjPr.e3.setText(entries[2]);
+    conjSubjPr.e4.setText(entries[3]);
+    conjSubjPr.e5.setText(entries[4]);
+    conjSubjPr.e6.setText(entries[5]);
+    entries = splitForms(subjImpf);
+    conjSubjImpf.e1.setText(entries[0]);
+    conjSubjImpf.e2.setText(entries[1]);
+    conjSubjImpf.e3.setText(entries[2]);
+    conjSubjImpf.e4.setText(entries[3]);
+    conjSubjImpf.e5.setText(entries[4]);
+    conjSubjImpf.e6.setText(entries[5]);
     
 }
 

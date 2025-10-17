@@ -75,5 +75,5 @@ void Conjugation::draw(visage::Canvas &canvas)
     {
         return;
     }
-    canvas.text(name_, font, visage::Font::Justification::kCenter, 0, 0, 100_vw, 10_vh);
+    canvas.text(name_, font, visage::Font::Justification::kCenter, 0, 0, 100_vw, 15_vh);
 }

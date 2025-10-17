@@ -10,7 +10,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
     try
     {
         db.exec(dbschema);
-        auto st = getStmt("INSERT INTO frenchVerbs (infinitive, present, imperfect, passeCompose, pastParticiple, presParticiple, passeSimple, future, conditional, subjunctivePres) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        auto st = getStmt("INSERT INTO frenchVerbs (infinitive, present, imperfect, passeCompose, pastParticiple, presParticiple, passeSimple, future, conditional, subjunctivePres, subjunctiveImpf) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
         st.bind(1, "abandonner");
         st.bind(2, "abandonne, abandonnes, abandonne, abandonnons, abandonnez, abandonnent");
@@ -22,6 +22,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "abandonnerai, abandonneras, abandonnera, abandonnerons, abandonnerez, abandonneront");
         st.bind(9, "abandonnerais, abandonnerais, abandonnerait, abandonnerions, abandonneriez, abandonneraient");
         st.bind(10, "abandonne, abandonnes, abandonne, abandonnions, abandonniez, abandonnent");
+        st.bind(11, "abandonnasse, abandonnasses, abandonnât, abandonnassions, abandonnassiez, abandonnassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -36,20 +37,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "abattrai, abattras, abattra, abattrons, abattrez, abattront");
         st.bind(9, "abattrais, abattrais, abattrait, abattrions, abattriez, abattraient");
         st.bind(10, "abatte, abattes, abatte, abattions, abattiez, abattent");
-        st.exec();
-        st.reset();
-        st.clearBindings();
-
-        st.bind(1, "absoudre");
-        st.bind(2, "absous, absous, absout, absolvons, absolvez, absolvent");
-        st.bind(3, "absolvais, absolvais, absolvait, absolvions, absolviez, absolvaient");
-        st.bind(4, "ai absous, as absous, a absous, avons absous, avez absous, ont absous");
-        st.bind(5, "absous");
-        st.bind(6, "absolvant");
-        st.bind(7, "absolus, absolus, absolut, absolûmes, absolûtes, absolurent");
-        st.bind(8, "absoudrai, absoudras, absoudra, absoudrons, absoudrez, absoudront");
-        st.bind(9, "absoudrais, absoudrais, absoudrait, absoudrions, absoudriez, absoudraient");
-        st.bind(10, "absolve, absolves, absolve, absolvions, absolviez, absolvent");
+        st.bind(11, "abattisse, abattisses, abattît, abattissions, abattissiez, abattissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -64,6 +52,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "accepterai, accepteras, acceptera, accepterons, accepterez, accepteront");
         st.bind(9, "accepterais, accepterais, accepterait, accepterions, accepteriez, accepteraient");
         st.bind(10, "accepte, acceptes, accepte, acceptions, acceptiez, acceptent");
+        st.bind(11, "acceptasse, acceptasses, acceptât, acceptassions, acceptassiez, acceptassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -78,6 +67,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "accompagnerai, accompagneras, accompagnera, accompagnerons, accompagnerez, accompagneront");
         st.bind(9, "accompagnerais, accompagnerais, accompagnerait, accompagnerions, accompagneriez, accompagneraient");
         st.bind(10, "accompagne, accompagnes, accompagne, accompagnions, accompagniez, accompagnent");
+        st.bind(11, "accompagnasse, accompagnasses, accompagnât, accompagnassions, accompagnassiez, accompagnassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -92,6 +82,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "accomplirai, accompliras, accomplira, accomplirons, accomplirez, accompliront");
         st.bind(9, "accomplirais, accomplirais, accomplirait, accomplirions, accompliriez, accompliraient");
         st.bind(10, "accomplisse, accomplisses, accomplisse, accomplissions, accomplissiez, accomplissent");
+        st.bind(11, "accomplisse, accomplisses, accomplît, accomplissions, accomplissiez, accomplissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -106,6 +97,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "accorderai, accorderas, accordera, accorderons, accorderez, accorderont");
         st.bind(9, "accorderais, accorderais, accorderait, accorderions, accorderiez, accorderaient");
         st.bind(10, "accorde, accordes, accorde, accordions, accordiez, accordent");
+        st.bind(11, "accordasse, accordasses, accordât, accordassions, accordassiez, accordassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -120,6 +112,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "accrocherai, accrocheras, accrochera, accrocherons, accrocherez, accrocheront");
         st.bind(9, "accrocherais, accrocherais, accrocherait, accrocherions, accrocheriez, accrocheraient");
         st.bind(10, "accroche, accroches, accroche, accrochions, accrochiez, accrochent");
+        st.bind(11, "accrochasse, accrochasses, accrochât, accrochassions, accrochassiez, accrochassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -134,6 +127,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "accroîtrai, accroîtras, accroîtra, accroîtrons, accroîtrez, accroîtront");
         st.bind(9, "accroîtrais, accroîtrais, accroîtrait, accroîtrions, accroîtriez, accroîtraient");
         st.bind(10, "accroisse, accroisses, accroisse, accroissions, accroissiez, accroissent");
+        st.bind(11, "accrusse, accrusses, accrût, accrussions, accrussiez, accrussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -148,6 +142,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "accueillerai, accueilleras, accueillera, accueillerons, accueillerez, accueilleront");
         st.bind(9, "accueillerais, accueillerais, accueillerait, accueillerions, accueilleriez, accueilleraient");
         st.bind(10, "accueille, accueilles, accueille, accueillions, accueilliez, accueillent");
+        st.bind(11, "accueillisse, accueillisses, accueillît, accueillissions, accueillissiez, accueillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -162,6 +157,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "accuserai, accuseras, accusera, accuserons, accuserez, accuseront");
         st.bind(9, "accuserais, accuserais, accuserait, accuserions, accuseriez, accuseraient");
         st.bind(10, "accuse, accuses, accuse, accusions, accusiez, accusent");
+        st.bind(11, "accusasse, accusasses, accusât, accusassions, accusassiez, accusassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -176,6 +172,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "achèterai, achèteras, achètera, achèterons, achèterez, achèteront");
         st.bind(9, "achèterais, achèterais, achèterait, achèterions, achèteriez, achèteraient");
         st.bind(10, "achète, achètes, achète, achetions, achetiez, achètent");
+        st.bind(11, "achetasse, achetasses, achetât, achetassions, achetassiez, achetassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -190,6 +187,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "achèverai, achèveras, achèvera, achèverons, achèverez, achèveront");
         st.bind(9, "achèverais, achèverais, achèverait, achèverions, achèveriez, achèveraient");
         st.bind(10, "achève, achèves, achève, achevions, acheviez, achèvent");
+        st.bind(11, "achevasse, achevasses, achevât, achevassions, achevassiez, achevassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -204,6 +202,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "acquerrai, acquerras, acquerra, acquerrons, acquerrez, acquerront");
         st.bind(9, "acquerrais, acquerrais, acquerrait, acquerrions, acquerriez, acquerraient");
         st.bind(10, "acquière, acquières, acquière, acquérions, acquériez, acquièrent");
+        st.bind(11, "acquisse, acquisses, acquît, acquissions, acquissiez, acquissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -218,6 +217,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "admettrai, admettras, admettra, admettrons, admettrez, admettront");
         st.bind(9, "admettrais, admettrais, admettrait, admettrions, admettriez, admettraient");
         st.bind(10, "admette, admettes, admette, admettions, admettiez, admettent");
+        st.bind(11, "admisse, admisses, admît, admissions, admissiez, admissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -232,6 +232,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "adresserai, adresseras, adressera, adresserons, adresserez, adresseront");
         st.bind(9, "adresserais, adresserais, adresserait, adresserions, adresseriez, adresseraient");
         st.bind(10, "adresse, adresses, adresse, adressions, adressiez, adressent");
+        st.bind(11, "adressasse, adressasses, adressât, adressassions, adressassiez, adressassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -246,6 +247,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "affirmerai, affirmeras, affirmera, affirmerons, affirmerez, affirmeront");
         st.bind(9, "affirmerais, affirmerais, affirmerait, affirmerions, affirmeriez, affirmeraient");
         st.bind(10, "affirme, affirmes, affirme, affirmions, affirmiez, affirment");
+        st.bind(11, "affirmasse, affirmasses, affirmât, affirmassions, affirmassiez, affirmassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -260,6 +262,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "agirai, agiras, agira, agirons, agirez, agiront");
         st.bind(9, "agirais, agirais, agirait, agirions, agiriez, agiraient");
         st.bind(10, "agisse, agisses, agisse, agissions, agissiez, agissent");
+        st.bind(11, "agisse, agisses, agît, agissions, agissiez, agissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -274,6 +277,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "agiterai, agiteras, agitera, agiterons, agiterez, agiteront");
         st.bind(9, "agiterais, agiterais, agiterait, agiterions, agiteriez, agiteraient");
         st.bind(10, "agite, agites, agite, agitions, agitiez, agitent");
+        st.bind(11, "agitasse, agitasses, agitât, agitassions, agitassiez, agitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -288,6 +292,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "aiderai, aideras, aidera, aiderons, aiderez, aideront");
         st.bind(9, "aiderais, aiderais, aiderait, aiderions, aideriez, aideraient");
         st.bind(10, "aide, aides, aide, aidions, aidiez, aident");
+        st.bind(11, "aidasse, aidasses, aidât, aidassions, aidassiez, aidassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -302,6 +307,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "aimerai, aimeras, aimera, aimerons, aimerez, aimeront");
         st.bind(9, "aimerais, aimerais, aimerait, aimerions, aimeriez, aimeraient");
         st.bind(10, "aime, aimes, aime, aimions, aimiez, aiment");
+        st.bind(11, "aimasse, aimasses, aimât, aimassions, aimassiez, aimassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -316,6 +322,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "ajouterai, ajouteras, ajoutera, ajouterons, ajouterez, ajouteront");
         st.bind(9, "ajouterais, ajouterais, ajouterait, ajouterions, ajouteriez, ajouteraient");
         st.bind(10, "ajoute, ajoutes, ajoute, ajoutions, ajoutiez, ajoutent");
+        st.bind(11, "ajoutasse, ajoutasses, ajoutât, ajoutassions, ajoutassiez, ajoutassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -330,6 +337,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "irai, iras, ira, irons, irez, iront");
         st.bind(9, "irais, irais, irait, irions, iriez, iraient");
         st.bind(10, "aille, ailles, aille, allions, alliez, aillent");
+        st.bind(11, "allasse, allasses, allât, allassions, allassiez, allassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -344,6 +352,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "allumerai, allumeras, allumera, allumerons, allumerez, allumeront");
         st.bind(9, "allumerais, allumerais, allumerait, allumerions, allumeriez, allumeraient");
         st.bind(10, "allume, allumes, allume, allumions, allumiez, allument");
+        st.bind(11, "allumasse, allumasses, allumât, allumassions, allumassiez, allumassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -358,6 +367,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "amènerai, amèneras, amènera, amènerons, amènerez, amèneront");
         st.bind(9, "amènerais, amènerais, amènerait, amènerions, amèneriez, amèneraient");
         st.bind(10, "amène, amènes, amène, amenions, ameniez, amènent");
+        st.bind(11, "amenasse, amenasses, amenât, amenassions, amenassiez, amenassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -372,6 +382,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "amuserai, amuseras, amusera, amuserons, amuserez, amuseront");
         st.bind(9, "amuserais, amuserais, amuserait, amuserions, amuseriez, amuseraient");
         st.bind(10, "amuse, amuses, amuse, amusions, amusiez, amusent");
+        st.bind(11, "amusasse, amusasses, amusât, amusassions, amusassiez, amusassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -386,6 +397,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "animerai, animeras, animera, animerons, animerez, animeront");
         st.bind(9, "animerais, animerais, animerait, animerions, animeriez, animeraient");
         st.bind(10, "anime, animes, anime, animions, animiez, animent");
+        st.bind(11, "animasse, animasses, animât, animassions, animassiez, animassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -400,6 +412,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "annoncerai, annonceras, annoncera, annoncerons, annoncerez, annonceront");
         st.bind(9, "annoncerais, annoncerais, annoncerait, annoncerions, annonceriez, annonceraient");
         st.bind(10, "annonce, annonces, annonce, annoncions, annonciez, annoncent");
+        st.bind(11, "annonçasse, annonçasses, annonçât, annonçassions, annonçassiez, annonçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -414,6 +427,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "apercevrai, apercevras, apercevra, apercevrons, apercevrez, apercevront");
         st.bind(9, "apercevrais, apercevrais, apercevrait, apercevrions, apercevriez, apercevraient");
         st.bind(10, "aperçoive, aperçoives, aperçoive, apercevions, aperceviez, aperçoivent");
+        st.bind(11, "aperçusse, aperçusses, aperçût, aperçussions, aperçussiez, aperçussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -428,6 +442,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "apparaîtrai, apparaîtras, apparaîtra, apparaîtrons, apparaîtrez, apparaîtront");
         st.bind(9, "apparaîtrais, apparaîtrais, apparaîtrait, apparaîtrions, apparaîtriez, apparaîtraient");
         st.bind(10, "apparaisse, apparaisses, apparaisse, apparaissions, apparaissiez, apparaissent");
+        st.bind(11, "apparusse, apparusses, apparût, apparussions, apparussiez, apparussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -442,6 +457,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "appartiendrai, appartiendras, appartiendra, appartiendrons, appartiendrez, appartiendront");
         st.bind(9, "appartiendrais, appartiendrais, appartiendrait, appartiendrions, appartiendriez, appartiendraient");
         st.bind(10, "appartienne, appartiennes, appartienne, appartenions, apparteniez, appartiennent");
+        st.bind(11, "appartinsse, appartinsses, appartînt, appartinssions, appartinssiez, appartinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -456,6 +472,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "appellerai, appelleras, appellera, appellerons, appellerez, appelleront");
         st.bind(9, "appellerais, appellerais, appellerait, appellerions, appelleriez, appelleraient");
         st.bind(10, "appelle, appelles, appelle, appelions, appeliez, appellent");
+        st.bind(11, "appelasse, appelasses, appelât, appelassions, appelassiez, appelassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -470,6 +487,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "apporterai, apporteras, apportera, apporterons, apporterez, apporteront");
         st.bind(9, "apporterais, apporterais, apporterait, apporterions, apporteriez, apporteraient");
         st.bind(10, "apporte, apportes, apporte, apportions, apportiez, apportent");
+        st.bind(11, "apportasse, apportasses, apportât, apportassions, apportassiez, apportassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -484,6 +502,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "apprendrai, apprendras, apprendra, apprendrons, apprendrez, apprendront");
         st.bind(9, "apprendrais, apprendrais, apprendrait, apprendrions, apprendriez, apprendraient");
         st.bind(10, "apprenne, apprennes, apprenne, apprenions, appreniez, apprennent");
+        st.bind(11, "apprisse, apprisses, apprît, apprissions, apprissiez, apprissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -498,6 +517,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "approcherai, approcheras, approchera, approcherons, approcherez, approcheront");
         st.bind(9, "approcherais, approcherais, approcherait, approcherions, approcheriez, approcheraient");
         st.bind(10, "approche, approches, approche, approchions, approchiez, approchent");
+        st.bind(11, "approchasse, approchasses, approchât, approchassions, approchassiez, approchassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -512,6 +532,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "appuierai, appuieras, appuiera, appuierons, appuierez, appuieront");
         st.bind(9, "appuierais, appuierais, appuierait, appuierions, appuieriez, appuieraient");
         st.bind(10, "appuie, appuies, appuie, appuyions, appuyiez, appuient");
+        st.bind(11, "appuyasse, appuyasses, appuyât, appuyassions, appuyassiez, appuyassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -526,6 +547,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "armerai, armeras, armera, armerons, armerez, armeront");
         st.bind(9, "armerais, armerais, armerait, armerions, armeriez, armeraient");
         st.bind(10, "arme, armes, arme, armions, armiez, arment");
+        st.bind(11, "armasse, armasses, armât, armassions, armassiez, armassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -540,6 +562,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "arracherai, arracheras, arrachera, arracherons, arracherez, arracheront");
         st.bind(9, "arracherais, arracherais, arracherait, arracherions, arracheriez, arracheraient");
         st.bind(10, "arrache, arraches, arrache, arrachions, arrachiez, arrachent");
+        st.bind(11, "arrachasse, arrachasses, arrachât, arrachassions, arrachassiez, arrachassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -554,6 +577,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "arrêterai, arrêteras, arrêtera, arrêterons, arrêterez, arrêteront");
         st.bind(9, "arrêterais, arrêterais, arrêterait, arrêterions, arrêteriez, arrêteraient");
         st.bind(10, "arrête, arrêtes, arrête, arrêtions, arrêtiez, arrêtent");
+        st.bind(11, "arrêtasse, arrêtasses, arrêtât, arrêtassions, arrêtassiez, arrêtassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -568,6 +592,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "arriverai, arriveras, arrivera, arriverons, arriverez, arriveront");
         st.bind(9, "arriverais, arriverais, arriverait, arriverions, arriveriez, arriveraient");
         st.bind(10, "arrive, arrives, arrive, arrivions, arriviez, arrivent");
+        st.bind(11, "arrivasse, arrivasses, arrivât, arrivassions, arrivassiez, arrivassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -582,6 +607,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "assaillirai, assailliras, assaillira, assaillirons, assaillirez, assailliront");
         st.bind(9, "assaillirais, assaillirais, assaillirait, assaillirions, assailliriez, assailliraient");
         st.bind(10, "assaille, assailles, assaille, assaillions, assailliez, assaillent");
+        st.bind(11, "assaillisse, assaillisses, assaillît, assaillissions, assaillissiez, assaillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -596,6 +622,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "assiérai, assoirai, asseyerai, assiéras, assoiras, asseyeras, assiéra, assoira, asseyera, assiérons, assoirons, asseyerons, assiérez, assoirez, asseyerez, assiéront, assoiront, asseyeront");
         st.bind(9, "assiérais, assoirais, asseyerais, assiérais, assoirais, asseyerais, assiérait, assoirait, asseyerait, assiérions, assoirions, asseyerions, assiériez, assoiriez, asseyeriez, assiéraient, assoiraient, asseyeraient");
         st.bind(10, "asseye, assoie, asseyes, assoies, asseye, assoie, asseyions, assoyions, asseyiez, assoyiez, asseyent, assoient");
+        st.bind(11, "assisse, assisses, assît, assissions, assissiez, assissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -610,6 +637,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "assisterai, assisteras, assistera, assisterons, assisterez, assisteront");
         st.bind(9, "assisterais, assisterais, assisterait, assisterions, assisteriez, assisteraient");
         st.bind(10, "assiste, assistes, assiste, assistions, assistiez, assistent");
+        st.bind(11, "assistasse, assistasses, assistât, assistassions, assistassiez, assistassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -624,6 +652,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "assurerai, assureras, assurera, assurerons, assurerez, assureront");
         st.bind(9, "assurerais, assurerais, assurerait, assurerions, assureriez, assureraient");
         st.bind(10, "assure, assures, assure, assurions, assuriez, assurent");
+        st.bind(11, "assurasse, assurasses, assurât, assurassions, assurassiez, assurassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -638,6 +667,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "attacherai, attacheras, attachera, attacherons, attacherez, attacheront");
         st.bind(9, "attacherais, attacherais, attacherait, attacherions, attacheriez, attacheraient");
         st.bind(10, "attache, attaches, attache, attachions, attachiez, attachent");
+        st.bind(11, "attachasse, attachasses, attachât, attachassions, attachassiez, attachassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -652,6 +682,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "attaquerai, attaqueras, attaquera, attaquerons, attaquerez, attaqueront");
         st.bind(9, "attaquerais, attaquerais, attaquerait, attaquerions, attaqueriez, attaqueraient");
         st.bind(10, "attaque, attaques, attaque, attaquions, attaquiez, attaquent");
+        st.bind(11, "attaquasse, attaquasses, attaquât, attaquassions, attaquassiez, attaquassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -666,6 +697,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "atteindrai, atteindras, atteindra, atteindrons, atteindrez, atteindront");
         st.bind(9, "atteindrais, atteindrais, atteindrait, atteindrions, atteindriez, atteindraient");
         st.bind(10, "atteigne, atteignes, atteigne, atteignions, atteigniez, atteignent");
+        st.bind(11, "atteignisse, atteignisses, atteignît, atteignissions, atteignissiez, atteignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -680,6 +712,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "attendrai, attendras, attendra, attendrons, attendrez, attendront");
         st.bind(9, "attendrais, attendrais, attendrait, attendrions, attendriez, attendraient");
         st.bind(10, "attende, attendes, attende, attendions, attendiez, attendent");
+        st.bind(11, "attendisse, attendisses, attendît, attendissions, attendissiez, attendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -694,6 +727,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "attirerai, attireras, attirera, attirerons, attirerez, attireront");
         st.bind(9, "attirerais, attirerais, attirerait, attirerions, attireriez, attireraient");
         st.bind(10, "attire, attires, attire, attirions, attiriez, attirent");
+        st.bind(11, "attirasse, attirasses, attirât, attirassions, attirassiez, attirassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -708,6 +742,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "avancerai, avanceras, avancera, avancerons, avancerez, avanceront");
         st.bind(9, "avancerais, avancerais, avancerait, avancerions, avanceriez, avanceraient");
         st.bind(10, "avance, avances, avance, avancions, avanciez, avancent");
+        st.bind(11, "avançasse, avançasses, avançât, avançassions, avançassiez, avançassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -722,6 +757,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "aurai, auras, aura, aurons, aurez, auront");
         st.bind(9, "aurais, aurais, aurait, aurions, auriez, auraient");
         st.bind(10, "aie, aies, ait, ayons, ayez, aient");
+        st.bind(11, "eusse, eusses, eût, eussions, eussiez, eussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -736,6 +772,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "avouerai, avoueras, avouera, avouerons, avouerez, avoueront");
         st.bind(9, "avouerais, avouerais, avouerait, avouerions, avoueriez, avoueraient");
         st.bind(10, "avoue, avoues, avoue, avouions, avouiez, avouent");
+        st.bind(11, "avouasse, avouasses, avouât, avouassions, avouassiez, avouassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -750,6 +787,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "baisserai, baisseras, baissera, baisserons, baisserez, baisseront");
         st.bind(9, "baisserais, baisserais, baisserait, baisserions, baisseriez, baisseraient");
         st.bind(10, "baisse, baisses, baisse, baissions, baissiez, baissent");
+        st.bind(11, "baissasse, baissasses, baissât, baissassions, baissassiez, baissassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -764,6 +802,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "battrai, battras, battra, battrons, battrez, battront");
         st.bind(9, "battrais, battrais, battrait, battrions, battriez, battraient");
         st.bind(10, "batte, battes, batte, battions, battiez, battent");
+        st.bind(11, "battisse, battisses, battît, battissions, battissiez, battissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -778,6 +817,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "boirai, boiras, boira, boirons, boirez, boiront");
         st.bind(9, "boirais, boirais, boirait, boirions, boiriez, boiraient");
         st.bind(10, "boive, boives, boive, buvions, buviez, boivent");
+        st.bind(11, "busse, busses, bût, bussions, bussiez, bussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -792,6 +832,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "bouillirai, bouilliras, bouillira, bouillirons, bouillirez, bouilliront");
         st.bind(9, "bouillirais, bouillirais, bouillirait, bouillirions, bouilliriez, bouilliraient");
         st.bind(10, "bouille, bouilles, bouille, bouillions, bouilliez, bouillent");
+        st.bind(11, "bouillisse, bouillisses, bouillît, bouillissions, bouillissiez, bouillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -806,6 +847,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "brillerai, brilleras, brillera, brillerons, brillerez, brilleront");
         st.bind(9, "brillerais, brillerais, brillerait, brillerions, brilleriez, brilleraient");
         st.bind(10, "brille, brilles, brille, brillions, brilliez, brillent");
+        st.bind(11, "brillasse, brillasses, brillât, brillassions, brillassiez, brillassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -820,6 +862,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "briserai, briseras, brisera, briserons, briserez, briseront");
         st.bind(9, "briserais, briserais, briserait, briserions, briseriez, briseraient");
         st.bind(10, "brise, brises, brise, brisions, brisiez, brisent");
+        st.bind(11, "brisasse, brisasses, brisât, brisassions, brisassiez, brisassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -834,6 +877,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "brûlerai, brûleras, brûlera, brûlerons, brûlerez, brûleront");
         st.bind(9, "brûlerais, brûlerais, brûlerait, brûlerions, brûleriez, brûleraient");
         st.bind(10, "brûle, brûles, brûle, brûlions, brûliez, brûlent");
+        st.bind(11, "brûlasse, brûlasses, brûlât, brûlassions, brûlassiez, brûlassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -848,6 +892,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "cacherai, cacheras, cachera, cacherons, cacherez, cacheront");
         st.bind(9, "cacherais, cacherais, cacherait, cacherions, cacheriez, cacheraient");
         st.bind(10, "cache, caches, cache, cachions, cachiez, cachent");
+        st.bind(11, "cachasse, cachasses, cachât, cachassions, cachassiez, cachassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -862,6 +907,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "calmerai, calmeras, calmera, calmerons, calmerez, calmeront");
         st.bind(9, "calmerais, calmerais, calmerait, calmerions, calmeriez, calmeraient");
         st.bind(10, "calme, calmes, calme, calmions, calmiez, calment");
+        st.bind(11, "calmasse, calmasses, calmât, calmassions, calmassiez, calmassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -876,6 +922,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "caresserai, caresseras, caressera, caresserons, caresserez, caresseront");
         st.bind(9, "caresserais, caresserais, caresserait, caresserions, caresseriez, caresseraient");
         st.bind(10, "caresse, caresses, caresse, caressions, caressiez, caressent");
+        st.bind(11, "caressasse, caressasses, caressât, caressassions, caressassiez, caressassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -890,6 +937,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "casserai, casseras, cassera, casserons, casserez, casseront");
         st.bind(9, "casserais, casserais, casserait, casserions, casseriez, casseraient");
         st.bind(10, "casse, casses, casse, cassions, cassiez, cassent");
+        st.bind(11, "cassasse, cassasses, cassât, cassassions, cassassiez, cassassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -904,6 +952,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "causerai, causeras, causera, causerons, causerez, causeront");
         st.bind(9, "causerais, causerais, causerait, causerions, causeriez, causeraient");
         st.bind(10, "cause, causes, cause, causions, causiez, causent");
+        st.bind(11, "causasse, causasses, causât, causassions, causassiez, causassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -918,6 +967,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "cesserai, cesseras, cessera, cesserons, cesserez, cesseront");
         st.bind(9, "cesserais, cesserais, cesserait, cesserions, cesseriez, cesseraient");
         st.bind(10, "cesse, cesses, cesse, cessions, cessiez, cessent");
+        st.bind(11, "cessasse, cessasses, cessât, cessassions, cessassiez, cessassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -932,6 +982,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "céderai, céderas, cédera, céderons, céderez, céderont");
         st.bind(9, "céderais, céderais, céderait, céderions, céderiez, céderaient");
         st.bind(10, "cède, cèdes, cède, cédions, cédiez, cèdent");
+        st.bind(11, "cédasse, cédasses, cédât, cédassions, cédassiez, cédassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -946,6 +997,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "changerai, changeras, changera, changerons, changerez, changeront");
         st.bind(9, "changerais, changerais, changerait, changerions, changeriez, changeraient");
         st.bind(10, "change, changes, change, changions, changiez, changent");
+        st.bind(11, "changeasse, changeasses, changeât, changeassions, changeassiez, changeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -960,6 +1012,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "chanterai, chanteras, chantera, chanterons, chanterez, chanteront");
         st.bind(9, "chanterais, chanterais, chanterait, chanterions, chanteriez, chanteraient");
         st.bind(10, "chante, chantes, chante, chantions, chantiez, chantent");
+        st.bind(11, "chantasse, chantasses, chantât, chantassions, chantassiez, chantassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -974,6 +1027,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "chargerai, chargeras, chargera, chargerons, chargerez, chargeront");
         st.bind(9, "chargerais, chargerais, chargerait, chargerions, chargeriez, chargeraient");
         st.bind(10, "charge, charges, charge, chargions, chargiez, chargent");
+        st.bind(11, "chargeasse, chargeasses, chargeât, chargeassions, chargeassiez, chargeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -988,6 +1042,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "chasserai, chasseras, chassera, chasserons, chasserez, chasseront");
         st.bind(9, "chasserais, chasserais, chasserait, chasserions, chasseriez, chasseraient");
         st.bind(10, "chasse, chasses, chasse, chassions, chassiez, chassent");
+        st.bind(11, "chassasse, chassasses, chassât, chassassions, chassassiez, chassassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1002,6 +1057,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "chercherai, chercheras, cherchera, chercherons, chercherez, chercheront");
         st.bind(9, "chercherais, chercherais, chercherait, chercherions, chercheriez, chercheraient");
         st.bind(10, "cherche, cherches, cherche, cherchions, cherchiez, cherchent");
+        st.bind(11, "cherchasse, cherchasses, cherchât, cherchassions, cherchassiez, cherchassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1016,6 +1072,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "choisirai, choisiras, choisira, choisirons, choisirez, choisiront");
         st.bind(9, "choisirais, choisirais, choisirait, choisirions, choisiriez, choisiraient");
         st.bind(10, "choisisse, choisisses, choisisse, choisissions, choisissiez, choisissent");
+        st.bind(11, "choisisse, choisisses, choisît, choisissions, choisissiez, choisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1030,6 +1087,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "commanderai, commanderas, commandera, commanderons, commanderez, commanderont");
         st.bind(9, "commanderais, commanderais, commanderait, commanderions, commanderiez, commanderaient");
         st.bind(10, "commande, commandes, commande, commandions, commandiez, commandent");
+        st.bind(11, "commandasse, commandasses, commandât, commandassions, commandassiez, commandassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1044,6 +1102,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "commencerai, commenceras, commencera, commencerons, commencerez, commenceront");
         st.bind(9, "commencerais, commencerais, commencerait, commencerions, commenceriez, commenceraient");
         st.bind(10, "commence, commences, commence, commencions, commenciez, commencent");
+        st.bind(11, "commençasse, commençasses, commençât, commençassions, commençassiez, commençassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1058,6 +1117,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "composerai, composeras, composera, composerons, composerez, composeront");
         st.bind(9, "composerais, composerais, composerait, composerions, composeriez, composeraient");
         st.bind(10, "compose, composes, compose, composions, composiez, composent");
+        st.bind(11, "composasse, composasses, composât, composassions, composassiez, composassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1072,6 +1132,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "comprendrai, comprendras, comprendra, comprendrons, comprendrez, comprendront");
         st.bind(9, "comprendrais, comprendrais, comprendrait, comprendrions, comprendriez, comprendraient");
         st.bind(10, "comprenne, comprennes, comprenne, comprenions, compreniez, comprennent");
+        st.bind(11, "comprisse, comprisses, comprît, comprissions, comprissiez, comprissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1086,6 +1147,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "compterai, compteras, comptera, compterons, compterez, compteront");
         st.bind(9, "compterais, compterais, compterait, compterions, compteriez, compteraient");
         st.bind(10, "compte, comptes, compte, comptions, comptiez, comptent");
+        st.bind(11, "comptasse, comptasses, comptât, comptassions, comptassiez, comptassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1100,6 +1162,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "conclurai, concluras, conclura, conclurons, conclurez, concluront");
         st.bind(9, "conclurais, conclurais, conclurait, conclurions, concluriez, concluraient");
         st.bind(10, "conclue, conclues, conclue, concluions, concluiez, concluent");
+        st.bind(11, "conclusse, conclusses, conclût, conclussions, conclussiez, conclussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1114,6 +1177,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "condamnerai, condamneras, condamnera, condamnerons, condamnerez, condamneront");
         st.bind(9, "condamnerais, condamnerais, condamnerait, condamnerions, condamneriez, condamneraient");
         st.bind(10, "condamne, condamnes, condamne, condamnions, condamniez, condamnent");
+        st.bind(11, "condamnasse, condamnasses, condamnât, condamnassions, condamnassiez, condamnassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1128,6 +1192,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "conduirai, conduiras, conduira, conduirons, conduirez, conduiront");
         st.bind(9, "conduirais, conduirais, conduirait, conduirions, conduiriez, conduiraient");
         st.bind(10, "conduise, conduises, conduise, conduisions, conduisiez, conduisent");
+        st.bind(11, "conduisisse, conduisisses, conduisît, conduisissions, conduisissiez, conduisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1142,6 +1207,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "confierai, confieras, confiera, confierons, confierez, confieront");
         st.bind(9, "confierais, confierais, confierait, confierions, confieriez, confieraient");
         st.bind(10, "confie, confies, confie, confiions, confiiez, confient");
+        st.bind(11, "confiasse, confiasses, confiât, confiassions, confiassiez, confiassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1156,6 +1222,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "confirai, confiras, confira, confirons, confirez, confiront");
         st.bind(9, "confirais, confirais, confirait, confirions, confiriez, confiraient");
         st.bind(10, "confise, confises, confise, confisions, confisiez, confisent");
+        st.bind(11, "confisse, confisses, confît, confissions, confissiez, confissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1170,6 +1237,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "confondrai, confondras, confondra, confondrons, confondrez, confondront");
         st.bind(9, "confondrais, confondrais, confondrait, confondrions, confondriez, confondraient");
         st.bind(10, "confonde, confondes, confonde, confondions, confondiez, confondent");
+        st.bind(11, "confondisse, confondisses, confondît, confondissions, confondissiez, confondissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1184,6 +1252,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "connaîtrai, connaîtras, connaîtra, connaîtrons, connaîtrez, connaîtront");
         st.bind(9, "connaîtrais, connaîtrais, connaîtrait, connaîtrions, connaîtriez, connaîtraient");
         st.bind(10, "connaisse, connaisses, connaisse, connaissions, connaissiez, connaissent");
+        st.bind(11, "connusse, connusses, connût, connussions, connussiez, connussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1198,6 +1267,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "consentirai, consentiras, consentira, consentirons, consentirez, consentiront");
         st.bind(9, "consentirais, consentirais, consentirait, consentirions, consentiriez, consentiraient");
         st.bind(10, "consente, consentes, consente, consentions, consentiez, consentent");
+        st.bind(11, "consentisse, consentisses, consentît, consentissions, consentissiez, consentissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1212,6 +1282,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "considérerai, considéreras, considérera, considérerons, considérerez, considéreront");
         st.bind(9, "considérerais, considérerais, considérerait, considérerions, considéreriez, considéreraient");
         st.bind(10, "considère, considères, considère, considérions, considériez, considèrent");
+        st.bind(11, "considérasse, considérasses, considérât, considérassions, considérassiez, considérassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1226,6 +1297,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "construirai, construiras, construira, construirons, construirez, construiront");
         st.bind(9, "construirais, construirais, construirait, construirions, construiriez, construiraient");
         st.bind(10, "construise, construises, construise, construisions, construisiez, construisent");
+        st.bind(11, "construisisse, construisisses, construisît, construisissions, construisissiez, construisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1240,6 +1312,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "consulterai, consulteras, consultera, consulterons, consulterez, consulteront");
         st.bind(9, "consulterais, consulterais, consulterait, consulterions, consulteriez, consulteraient");
         st.bind(10, "consulte, consultes, consulte, consultions, consultiez, consultent");
+        st.bind(11, "consultasse, consultasses, consultât, consultassions, consultassiez, consultassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1254,6 +1327,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "contiendrai, contiendras, contiendra, contiendrons, contiendrez, contiendront");
         st.bind(9, "contiendrais, contiendrais, contiendrait, contiendrions, contiendriez, contiendraient");
         st.bind(10, "contienne, contiennes, contienne, contenions, conteniez, contiennent");
+        st.bind(11, "continsse, continsses, contînt, continssions, continssiez, continssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1268,6 +1342,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "contenterai, contenteras, contentera, contenterons, contenterez, contenteront");
         st.bind(9, "contenterais, contenterais, contenterait, contenterions, contenteriez, contenteraient");
         st.bind(10, "contente, contentes, contente, contentions, contentiez, contentent");
+        st.bind(11, "contentasse, contentasses, contentât, contentassions, contentassiez, contentassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1282,6 +1357,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "continuerai, continueras, continuera, continuerons, continuerez, continueront");
         st.bind(9, "continuerais, continuerais, continuerait, continuerions, continueriez, continueraient");
         st.bind(10, "continue, continues, continue, continuions, continuiez, continuent");
+        st.bind(11, "continuasse, continuasses, continuât, continuassions, continuassiez, continuassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1296,6 +1372,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "convaincrai, convaincras, convaincra, convaincrons, convaincrez, convaincront");
         st.bind(9, "convaincrais, convaincrais, convaincrait, convaincrions, convaincriez, convaincraient");
         st.bind(10, "convainque, convainques, convainque, convainquions, convainquiez, convainquent");
+        st.bind(11, "convainquisse, convainquisses, convainquît, convainquissions, convainquissiez, convainquissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1310,6 +1387,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "conviendrai, conviendras, conviendra, conviendrons, conviendrez, conviendront");
         st.bind(9, "conviendrais, conviendrais, conviendrait, conviendrions, conviendriez, conviendraient");
         st.bind(10, "convienne, conviennes, convienne, convenions, conveniez, conviennent");
+        st.bind(11, "convinsse, convinsses, convînt, convinssions, convinssiez, convinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1324,6 +1402,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "copierai, copieras, copiera, copierons, copierez, copieront");
         st.bind(9, "copierais, copierais, copierait, copierions, copieriez, copieraient");
         st.bind(10, "copie, copies, copie, copiions, copiiez, copient");
+        st.bind(11, "copiasse, copiasses, copiât, copiassions, copiassiez, copiassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1338,6 +1417,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "coucherai, coucheras, couchera, coucherons, coucherez, coucheront");
         st.bind(9, "coucherais, coucherais, coucherait, coucherions, coucheriez, coucheraient");
         st.bind(10, "couche, couches, couche, couchions, couchiez, couchent");
+        st.bind(11, "couchasse, couchasses, couchât, couchassions, couchassiez, couchassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1352,6 +1432,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "coudrai, coudras, coudra, coudrons, coudrez, coudront");
         st.bind(9, "coudrais, coudrais, coudrait, coudrions, coudriez, coudraient");
         st.bind(10, "couse, couses, couse, cousions, cousiez, cousent");
+        st.bind(11, "cousisse, cousisses, cousît, cousissions, cousissiez, cousissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1366,6 +1447,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "coulerai, couleras, coulera, coulerons, coulerez, couleront");
         st.bind(9, "coulerais, coulerais, coulerait, coulerions, couleriez, couleraient");
         st.bind(10, "coule, coules, coule, coulions, couliez, coulent");
+        st.bind(11, "coulasse, coulasses, coulât, coulassions, coulassiez, coulassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1380,6 +1462,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "couperai, couperas, coupera, couperons, couperez, couperont");
         st.bind(9, "couperais, couperais, couperait, couperions, couperiez, couperaient");
         st.bind(10, "coupe, coupes, coupe, coupions, coupiez, coupent");
+        st.bind(11, "coupasse, coupasses, coupât, coupassions, coupassiez, coupassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1394,6 +1477,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "courrai, courras, courra, courrons, courrez, courront");
         st.bind(9, "courrais, courrais, courrait, courrions, courriez, courraient");
         st.bind(10, "coure, coures, coure, courions, couriez, courent");
+        st.bind(11, "courusse, courusses, courût, courussions, courussiez, courussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1408,6 +1492,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "couvrirai, couvriras, couvrira, couvrirons, couvrirez, couvriront");
         st.bind(9, "couvrirais, couvrirais, couvrirait, couvririons, couvririez, couvriraient");
         st.bind(10, "couvre, couvres, couvre, couvrions, couvriez, couvrent");
+        st.bind(11, "couvrisse, couvrisses, couvrît, couvrissions, couvrissiez, couvrissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1422,6 +1507,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "coûterai, coûteras, coûtera, coûterons, coûterez, coûteront");
         st.bind(9, "coûterais, coûterais, coûterait, coûterions, coûteriez, coûteraient");
         st.bind(10, "coûte, coûtes, coûte, coûtions, coûtiez, coûtent");
+        st.bind(11, "coûtasse, coûtasses, coûtât, coûtassions, coûtassiez, coûtassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1436,6 +1522,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "craindrai, craindras, craindra, craindrons, craindrez, craindront");
         st.bind(9, "craindrais, craindrais, craindrait, craindrions, craindriez, craindraient");
         st.bind(10, "craigne, craignes, craigne, craignions, craigniez, craignent");
+        st.bind(11, "craignisse, craignisses, craignît, craignissions, craignissiez, craignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1450,6 +1537,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "creuserai, creuseras, creusera, creuserons, creuserez, creuseront");
         st.bind(9, "creuserais, creuserais, creuserait, creuserions, creuseriez, creuseraient");
         st.bind(10, "creuse, creuses, creuse, creusions, creusiez, creusent");
+        st.bind(11, "creusasse, creusasses, creusât, creusassions, creusassiez, creusassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1464,6 +1552,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "créerai, créeras, créera, créerons, créerez, créeront");
         st.bind(9, "créerais, créerais, créerait, créerions, créeriez, créeraient");
         st.bind(10, "crée, crées, crée, créions, créiez, créent");
+        st.bind(11, "créasse, créasses, créât, créassions, créassiez, créassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1478,6 +1567,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "crierai, crieras, criera, crierons, crierez, crieront");
         st.bind(9, "crierais, crierais, crierait, crierions, crieriez, crieraient");
         st.bind(10, "crie, cries, crie, criions, criiez, crient");
+        st.bind(11, "criasse, criasses, criât, criassions, criassiez, criassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1492,6 +1582,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "croirai, croiras, croira, croirons, croirez, croiront");
         st.bind(9, "croirais, croirais, croirait, croirions, croiriez, croiraient");
         st.bind(10, "croie, croies, croie, croyions, croyiez, croient");
+        st.bind(11, "crusse, crusses, crût, crussions, crussiez, crussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1506,6 +1597,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "croiserai, croiseras, croisera, croiserons, croiserez, croiseront");
         st.bind(9, "croiserais, croiserais, croiserait, croiserions, croiseriez, croiseraient");
         st.bind(10, "croise, croises, croise, croisions, croisiez, croisent");
+        st.bind(11, "croisasse, croisasses, croisât, croisassions, croisassiez, croisassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1520,6 +1612,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "cueillerai, cueilleras, cueillera, cueillerons, cueillerez, cueilleront");
         st.bind(9, "cueillerais, cueillerais, cueillerait, cueillerions, cueilleriez, cueilleraient");
         st.bind(10, "cueille, cueilles, cueille, cueillions, cueilliez, cueillent");
+        st.bind(11, "cueillisse, cueillisses, cueillît, cueillissions, cueillissiez, cueillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1534,6 +1627,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "danserai, danseras, dansera, danserons, danserez, danseront");
         st.bind(9, "danserais, danserais, danserait, danserions, danseriez, danseraient");
         st.bind(10, "danse, danses, danse, dansions, dansiez, dansent");
+        st.bind(11, "dansasse, dansasses, dansât, dansassions, dansassiez, dansassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1548,6 +1642,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "demanderai, demanderas, demandera, demanderons, demanderez, demanderont");
         st.bind(9, "demanderais, demanderais, demanderait, demanderions, demanderiez, demanderaient");
         st.bind(10, "demande, demandes, demande, demandions, demandiez, demandent");
+        st.bind(11, "demandasse, demandasses, demandât, demandassions, demandassiez, demandassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1562,6 +1657,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "demeurerai, demeureras, demeurera, demeurerons, demeurerez, demeureront");
         st.bind(9, "demeurerais, demeurerais, demeurerait, demeurerions, demeureriez, demeureraient");
         st.bind(10, "demeure, demeures, demeure, demeurions, demeuriez, demeurent");
+        st.bind(11, "demeurasse, demeurasses, demeurât, demeurassions, demeurassiez, demeurassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1576,6 +1672,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "descendrai, descendras, descendra, descendrons, descendrez, descendront");
         st.bind(9, "descendrais, descendrais, descendrait, descendrions, descendriez, descendraient");
         st.bind(10, "descende, descendes, descende, descendions, descendiez, descendent");
+        st.bind(11, "descendisse, descendisses, descendît, descendissions, descendissiez, descendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1590,6 +1687,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "desservirai, desserviras, desservira, desservirons, desservirez, desserviront");
         st.bind(9, "desservirais, desservirais, desservirait, desservirions, desserviriez, desserviraient");
         st.bind(10, "desserve, desserves, desserve, desservions, desserviez, desservent");
+        st.bind(11, "desservisse, desservisses, desservît, desservissions, desservissiez, desservissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1604,6 +1702,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dessinerai, dessineras, dessinera, dessinerons, dessinerez, dessineront");
         st.bind(9, "dessinerais, dessinerais, dessinerait, dessinerions, dessineriez, dessineraient");
         st.bind(10, "dessine, dessines, dessine, dessinions, dessiniez, dessinent");
+        st.bind(11, "dessinasse, dessinasses, dessinât, dessinassions, dessinassiez, dessinassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1618,6 +1717,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "deviendrai, deviendras, deviendra, deviendrons, deviendrez, deviendront");
         st.bind(9, "deviendrais, deviendrais, deviendrait, deviendrions, deviendriez, deviendraient");
         st.bind(10, "devienne, deviennes, devienne, devenions, deveniez, deviennent");
+        st.bind(11, "devinsse, devinsses, devînt, devinssions, devinssiez, devinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1632,6 +1732,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "devinerai, devineras, devinera, devinerons, devinerez, devineront");
         st.bind(9, "devinerais, devinerais, devinerait, devinerions, devineriez, devineraient");
         st.bind(10, "devine, devines, devine, devinions, deviniez, devinent");
+        st.bind(11, "devinasse, devinasses, devinât, devinassions, devinassiez, devinassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1646,6 +1747,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "devrai, devras, devra, devrons, devrez, devront");
         st.bind(9, "devrais, devrais, devrait, devrions, devriez, devraient");
         st.bind(10, "doive, doives, doive, devions, deviez, doivent");
+        st.bind(11, "dusse, dusses, dût, dussions, dussiez, dussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1660,6 +1762,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "débouillirai, débouilliras, débouillira, débouillirons, débouillirez, débouilliront");
         st.bind(9, "débouillirais, débouillirais, débouillirait, débouillirions, débouilliriez, débouilliraient");
         st.bind(10, "débouille, débouilles, débouille, débouillions, débouilliez, débouillent");
+        st.bind(11, "débouillisse, débouillisses, débouillît, débouillissions, débouillissiez, débouillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1674,6 +1777,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "déchirerai, déchireras, déchirera, déchirerons, déchirerez, déchireront");
         st.bind(9, "déchirerais, déchirerais, déchirerait, déchirerions, déchireriez, déchireraient");
         st.bind(10, "déchire, déchires, déchire, déchirions, déchiriez, déchirent");
+        st.bind(11, "déchirasse, déchirasses, déchirât, déchirassions, déchirassiez, déchirassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1688,6 +1792,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "déciderai, décideras, décidera, déciderons, déciderez, décideront");
         st.bind(9, "déciderais, déciderais, déciderait, déciderions, décideriez, décideraient");
         st.bind(10, "décide, décides, décide, décidions, décidiez, décident");
+        st.bind(11, "décidasse, décidasses, décidât, décidassions, décidassiez, décidassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1702,6 +1807,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "déclarerai, déclareras, déclarera, déclarerons, déclarerez, déclareront");
         st.bind(9, "déclarerais, déclarerais, déclarerait, déclarerions, déclareriez, déclareraient");
         st.bind(10, "déclare, déclares, déclare, déclarions, déclariez, déclarent");
+        st.bind(11, "déclarasse, déclarasses, déclarât, déclarassions, déclarassiez, déclarassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1716,6 +1822,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "découdrai, découdras, découdra, découdrons, découdrez, découdront");
         st.bind(9, "découdrais, découdrais, découdrait, découdrions, découdriez, découdraient");
         st.bind(10, "découse, découses, découse, décousions, décousiez, décousent");
+        st.bind(11, "décousisse, décousisses, décousît, décousissions, décousissiez, décousissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1730,6 +1837,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "découvrirai, découvriras, découvrira, découvrirons, découvrirez, découvriront");
         st.bind(9, "découvrirais, découvrirais, découvrirait, découvririons, découvririez, découvriraient");
         st.bind(10, "découvre, découvres, découvre, découvrions, découvriez, découvrent");
+        st.bind(11, "découvrisse, découvrisses, découvrît, découvrissions, découvrissiez, découvrissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1744,6 +1852,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "décrirai, décriras, décrira, décrirons, décrirez, décriront");
         st.bind(9, "décrirais, décrirais, décrirait, décririons, décririez, décriraient");
         st.bind(10, "décrive, décrives, décrive, décrivions, décriviez, décrivent");
+        st.bind(11, "décrivisse, décrivisses, décrivît, décrivissions, décrivissiez, décrivissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1758,6 +1867,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "décroîtrai, décroîtras, décroîtra, décroîtrons, décroîtrez, décroîtront");
         st.bind(9, "décroîtrais, décroîtrais, décroîtrait, décroîtrions, décroîtriez, décroîtraient");
         st.bind(10, "décroisse, décroisses, décroisse, décroissions, décroissiez, décroissent");
+        st.bind(11, "décrusse, décrusses, décrût, décrussions, décrussiez, décrussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1772,6 +1882,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "défendrai, défendras, défendra, défendrons, défendrez, défendront");
         st.bind(9, "défendrais, défendrais, défendrait, défendrions, défendriez, défendraient");
         st.bind(10, "défende, défendes, défende, défendions, défendiez, défendent");
+        st.bind(11, "défendisse, défendisses, défendît, défendissions, défendissiez, défendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1786,6 +1897,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dégagerai, dégageras, dégagera, dégagerons, dégagerez, dégageront");
         st.bind(9, "dégagerais, dégagerais, dégagerait, dégagerions, dégageriez, dégageraient");
         st.bind(10, "dégage, dégages, dégage, dégagions, dégagiez, dégagent");
+        st.bind(11, "dégageasse, dégageasses, dégageât, dégageassions, dégageassiez, dégageassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1800,6 +1912,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dépasserai, dépasseras, dépassera, dépasserons, dépasserez, dépasseront");
         st.bind(9, "dépasserais, dépasserais, dépasserait, dépasserions, dépasseriez, dépasseraient");
         st.bind(10, "dépasse, dépasses, dépasse, dépassions, dépassiez, dépassent");
+        st.bind(11, "dépassasse, dépassasses, dépassât, dépassassions, dépassassiez, dépassassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1814,6 +1927,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "déplairai, déplairas, déplaira, déplairons, déplairez, déplairont");
         st.bind(9, "déplairais, déplairais, déplairait, déplairions, déplairiez, déplairaient");
         st.bind(10, "déplaise, déplaises, déplaise, déplaisions, déplaisiez, déplaisent");
+        st.bind(11, "déplusse, déplusses, déplût, déplussions, déplussiez, déplussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1828,6 +1942,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "déposerai, déposeras, déposera, déposerons, déposerez, déposeront");
         st.bind(9, "déposerais, déposerais, déposerait, déposerions, déposeriez, déposeraient");
         st.bind(10, "dépose, déposes, dépose, déposions, déposiez, déposent");
+        st.bind(11, "déposasse, déposasses, déposât, déposassions, déposassiez, déposassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1842,6 +1957,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dépourvoirai, dépourvoiras, dépourvoira, dépourvoirons, dépourvoirez, dépourvoiront");
         st.bind(9, "dépourvoirais, dépourvoirais, dépourvoirait, dépourvoirions, dépourvoiriez, dépourvoiraient");
         st.bind(10, "dépourvoie, dépourvoies, dépourvoie, dépourvoyions, dépourvoyiez, dépourvoient");
+        st.bind(11, "dépourvusse, dépourvusses, dépourvût, dépourvussions, dépourvussiez, dépourvussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1856,6 +1972,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "désignerai, désigneras, désignera, désignerons, désignerez, désigneront");
         st.bind(9, "désignerais, désignerais, désignerait, désignerions, désigneriez, désigneraient");
         st.bind(10, "désigne, désignes, désigne, désignions, désigniez, désignent");
+        st.bind(11, "désignasse, désignasses, désignât, désignassions, désignassiez, désignassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1870,6 +1987,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "désirerai, désireras, désirera, désirerons, désirerez, désireront");
         st.bind(9, "désirerais, désirerais, désirerait, désirerions, désireriez, désireraient");
         st.bind(10, "désire, désires, désire, désirions, désiriez, désirent");
+        st.bind(11, "désirasse, désirasses, désirât, désirassions, désirassiez, désirassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1884,6 +2002,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "détacherai, détacheras, détachera, détacherons, détacherez, détacheront");
         st.bind(9, "détacherais, détacherais, détacherait, détacherions, détacheriez, détacheraient");
         st.bind(10, "détache, détaches, détache, détachions, détachiez, détachent");
+        st.bind(11, "détachasse, détachasses, détachât, détachassions, détachassiez, détachassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1898,6 +2017,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "détruirai, détruiras, détruira, détruirons, détruirez, détruiront");
         st.bind(9, "détruirais, détruirais, détruirait, détruirions, détruiriez, détruiraient");
         st.bind(10, "détruise, détruises, détruise, détruisions, détruisiez, détruisent");
+        st.bind(11, "détruisisse, détruisisses, détruisît, détruisissions, détruisissiez, détruisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1912,6 +2032,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dévêtirai, dévêtiras, dévêtira, dévêtirons, dévêtirez, dévêtiront");
         st.bind(9, "dévêtirais, dévêtirais, dévêtirait, dévêtirions, dévêtiriez, dévêtiraient");
         st.bind(10, "dévête, dévêtes, dévête, dévêtions, dévêtiez, dévêtent");
+        st.bind(11, "dévêtisse, dévêtisses, dévêtît, dévêtissions, dévêtissiez, dévêtissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1926,6 +2047,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dirai, diras, dira, dirons, direz, diront");
         st.bind(9, "dirais, dirais, dirait, dirions, diriez, diraient");
         st.bind(10, "dise, dises, dise, disions, disiez, disent");
+        st.bind(11, "disse, disses, dît, dissions, dissiez, dissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1940,6 +2062,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dirigerai, dirigeras, dirigera, dirigerons, dirigerez, dirigeront");
         st.bind(9, "dirigerais, dirigerais, dirigerait, dirigerions, dirigeriez, dirigeraient");
         st.bind(10, "dirige, diriges, dirige, dirigions, dirigiez, dirigent");
+        st.bind(11, "dirigeasse, dirigeasses, dirigeât, dirigeassions, dirigeassiez, dirigeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1954,6 +2077,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "discuterai, discuteras, discutera, discuterons, discuterez, discuteront");
         st.bind(9, "discuterais, discuterais, discuterait, discuterions, discuteriez, discuteraient");
         st.bind(10, "discute, discutes, discute, discutions, discutiez, discutent");
+        st.bind(11, "discutasse, discutasses, discutât, discutassions, discutassiez, discutassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1968,6 +2092,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "disparaîtrai, disparaîtras, disparaîtra, disparaîtrons, disparaîtrez, disparaîtront");
         st.bind(9, "disparaîtrais, disparaîtrais, disparaîtrait, disparaîtrions, disparaîtriez, disparaîtraient");
         st.bind(10, "disparaisse, disparaisses, disparaisse, disparaissions, disparaissiez, disparaissent");
+        st.bind(11, "disparusse, disparusses, disparût, disparussions, disparussiez, disparussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1982,6 +2107,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "disposerai, disposeras, disposera, disposerons, disposerez, disposeront");
         st.bind(9, "disposerais, disposerais, disposerait, disposerions, disposeriez, disposeraient");
         st.bind(10, "dispose, disposes, dispose, disposions, disposiez, disposent");
+        st.bind(11, "disposasse, disposasses, disposât, disposassions, disposassiez, disposassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -1996,6 +2122,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "distinguerai, distingueras, distinguera, distinguerons, distinguerez, distingueront");
         st.bind(9, "distinguerais, distinguerais, distinguerait, distinguerions, distingueriez, distingueraient");
         st.bind(10, "distingue, distingues, distingue, distinguions, distinguiez, distinguent");
+        st.bind(11, "distinguasse, distinguasses, distinguât, distinguassions, distinguassiez, distinguassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2010,6 +2137,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dominerai, domineras, dominera, dominerons, dominerez, domineront");
         st.bind(9, "dominerais, dominerais, dominerait, dominerions, domineriez, domineraient");
         st.bind(10, "domine, domines, domine, dominions, dominiez, dominent");
+        st.bind(11, "dominasse, dominasses, dominât, dominassions, dominassiez, dominassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2024,6 +2152,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "donnerai, donneras, donnera, donnerons, donnerez, donneront");
         st.bind(9, "donnerais, donnerais, donnerait, donnerions, donneriez, donneraient");
         st.bind(10, "donne, donnes, donne, donnions, donniez, donnent");
+        st.bind(11, "donnasse, donnasses, donnât, donnassions, donnassiez, donnassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2038,6 +2167,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dormirai, dormiras, dormira, dormirons, dormirez, dormiront");
         st.bind(9, "dormirais, dormirais, dormirait, dormirions, dormiriez, dormiraient");
         st.bind(10, "dorme, dormes, dorme, dormions, dormiez, dorment");
+        st.bind(11, "dormisse, dormisses, dormît, dormissions, dormissiez, dormissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2052,6 +2182,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "douterai, douteras, doutera, douterons, douterez, douteront");
         st.bind(9, "douterais, douterais, douterait, douterions, douteriez, douteraient");
         st.bind(10, "doute, doutes, doute, doutions, doutiez, doutent");
+        st.bind(11, "doutasse, doutasses, doutât, doutassions, doutassiez, doutassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2066,6 +2197,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "dresserai, dresseras, dressera, dresserons, dresserez, dresseront");
         st.bind(9, "dresserais, dresserais, dresserait, dresserions, dresseriez, dresseraient");
         st.bind(10, "dresse, dresses, dresse, dressions, dressiez, dressent");
+        st.bind(11, "dressasse, dressasses, dressât, dressassions, dressassiez, dressassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2080,6 +2212,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "durerai, dureras, durera, durerons, durerez, dureront");
         st.bind(9, "durerais, durerais, durerait, durerions, dureriez, dureraient");
         st.bind(10, "dure, dures, dure, durions, duriez, durent");
+        st.bind(11, "durasse, durasses, durât, durassions, durassiez, durassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2094,6 +2227,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "effacerai, effaceras, effacera, effacerons, effacerez, effaceront");
         st.bind(9, "effacerais, effacerais, effacerait, effacerions, effaceriez, effaceraient");
         st.bind(10, "efface, effaces, efface, effacions, effaciez, effacent");
+        st.bind(11, "effaçasse, effaçasses, effaçât, effaçassions, effaçassiez, effaçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2108,6 +2242,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "emboirai, emboiras, emboira, emboirons, emboirez, emboiront");
         st.bind(9, "emboirais, emboirais, emboirait, emboirions, emboiriez, emboiraient");
         st.bind(10, "emboive, emboives, emboive, embuvions, embuviez, emboivent");
+        st.bind(11, "embusse, embusses, embût, embussions, embussiez, embussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2122,6 +2257,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "embrasserai, embrasseras, embrassera, embrasserons, embrasserez, embrasseront");
         st.bind(9, "embrasserais, embrasserais, embrasserait, embrasserions, embrasseriez, embrasseraient");
         st.bind(10, "embrasse, embrasses, embrasse, embrassions, embrassiez, embrassent");
+        st.bind(11, "embrassasse, embrassasses, embrassât, embrassassions, embrassassiez, embrassassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2136,6 +2272,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "emmènerai, emmèneras, emmènera, emmènerons, emmènerez, emmèneront");
         st.bind(9, "emmènerais, emmènerais, emmènerait, emmènerions, emmèneriez, emmèneraient");
         st.bind(10, "emmène, emmènes, emmène, emmenions, emmeniez, emmènent");
+        st.bind(11, "emmenasse, emmenasses, emmenât, emmenassions, emmenassiez, emmenassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2150,6 +2287,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "empêcherai, empêcheras, empêchera, empêcherons, empêcherez, empêcheront");
         st.bind(9, "empêcherais, empêcherais, empêcherait, empêcherions, empêcheriez, empêcheraient");
         st.bind(10, "empêche, empêches, empêche, empêchions, empêchiez, empêchent");
+        st.bind(11, "empêchasse, empêchasses, empêchât, empêchassions, empêchassiez, empêchassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2164,6 +2302,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "emploierai, emploieras, emploiera, emploierons, emploierez, emploieront");
         st.bind(9, "emploierais, emploierais, emploierait, emploierions, emploieriez, emploieraient");
         st.bind(10, "emploie, emploies, emploie, employions, employiez, emploient");
+        st.bind(11, "employasse, employasses, employât, employassions, employassiez, employassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2178,6 +2317,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "emporterai, emporteras, emportera, emporterons, emporterez, emporteront");
         st.bind(9, "emporterais, emporterais, emporterait, emporterions, emporteriez, emporteraient");
         st.bind(10, "emporte, emportes, emporte, emportions, emportiez, emportent");
+        st.bind(11, "emportasse, emportasses, emportât, emportassions, emportassiez, emportassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2192,6 +2332,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "endormirai, endormiras, endormira, endormirons, endormirez, endormiront");
         st.bind(9, "endormirais, endormirais, endormirait, endormirions, endormiriez, endormiraient");
         st.bind(10, "endorme, endormes, endorme, endormions, endormiez, endorment");
+        st.bind(11, "endormisse, endormisses, endormît, endormissions, endormissiez, endormissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2206,6 +2347,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "enfermerai, enfermeras, enfermera, enfermerons, enfermerez, enfermeront");
         st.bind(9, "enfermerais, enfermerais, enfermerait, enfermerions, enfermeriez, enfermeraient");
         st.bind(10, "enferme, enfermes, enferme, enfermions, enfermiez, enferment");
+        st.bind(11, "enfermasse, enfermasses, enfermât, enfermassions, enfermassiez, enfermassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2220,6 +2362,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "enfoncerai, enfonceras, enfoncera, enfoncerons, enfoncerez, enfonceront");
         st.bind(9, "enfoncerais, enfoncerais, enfoncerait, enfoncerions, enfonceriez, enfonceraient");
         st.bind(10, "enfonce, enfonces, enfonce, enfoncions, enfonciez, enfoncent");
+        st.bind(11, "enfonçasse, enfonçasses, enfonçât, enfonçassions, enfonçassiez, enfonçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2234,6 +2377,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "engagerai, engageras, engagera, engagerons, engagerez, engageront");
         st.bind(9, "engagerais, engagerais, engagerait, engagerions, engageriez, engageraient");
         st.bind(10, "engage, engages, engage, engagions, engagiez, engagent");
+        st.bind(11, "engageasse, engageasses, engageât, engageassions, engageassiez, engageassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2248,6 +2392,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "enlèverai, enlèveras, enlèvera, enlèverons, enlèverez, enlèveront");
         st.bind(9, "enlèverais, enlèverais, enlèverait, enlèverions, enlèveriez, enlèveraient");
         st.bind(10, "enlève, enlèves, enlève, enlevions, enleviez, enlèvent");
+        st.bind(11, "enlevasse, enlevasses, enlevât, enlevassions, enlevassiez, enlevassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2262,6 +2407,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "entendrai, entendras, entendra, entendrons, entendrez, entendront");
         st.bind(9, "entendrais, entendrais, entendrait, entendrions, entendriez, entendraient");
         st.bind(10, "entende, entendes, entende, entendions, entendiez, entendent");
+        st.bind(11, "entendisse, entendisses, entendît, entendissions, entendissiez, entendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2276,6 +2422,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "entourerai, entoureras, entourera, entourerons, entourerez, entoureront");
         st.bind(9, "entourerais, entourerais, entourerait, entourerions, entoureriez, entoureraient");
         st.bind(10, "entoure, entoures, entoure, entourions, entouriez, entourent");
+        st.bind(11, "entourasse, entourasses, entourât, entourassions, entourassiez, entourassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2290,6 +2437,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "entraînerai, entraîneras, entraînera, entraînerons, entraînerez, entraîneront");
         st.bind(9, "entraînerais, entraînerais, entraînerait, entraînerions, entraîneriez, entraîneraient");
         st.bind(10, "entraîne, entraînes, entraîne, entraînions, entraîniez, entraînent");
+        st.bind(11, "entraînasse, entraînasses, entraînât, entraînassions, entraînassiez, entraînassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2304,6 +2452,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "entrerai, entreras, entrera, entrerons, entrerez, entreront");
         st.bind(9, "entrerais, entrerais, entrerait, entrerions, entreriez, entreraient");
         st.bind(10, "entre, entres, entre, entrions, entriez, entrent");
+        st.bind(11, "entrasse, entrasses, entrât, entrassions, entrassiez, entrassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2318,6 +2467,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "entretiendrai, entretiendras, entretiendra, entretiendrons, entretiendrez, entretiendront");
         st.bind(9, "entretiendrais, entretiendrais, entretiendrait, entretiendrions, entretiendriez, entretiendraient");
         st.bind(10, "entretienne, entretiennes, entretienne, entretenions, entreteniez, entretiennent");
+        st.bind(11, "entretinsse, entretinsses, entretînt, entretinssions, entretinssiez, entretinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2332,6 +2482,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "envelopperai, envelopperas, enveloppera, envelopperons, envelopperez, envelopperont");
         st.bind(9, "envelopperais, envelopperais, envelopperait, envelopperions, envelopperiez, envelopperaient");
         st.bind(10, "enveloppe, enveloppes, enveloppe, enveloppions, enveloppiez, enveloppent");
+        st.bind(11, "enveloppasse, enveloppasses, enveloppât, enveloppassions, enveloppassiez, enveloppassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2346,6 +2497,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "enverrai, enverras, enverra, enverrons, enverrez, enverront");
         st.bind(9, "enverrais, enverrais, enverrait, enverrions, enverriez, enverraient");
         st.bind(10, "envoie, envoies, envoie, envoyions, envoyiez, envoient");
+        st.bind(11, "envoyasse, envoyasses, envoyât, envoyassions, envoyassiez, envoyassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2360,6 +2512,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "espérerai, espéreras, espérera, espérerons, espérerez, espéreront");
         st.bind(9, "espérerais, espérerais, espérerait, espérerions, espéreriez, espéreraient");
         st.bind(10, "espère, espères, espère, espérions, espériez, espèrent");
+        st.bind(11, "espérasse, espérasses, espérât, espérassions, espérassiez, espérassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2374,6 +2527,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "essaierai, essayerai, essaieras, essayeras, essaiera, essayera, essaierons, essayerons, essaierez, essayerez, essaieront, essayeront");
         st.bind(9, "essaierais, essayerais, essaierais, essayerais, essaierait, essayerait, essaierions, essayerions, essaieriez, essayeriez, essaieraient, essayeraient");
         st.bind(10, "essaie, essaye, essaies, essayes, essaie, essaye, essayions, essayiez, essaient, essayent");
+        st.bind(11, "essayasse, essayasses, essayât, essayassions, essayassiez, essayassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2388,6 +2542,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "essuierai, essuieras, essuiera, essuierons, essuierez, essuieront");
         st.bind(9, "essuierais, essuierais, essuierait, essuierions, essuieriez, essuieraient");
         st.bind(10, "essuie, essuies, essuie, essuyions, essuyiez, essuient");
+        st.bind(11, "essuyasse, essuyasses, essuyât, essuyassions, essuyassiez, essuyassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2402,6 +2557,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "examinerai, examineras, examinera, examinerons, examinerez, examineront");
         st.bind(9, "examinerais, examinerais, examinerait, examinerions, examineriez, examineraient");
         st.bind(10, "examine, examines, examine, examinions, examiniez, examinent");
+        st.bind(11, "examinasse, examinasses, examinât, examinassions, examinassiez, examinassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2416,6 +2572,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "exécuterai, exécuteras, exécutera, exécuterons, exécuterez, exécuteront");
         st.bind(9, "exécuterais, exécuterais, exécuterait, exécuterions, exécuteriez, exécuteraient");
         st.bind(10, "exécute, exécutes, exécute, exécutions, exécutiez, exécutent");
+        st.bind(11, "exécutasse, exécutasses, exécutât, exécutassions, exécutassiez, exécutassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2430,6 +2587,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "exigerai, exigeras, exigera, exigerons, exigerez, exigeront");
         st.bind(9, "exigerais, exigerais, exigerait, exigerions, exigeriez, exigeraient");
         st.bind(10, "exige, exiges, exige, exigions, exigiez, exigent");
+        st.bind(11, "exigeasse, exigeasses, exigeât, exigeassions, exigeassiez, exigeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2444,6 +2602,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "existerai, existeras, existera, existerons, existerez, existeront");
         st.bind(9, "existerais, existerais, existerait, existerions, existeriez, existeraient");
         st.bind(10, "existe, existes, existe, existions, existiez, existent");
+        st.bind(11, "existasse, existasses, existât, existassions, existassiez, existassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2458,6 +2617,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "expliquerai, expliqueras, expliquera, expliquerons, expliquerez, expliqueront");
         st.bind(9, "expliquerais, expliquerais, expliquerait, expliquerions, expliqueriez, expliqueraient");
         st.bind(10, "explique, expliques, explique, expliquions, expliquiez, expliquent");
+        st.bind(11, "expliquasse, expliquasses, expliquât, expliquassions, expliquassiez, expliquassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2472,6 +2632,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "exposerai, exposeras, exposera, exposerons, exposerez, exposeront");
         st.bind(9, "exposerais, exposerais, exposerait, exposerions, exposeriez, exposeraient");
         st.bind(10, "expose, exposes, expose, exposions, exposiez, exposent");
+        st.bind(11, "exposasse, exposasses, exposât, exposassions, exposassiez, exposassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2486,6 +2647,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "exprimerai, exprimeras, exprimera, exprimerons, exprimerez, exprimeront");
         st.bind(9, "exprimerais, exprimerais, exprimerait, exprimerions, exprimeriez, exprimeraient");
         st.bind(10, "exprime, exprimes, exprime, exprimions, exprimiez, expriment");
+        st.bind(11, "exprimasse, exprimasses, exprimât, exprimassions, exprimassiez, exprimassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2500,6 +2662,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "écarterai, écarteras, écartera, écarterons, écarterez, écarteront");
         st.bind(9, "écarterais, écarterais, écarterait, écarterions, écarteriez, écarteraient");
         st.bind(10, "écarte, écartes, écarte, écartions, écartiez, écartent");
+        st.bind(11, "écartasse, écartasses, écartât, écartassions, écartassiez, écartassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2514,20 +2677,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "échapperai, échapperas, échappera, échapperons, échapperez, échapperont");
         st.bind(9, "échapperais, échapperais, échapperait, échapperions, échapperiez, échapperaient");
         st.bind(10, "échappe, échappes, échappe, échappions, échappiez, échappent");
-        st.exec();
-        st.reset();
-        st.clearBindings();
-
-        st.bind(1, "échoir");
-        st.bind(2, ", , échoit, échet, , , échoient, échéent");
-        st.bind(3, ", , échoyait, , , échoyaient");
-        st.bind(4, ", , est échu(e), , , sont échu(e)s");
-        st.bind(5, "échu");
-        st.bind(6, "échéant");
-        st.bind(7, ", , échut, , , échurent");
-        st.bind(8, ", , échoira, écherra, , , échoiront, écherront");
-        st.bind(9, ", , échoirait, écherrait, , , échoiraient, écherraient");
-        st.bind(10, ", , échoie, , , échoient");
+        st.bind(11, "échappasse, échappasses, échappât, échappassions, échappassiez, échappassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2542,6 +2692,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "éclairerai, éclaireras, éclairera, éclairerons, éclairerez, éclaireront");
         st.bind(9, "éclairerais, éclairerais, éclairerait, éclairerions, éclaireriez, éclaireraient");
         st.bind(10, "éclaire, éclaires, éclaire, éclairions, éclairiez, éclairent");
+        st.bind(11, "éclairasse, éclairasses, éclairât, éclairassions, éclairassiez, éclairassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2556,6 +2707,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "éclaterai, éclateras, éclatera, éclaterons, éclaterez, éclateront");
         st.bind(9, "éclaterais, éclaterais, éclaterait, éclaterions, éclateriez, éclateraient");
         st.bind(10, "éclate, éclates, éclate, éclations, éclatiez, éclatent");
+        st.bind(11, "éclatasse, éclatasses, éclatât, éclatassions, éclatassiez, éclatassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2570,6 +2722,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "écouterai, écouteras, écoutera, écouterons, écouterez, écouteront");
         st.bind(9, "écouterais, écouterais, écouterait, écouterions, écouteriez, écouteraient");
         st.bind(10, "écoute, écoutes, écoute, écoutions, écoutiez, écoutent");
+        st.bind(11, "écoutasse, écoutasses, écoutât, écoutassions, écoutassiez, écoutassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2584,6 +2737,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "écraserai, écraseras, écrasera, écraserons, écraserez, écraseront");
         st.bind(9, "écraserais, écraserais, écraserait, écraserions, écraseriez, écraseraient");
         st.bind(10, "écrase, écrases, écrase, écrasions, écrasiez, écrasent");
+        st.bind(11, "écrasasse, écrasasses, écrasât, écrasassions, écrasassiez, écrasassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2598,6 +2752,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "écrirai, écriras, écrira, écrirons, écrirez, écriront");
         st.bind(9, "écrirais, écrirais, écrirait, écririons, écririez, écriraient");
         st.bind(10, "écrive, écrives, écrive, écrivions, écriviez, écrivent");
+        st.bind(11, "écrivisse, écrivisses, écrivît, écrivissions, écrivissiez, écrivissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2612,6 +2767,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "élèverai, élèveras, élèvera, élèverons, élèverez, élèveront");
         st.bind(9, "élèverais, élèverais, élèverait, élèverions, élèveriez, élèveraient");
         st.bind(10, "élève, élèves, élève, élevions, éleviez, élèvent");
+        st.bind(11, "élevasse, élevasses, élevât, élevassions, élevassiez, élevassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2626,6 +2782,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "éloignerai, éloigneras, éloignera, éloignerons, éloignerez, éloigneront");
         st.bind(9, "éloignerais, éloignerais, éloignerait, éloignerions, éloigneriez, éloigneraient");
         st.bind(10, "éloigne, éloignes, éloigne, éloignions, éloigniez, éloignent");
+        st.bind(11, "éloignasse, éloignasses, éloignât, éloignassions, éloignassiez, éloignassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2640,6 +2797,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "émoudrai, émoudras, émoudra, émoudrons, émoudrez, émoudront");
         st.bind(9, "émoudrais, émoudrais, émoudrait, émoudrions, émoudriez, émoudraient");
         st.bind(10, "émoule, émoules, émoule, émoulions, émouliez, émoulent");
+        st.bind(11, "émoulusse, émoulusses, émoulût, émoulussions, émoulussiez, émoulussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2654,6 +2812,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "émouvrai, émouvras, émouvra, émouvrons, émouvrez, émouvront");
         st.bind(9, "émouvrais, émouvrais, émouvrait, émouvrions, émouvriez, émouvraient");
         st.bind(10, "émeuve, émeuves, émeuve, émouvions, émouviez, émeuvent");
+        st.bind(11, "émusse, émusses, émût, émussions, émussiez, émussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2668,6 +2827,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "éprouverai, éprouveras, éprouvera, éprouverons, éprouverez, éprouveront");
         st.bind(9, "éprouverais, éprouverais, éprouverait, éprouverions, éprouveriez, éprouveraient");
         st.bind(10, "éprouve, éprouves, éprouve, éprouvions, éprouviez, éprouvent");
+        st.bind(11, "éprouvasse, éprouvasses, éprouvât, éprouvassions, éprouvassiez, éprouvassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2682,6 +2842,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "établirai, établiras, établira, établirons, établirez, établiront");
         st.bind(9, "établirais, établirais, établirait, établirions, établiriez, établiraient");
         st.bind(10, "établisse, établisses, établisse, établissions, établissiez, établissent");
+        st.bind(11, "établisse, établisses, établît, établissions, établissiez, établissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2696,6 +2857,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "étalerai, étaleras, étalera, étalerons, étalerez, étaleront");
         st.bind(9, "étalerais, étalerais, étalerait, étalerions, étaleriez, étaleraient");
         st.bind(10, "étale, étales, étale, étalions, étaliez, étalent");
+        st.bind(11, "étalasse, étalasses, étalât, étalassions, étalassiez, étalassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2710,6 +2872,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "éteindrai, éteindras, éteindra, éteindrons, éteindrez, éteindront");
         st.bind(9, "éteindrais, éteindrais, éteindrait, éteindrions, éteindriez, éteindraient");
         st.bind(10, "éteigne, éteignes, éteigne, éteignions, éteigniez, éteignent");
+        st.bind(11, "éteignisse, éteignisses, éteignît, éteignissions, éteignissiez, éteignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2724,6 +2887,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "étendrai, étendras, étendra, étendrons, étendrez, étendront");
         st.bind(9, "étendrais, étendrais, étendrait, étendrions, étendriez, étendraient");
         st.bind(10, "étende, étendes, étende, étendions, étendiez, étendent");
+        st.bind(11, "étendisse, étendisses, étendît, étendissions, étendissiez, étendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2738,6 +2902,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "étonnerai, étonneras, étonnera, étonnerons, étonnerez, étonneront");
         st.bind(9, "étonnerais, étonnerais, étonnerait, étonnerions, étonneriez, étonneraient");
         st.bind(10, "étonne, étonnes, étonne, étonnions, étonniez, étonnent");
+        st.bind(11, "étonnasse, étonnasses, étonnât, étonnassions, étonnassiez, étonnassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2752,6 +2917,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "étoufferai, étoufferas, étouffera, étoufferons, étoufferez, étoufferont");
         st.bind(9, "étoufferais, étoufferais, étoufferait, étoufferions, étoufferiez, étoufferaient");
         st.bind(10, "étouffe, étouffes, étouffe, étouffions, étouffiez, étouffent");
+        st.bind(11, "étouffasse, étouffasses, étouffât, étouffassions, étouffassiez, étouffassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2766,6 +2932,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "étudierai, étudieras, étudiera, étudierons, étudierez, étudieront");
         st.bind(9, "étudierais, étudierais, étudierait, étudierions, étudieriez, étudieraient");
         st.bind(10, "étudie, étudies, étudie, étudiions, étudiiez, étudient");
+        st.bind(11, "étudiasse, étudiasses, étudiât, étudiassions, étudiassiez, étudiassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2780,6 +2947,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "éviterai, éviteras, évitera, éviterons, éviterez, éviteront");
         st.bind(9, "éviterais, éviterais, éviterait, éviterions, éviteriez, éviteraient");
         st.bind(10, "évite, évites, évite, évitions, évitiez, évitent");
+        st.bind(11, "évitasse, évitasses, évitât, évitassions, évitassiez, évitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2794,6 +2962,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "serai, seras, sera, serons, serez, seront");
         st.bind(9, "serais, serais, serait, serions, seriez, seraient");
         st.bind(10, "sois, sois, soit, soyons, soyez, soient");
+        st.bind(11, "fusse, fusses, fût, fussions, fussiez, fussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2808,6 +2977,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "faillirai, faudrai, failliras, faudras, faillira, faudra, faillirons, faudrons, faillirez, faudrez, failliront, faudront");
         st.bind(9, "faillirais, faudrais, faillirais, faudrais, faillirait, faudrait, faillirions, faudrions, failliriez, faudriez, failliraient, faudraient");
         st.bind(10, "faillisse, faille, faillisses, failles, faillisse, faille, faillissions, faillions, faillissiez, failliez, faillissent, faillent");
+        st.bind(11, "faillisse, faillisses, faillît, faillissions, faillissiez, faillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2822,6 +2992,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "ferai, feras, fera, ferons, ferez, feront");
         st.bind(9, "ferais, ferais, ferait, ferions, feriez, feraient");
         st.bind(10, "fasse, fasses, fasse, fassions, fassiez, fassent");
+        st.bind(11, "fisse, fisses, fît, fissions, fissiez, fissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2836,6 +3007,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "fatiguerai, fatigueras, fatiguera, fatiguerons, fatiguerez, fatigueront");
         st.bind(9, "fatiguerais, fatiguerais, fatiguerait, fatiguerions, fatigueriez, fatigueraient");
         st.bind(10, "fatigue, fatigues, fatigue, fatiguions, fatiguiez, fatiguent");
+        st.bind(11, "fatiguasse, fatiguasses, fatiguât, fatiguassions, fatiguassiez, fatiguassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2850,6 +3022,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "fermerai, fermeras, fermera, fermerons, fermerez, fermeront");
         st.bind(9, "fermerais, fermerais, fermerait, fermerions, fermeriez, fermeraient");
         st.bind(10, "ferme, fermes, ferme, fermions, fermiez, ferment");
+        st.bind(11, "fermasse, fermasses, fermât, fermassions, fermassiez, fermassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2864,6 +3037,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "figurerai, figureras, figurera, figurerons, figurerez, figureront");
         st.bind(9, "figurerais, figurerais, figurerait, figurerions, figureriez, figureraient");
         st.bind(10, "figure, figures, figure, figurions, figuriez, figurent");
+        st.bind(11, "figurasse, figurasses, figurât, figurassions, figurassiez, figurassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2878,6 +3052,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "finirai, finiras, finira, finirons, finirez, finiront");
         st.bind(9, "finirais, finirais, finirait, finirions, finiriez, finiraient");
         st.bind(10, "finisse, finisses, finisse, finissions, finissiez, finissent");
+        st.bind(11, "finisse, finisses, finît, finissions, finissiez, finissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2892,6 +3067,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "fixerai, fixeras, fixera, fixerons, fixerez, fixeront");
         st.bind(9, "fixerais, fixerais, fixerait, fixerions, fixeriez, fixeraient");
         st.bind(10, "fixe, fixes, fixe, fixions, fixiez, fixent");
+        st.bind(11, "fixasse, fixasses, fixât, fixassions, fixassiez, fixassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2906,6 +3082,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "fonderai, fonderas, fondera, fonderons, fonderez, fonderont");
         st.bind(9, "fonderais, fonderais, fonderait, fonderions, fonderiez, fonderaient");
         st.bind(10, "fonde, fondes, fonde, fondions, fondiez, fondent");
+        st.bind(11, "fondasse, fondasses, fondât, fondassions, fondassiez, fondassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2920,6 +3097,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "forcerai, forceras, forcera, forcerons, forcerez, forceront");
         st.bind(9, "forcerais, forcerais, forcerait, forcerions, forceriez, forceraient");
         st.bind(10, "force, forces, force, forcions, forciez, forcent");
+        st.bind(11, "forçasse, forçasses, forçât, forçassions, forçassiez, forçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2934,6 +3112,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "formerai, formeras, formera, formerons, formerez, formeront");
         st.bind(9, "formerais, formerais, formerait, formerions, formeriez, formeraient");
         st.bind(10, "forme, formes, forme, formions, formiez, forment");
+        st.bind(11, "formasse, formasses, formât, formassions, formassiez, formassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2948,6 +3127,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "foutrai, foutras, foutra, foutrons, foutrez, foutront");
         st.bind(9, "foutrais, foutrais, foutrait, foutrions, foutriez, foutraient");
         st.bind(10, "foute, foutes, foute, foutions, foutiez, foutent");
+        st.bind(11, "foutisse, foutisses, foutît, foutissions, foutissiez, foutissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2962,6 +3142,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "franchirai, franchiras, franchira, franchirons, franchirez, franchiront");
         st.bind(9, "franchirais, franchirais, franchirait, franchirions, franchiriez, franchiraient");
         st.bind(10, "franchisse, franchisses, franchisse, franchissions, franchissiez, franchissent");
+        st.bind(11, "franchisse, franchisses, franchît, franchissions, franchissiez, franchissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2976,6 +3157,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "frapperai, frapperas, frappera, frapperons, frapperez, frapperont");
         st.bind(9, "frapperais, frapperais, frapperait, frapperions, frapperiez, frapperaient");
         st.bind(10, "frappe, frappes, frappe, frappions, frappiez, frappent");
+        st.bind(11, "frappasse, frappasses, frappât, frappassions, frappassiez, frappassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -2990,6 +3172,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "fuirai, fuiras, fuira, fuirons, fuirez, fuiront");
         st.bind(9, "fuirais, fuirais, fuirait, fuirions, fuiriez, fuiraient");
         st.bind(10, "fuie, fuies, fuie, fuyions, fuyiez, fuient");
+        st.bind(11, "fuisse, fuisses, fuît, fuissions, fuissiez, fuissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3004,6 +3187,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "fumerai, fumeras, fumera, fumerons, fumerez, fumeront");
         st.bind(9, "fumerais, fumerais, fumerait, fumerions, fumeriez, fumeraient");
         st.bind(10, "fume, fumes, fume, fumions, fumiez, fument");
+        st.bind(11, "fumasse, fumasses, fumât, fumassions, fumassiez, fumassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3018,6 +3202,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "gagnerai, gagneras, gagnera, gagnerons, gagnerez, gagneront");
         st.bind(9, "gagnerais, gagnerais, gagnerait, gagnerions, gagneriez, gagneraient");
         st.bind(10, "gagne, gagnes, gagne, gagnions, gagniez, gagnent");
+        st.bind(11, "gagnasse, gagnasses, gagnât, gagnassions, gagnassiez, gagnassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3032,6 +3217,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "garderai, garderas, gardera, garderons, garderez, garderont");
         st.bind(9, "garderais, garderais, garderait, garderions, garderiez, garderaient");
         st.bind(10, "garde, gardes, garde, gardions, gardiez, gardent");
+        st.bind(11, "gardasse, gardasses, gardât, gardassions, gardassiez, gardassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3046,6 +3232,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "glisserai, glisseras, glissera, glisserons, glisserez, glisseront");
         st.bind(9, "glisserais, glisserais, glisserait, glisserions, glisseriez, glisseraient");
         st.bind(10, "glisse, glisses, glisse, glissions, glissiez, glissent");
+        st.bind(11, "glissasse, glissasses, glissât, glissassions, glissassiez, glissassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3060,6 +3247,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "grandirai, grandiras, grandira, grandirons, grandirez, grandiront");
         st.bind(9, "grandirais, grandirais, grandirait, grandirions, grandiriez, grandiraient");
         st.bind(10, "grandisse, grandisses, grandisse, grandissions, grandissiez, grandissent");
+        st.bind(11, "grandisse, grandisses, grandît, grandissions, grandissiez, grandissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3074,6 +3262,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "habillerai, habilleras, habillera, habillerons, habillerez, habilleront");
         st.bind(9, "habillerais, habillerais, habillerait, habillerions, habilleriez, habilleraient");
         st.bind(10, "habille, habilles, habille, habillions, habilliez, habillent");
+        st.bind(11, "habillasse, habillasses, habillât, habillassions, habillassiez, habillassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3088,6 +3277,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "habiterai, habiteras, habitera, habiterons, habiterez, habiteront");
         st.bind(9, "habiterais, habiterais, habiterait, habiterions, habiteriez, habiteraient");
         st.bind(10, "habite, habites, habite, habitions, habitiez, habitent");
+        st.bind(11, "habitasse, habitasses, habitât, habitassions, habitassiez, habitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3102,6 +3292,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "haïrai, haïras, haïra, haïrons, haïrez, haïront");
         st.bind(9, "haïrais, haïrais, haïrait, haïrions, haïriez, haïraient");
         st.bind(10, "haïsse, haïsses, haïsse, haïssions, haïssiez, haïssent");
+        st.bind(11, "haïsse, haïsses, haït, haïssions, haïssiez, haïssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3116,6 +3307,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "hésiterai, hésiteras, hésitera, hésiterons, hésiterez, hésiteront");
         st.bind(9, "hésiterais, hésiterais, hésiterait, hésiterions, hésiteriez, hésiteraient");
         st.bind(10, "hésite, hésites, hésite, hésitions, hésitiez, hésitent");
+        st.bind(11, "hésitasse, hésitasses, hésitât, hésitassions, hésitassiez, hésitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3130,6 +3322,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "ignorerai, ignoreras, ignorera, ignorerons, ignorerez, ignoreront");
         st.bind(9, "ignorerais, ignorerais, ignorerait, ignorerions, ignoreriez, ignoreraient");
         st.bind(10, "ignore, ignores, ignore, ignorions, ignoriez, ignorent");
+        st.bind(11, "ignorasse, ignorasses, ignorât, ignorassions, ignorassiez, ignorassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3144,6 +3337,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "imaginerai, imagineras, imaginera, imaginerons, imaginerez, imagineront");
         st.bind(9, "imaginerais, imaginerais, imaginerait, imaginerions, imagineriez, imagineraient");
         st.bind(10, "imagine, imagines, imagine, imaginions, imaginiez, imaginent");
+        st.bind(11, "imaginasse, imaginasses, imaginât, imaginassions, imaginassiez, imaginassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3158,6 +3352,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "importerai, importeras, importera, importerons, importerez, importeront");
         st.bind(9, "importerais, importerais, importerait, importerions, importeriez, importeraient");
         st.bind(10, "importe, importes, importe, importions, importiez, importent");
+        st.bind(11, "importasse, importasses, importât, importassions, importassiez, importassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3172,6 +3367,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "imposerai, imposeras, imposera, imposerons, imposerez, imposeront");
         st.bind(9, "imposerais, imposerais, imposerait, imposerions, imposeriez, imposeraient");
         st.bind(10, "impose, imposes, impose, imposions, imposiez, imposent");
+        st.bind(11, "imposasse, imposasses, imposât, imposassions, imposassiez, imposassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3186,6 +3382,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "indiquerai, indiqueras, indiquera, indiquerons, indiquerez, indiqueront");
         st.bind(9, "indiquerais, indiquerais, indiquerait, indiquerions, indiqueriez, indiqueraient");
         st.bind(10, "indique, indiques, indique, indiquions, indiquiez, indiquent");
+        st.bind(11, "indiquasse, indiquasses, indiquât, indiquassions, indiquassiez, indiquassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3200,6 +3397,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "inquiéterai, inquiéteras, inquiétera, inquiéterons, inquiéterez, inquiéteront");
         st.bind(9, "inquiéterais, inquiéterais, inquiéterait, inquiéterions, inquiéteriez, inquiéteraient");
         st.bind(10, "inquiète, inquiètes, inquiète, inquiétions, inquiétiez, inquiètent");
+        st.bind(11, "inquiétasse, inquiétasses, inquiétât, inquiétassions, inquiétassiez, inquiétassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3214,6 +3412,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "inspirerai, inspireras, inspirera, inspirerons, inspirerez, inspireront");
         st.bind(9, "inspirerais, inspirerais, inspirerait, inspirerions, inspireriez, inspireraient");
         st.bind(10, "inspire, inspires, inspire, inspirions, inspiriez, inspirent");
+        st.bind(11, "inspirasse, inspirasses, inspirât, inspirassions, inspirassiez, inspirassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3228,6 +3427,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "installerai, installeras, installera, installerons, installerez, installeront");
         st.bind(9, "installerais, installerais, installerait, installerions, installeriez, installeraient");
         st.bind(10, "installe, installes, installe, installions, installiez, installent");
+        st.bind(11, "installasse, installasses, installât, installassions, installassiez, installassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3242,6 +3442,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "interrogerai, interrogeras, interrogera, interrogerons, interrogerez, interrogeront");
         st.bind(9, "interrogerais, interrogerais, interrogerait, interrogerions, interrogeriez, interrogeraient");
         st.bind(10, "interroge, interroges, interroge, interrogions, interrogiez, interrogent");
+        st.bind(11, "interrogeasse, interrogeasses, interrogeât, interrogeassions, interrogeassiez, interrogeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3256,6 +3457,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "interromprai, interrompras, interrompra, interromprons, interromprez, interrompront");
         st.bind(9, "interromprais, interromprais, interromprait, interromprions, interrompriez, interrompraient");
         st.bind(10, "interrompe, interrompes, interrompe, interrompions, interrompiez, interrompent");
+        st.bind(11, "interrompisse, interrompisses, interrompît, interrompissions, interrompissiez, interrompissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3270,6 +3472,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "intéresserai, intéresseras, intéressera, intéresserons, intéresserez, intéresseront");
         st.bind(9, "intéresserais, intéresserais, intéresserait, intéresserions, intéresseriez, intéresseraient");
         st.bind(10, "intéresse, intéresses, intéresse, intéressions, intéressiez, intéressent");
+        st.bind(11, "intéressasse, intéressasses, intéressât, intéressassions, intéressassiez, intéressassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3284,6 +3487,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "inventerai, inventeras, inventera, inventerons, inventerez, inventeront");
         st.bind(9, "inventerais, inventerais, inventerait, inventerions, inventeriez, inventeraient");
         st.bind(10, "invente, inventes, invente, inventions, inventiez, inventent");
+        st.bind(11, "inventasse, inventasses, inventât, inventassions, inventassiez, inventassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3298,6 +3502,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "inviterai, inviteras, invitera, inviterons, inviterez, inviteront");
         st.bind(9, "inviterais, inviterais, inviterait, inviterions, inviteriez, inviteraient");
         st.bind(10, "invite, invites, invite, invitions, invitiez, invitent");
+        st.bind(11, "invitasse, invitasses, invitât, invitassions, invitassiez, invitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3312,6 +3517,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "jetterai, jetteras, jettera, jetterons, jetterez, jetteront");
         st.bind(9, "jetterais, jetterais, jetterait, jetterions, jetteriez, jetteraient");
         st.bind(10, "jette, jettes, jette, jetions, jetiez, jettent");
+        st.bind(11, "jetasse, jetasses, jetât, jetassions, jetassiez, jetassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3326,6 +3532,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "joindrai, joindras, joindra, joindrons, joindrez, joindront");
         st.bind(9, "joindrais, joindrais, joindrait, joindrions, joindriez, joindraient");
         st.bind(10, "joigne, joignes, joigne, joignions, joigniez, joignent");
+        st.bind(11, "joignisse, joignisses, joignît, joignissions, joignissiez, joignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3340,6 +3547,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "jouerai, joueras, jouera, jouerons, jouerez, joueront");
         st.bind(9, "jouerais, jouerais, jouerait, jouerions, joueriez, joueraient");
         st.bind(10, "joue, joues, joue, jouions, jouiez, jouent");
+        st.bind(11, "jouasse, jouasses, jouât, jouassions, jouassiez, jouassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3354,6 +3562,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "jugerai, jugeras, jugera, jugerons, jugerez, jugeront");
         st.bind(9, "jugerais, jugerais, jugerait, jugerions, jugeriez, jugeraient");
         st.bind(10, "juge, juges, juge, jugions, jugiez, jugent");
+        st.bind(11, "jugeasse, jugeasses, jugeât, jugeassions, jugeassiez, jugeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3368,6 +3577,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "lèverai, lèveras, lèvera, lèverons, lèverez, lèveront");
         st.bind(9, "lèverais, lèverais, lèverait, lèverions, lèveriez, lèveraient");
         st.bind(10, "lève, lèves, lève, levions, leviez, lèvent");
+        st.bind(11, "levasse, levasses, levât, levassions, levassiez, levassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3382,6 +3592,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "lierai, lieras, liera, lierons, lierez, lieront");
         st.bind(9, "lierais, lierais, lierait, lierions, lieriez, lieraient");
         st.bind(10, "lie, lies, lie, liions, liiez, lient");
+        st.bind(11, "liasse, liasses, liât, liassions, liassiez, liassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3396,6 +3607,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "lirai, liras, lira, lirons, lirez, liront");
         st.bind(9, "lirais, lirais, lirait, lirions, liriez, liraient");
         st.bind(10, "lise, lises, lise, lisions, lisiez, lisent");
+        st.bind(11, "lusse, lusses, lût, lussions, lussiez, lussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3410,6 +3622,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "lisserai, lisseras, lissera, lisserons, lisserez, lisseront");
         st.bind(9, "lisserais, lisserais, lisserait, lisserions, lisseriez, lisseraient");
         st.bind(10, "lisse, lisses, lisse, lissions, lissiez, lissent");
+        st.bind(11, "lissasse, lissasses, lissât, lissassions, lissassiez, lissassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3424,6 +3637,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "livrerai, livreras, livrera, livrerons, livrerez, livreront");
         st.bind(9, "livrerais, livrerais, livrerait, livrerions, livreriez, livreraient");
         st.bind(10, "livre, livres, livre, livrions, livriez, livrent");
+        st.bind(11, "livrasse, livrasses, livrât, livrassions, livrassiez, livrassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3438,6 +3652,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "lutterai, lutteras, luttera, lutterons, lutterez, lutteront");
         st.bind(9, "lutterais, lutterais, lutterait, lutterions, lutteriez, lutteraient");
         st.bind(10, "lutte, luttes, lutte, luttions, luttiez, luttent");
+        st.bind(11, "luttasse, luttasses, luttât, luttassions, luttassiez, luttassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3452,6 +3667,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "maintiendrai, maintiendras, maintiendra, maintiendrons, maintiendrez, maintiendront");
         st.bind(9, "maintiendrais, maintiendrais, maintiendrait, maintiendrions, maintiendriez, maintiendraient");
         st.bind(10, "maintienne, maintiennes, maintienne, maintenions, mainteniez, maintiennent");
+        st.bind(11, "maintinsse, maintinsses, maintînt, maintinssions, maintinssiez, maintinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3466,6 +3682,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "mangerai, mangeras, mangera, mangerons, mangerez, mangeront");
         st.bind(9, "mangerais, mangerais, mangerait, mangerions, mangeriez, mangeraient");
         st.bind(10, "mange, manges, mange, mangions, mangiez, mangent");
+        st.bind(11, "mangeasse, mangeasses, mangeât, mangeassions, mangeassiez, mangeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3480,6 +3697,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "manquerai, manqueras, manquera, manquerons, manquerez, manqueront");
         st.bind(9, "manquerais, manquerais, manquerait, manquerions, manqueriez, manqueraient");
         st.bind(10, "manque, manques, manque, manquions, manquiez, manquent");
+        st.bind(11, "manquasse, manquasses, manquât, manquassions, manquassiez, manquassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3494,6 +3712,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "marcherai, marcheras, marchera, marcherons, marcherez, marcheront");
         st.bind(9, "marcherais, marcherais, marcherait, marcherions, marcheriez, marcheraient");
         st.bind(10, "marche, marches, marche, marchions, marchiez, marchent");
+        st.bind(11, "marchasse, marchasses, marchât, marchassions, marchassiez, marchassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3508,6 +3727,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "marierai, marieras, mariera, marierons, marierez, marieront");
         st.bind(9, "marierais, marierais, marierait, marierions, marieriez, marieraient");
         st.bind(10, "marie, maries, marie, mariions, mariiez, marient");
+        st.bind(11, "mariasse, mariasses, mariât, mariassions, mariassiez, mariassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3522,6 +3742,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "marquerai, marqueras, marquera, marquerons, marquerez, marqueront");
         st.bind(9, "marquerais, marquerais, marquerait, marquerions, marqueriez, marqueraient");
         st.bind(10, "marque, marques, marque, marquions, marquiez, marquent");
+        st.bind(11, "marquasse, marquasses, marquât, marquassions, marquassiez, marquassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3536,6 +3757,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "maudirai, maudiras, maudira, maudirons, maudirez, maudiront");
         st.bind(9, "maudirais, maudirais, maudirait, maudirions, maudiriez, maudiraient");
         st.bind(10, "maudisse, maudisses, maudisse, maudissions, maudissiez, maudissent");
+        st.bind(11, "maudisse, maudisses, maudît, maudissions, maudissiez, maudissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3550,6 +3772,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "menacerai, menaceras, menacera, menacerons, menacerez, menaceront");
         st.bind(9, "menacerais, menacerais, menacerait, menacerions, menaceriez, menaceraient");
         st.bind(10, "menace, menaces, menace, menacions, menaciez, menacent");
+        st.bind(11, "menaçasse, menaçasses, menaçât, menaçassions, menaçassiez, menaçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3564,6 +3787,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "mènerai, mèneras, mènera, mènerons, mènerez, mèneront");
         st.bind(9, "mènerais, mènerais, mènerait, mènerions, mèneriez, mèneraient");
         st.bind(10, "mène, mènes, mène, menions, meniez, mènent");
+        st.bind(11, "menasse, menasses, menât, menassions, menassiez, menassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3578,6 +3802,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "mentirai, mentiras, mentira, mentirons, mentirez, mentiront");
         st.bind(9, "mentirais, mentirais, mentirait, mentirions, mentiriez, mentiraient");
         st.bind(10, "mente, mentes, mente, mentions, mentiez, mentent");
+        st.bind(11, "mentisse, mentisses, mentît, mentissions, mentissiez, mentissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3592,6 +3817,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "mettrai, mettras, mettra, mettrons, mettrez, mettront");
         st.bind(9, "mettrais, mettrais, mettrait, mettrions, mettriez, mettraient");
         st.bind(10, "mette, mettes, mette, mettions, mettiez, mettent");
+        st.bind(11, "misse, misses, mît, missions, missiez, missent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3606,6 +3832,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "mériterai, mériteras, méritera, mériterons, mériterez, mériteront");
         st.bind(9, "mériterais, mériterais, mériterait, mériterions, mériteriez, mériteraient");
         st.bind(10, "mérite, mérites, mérite, méritions, méritiez, méritent");
+        st.bind(11, "méritasse, méritasses, méritât, méritassions, méritassiez, méritassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3620,6 +3847,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "mêlerai, mêleras, mêlera, mêlerons, mêlerez, mêleront");
         st.bind(9, "mêlerais, mêlerais, mêlerait, mêlerions, mêleriez, mêleraient");
         st.bind(10, "mêle, mêles, mêle, mêlions, mêliez, mêlent");
+        st.bind(11, "mêlasse, mêlasses, mêlât, mêlassions, mêlassiez, mêlassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3634,6 +3862,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "monterai, monteras, montera, monterons, monterez, monteront");
         st.bind(9, "monterais, monterais, monterait, monterions, monteriez, monteraient");
         st.bind(10, "monte, montes, monte, montions, montiez, montent");
+        st.bind(11, "montasse, montasses, montât, montassions, montassiez, montassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3648,6 +3877,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "montrerai, montreras, montrera, montrerons, montrerez, montreront");
         st.bind(9, "montrerais, montrerais, montrerait, montrerions, montreriez, montreraient");
         st.bind(10, "montre, montres, montre, montrions, montriez, montrent");
+        st.bind(11, "montrasse, montrasses, montrât, montrassions, montrassiez, montrassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3662,6 +3892,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "moudrai, moudras, moudra, moudrons, moudrez, moudront");
         st.bind(9, "moudrais, moudrais, moudrait, moudrions, moudriez, moudraient");
         st.bind(10, "moule, moules, moule, moulions, mouliez, moulent");
+        st.bind(11, "moulusse, moulusses, moulût, moulussions, moulussiez, moulussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3676,6 +3907,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "mourrai, mourras, mourra, mourrons, mourrez, mourront");
         st.bind(9, "mourrais, mourrais, mourrait, mourrions, mourriez, mourraient");
         st.bind(10, "meure, meures, meure, mourions, mouriez, meurent");
+        st.bind(11, "mourusse, mourusses, mourût, mourussions, mourussiez, mourussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3690,6 +3922,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "mouvrai, mouvras, mouvra, mouvrons, mouvrez, mouvront");
         st.bind(9, "mouvrais, mouvrais, mouvrait, mouvrions, mouvriez, mouvraient");
         st.bind(10, "meuve, meuves, meuve, mouvions, mouviez, meuvent");
+        st.bind(11, "musse, musses, mût, mussions, mussiez, mussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3704,6 +3937,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "naîtrai, naîtras, naîtra, naîtrons, naîtrez, naîtront");
         st.bind(9, "naîtrais, naîtrais, naîtrait, naîtrions, naîtriez, naîtraient");
         st.bind(10, "naisse, naisses, naisse, naissions, naissiez, naissent");
+        st.bind(11, "naquisse, naquisses, naquît, naquissions, naquissiez, naquissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3718,6 +3952,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "nommerai, nommeras, nommera, nommerons, nommerez, nommeront");
         st.bind(9, "nommerais, nommerais, nommerait, nommerions, nommeriez, nommeraient");
         st.bind(10, "nomme, nommes, nomme, nommions, nommiez, nomment");
+        st.bind(11, "nommasse, nommasses, nommât, nommassions, nommassiez, nommassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3732,6 +3967,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "nourrirai, nourriras, nourrira, nourrirons, nourrirez, nourriront");
         st.bind(9, "nourrirais, nourrirais, nourrirait, nourririons, nourririez, nourriraient");
         st.bind(10, "nourrisse, nourrisses, nourrisse, nourrissions, nourrissiez, nourrissent");
+        st.bind(11, "nourrisse, nourrisses, nourrît, nourrissions, nourrissiez, nourrissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3746,6 +3982,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "obéirai, obéiras, obéira, obéirons, obéirez, obéiront");
         st.bind(9, "obéirais, obéirais, obéirait, obéirions, obéiriez, obéiraient");
         st.bind(10, "obéisse, obéisses, obéisse, obéissions, obéissiez, obéissent");
+        st.bind(11, "obéisse, obéisses, obéît, obéissions, obéissiez, obéissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3760,10 +3997,24 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "obligerai, obligeras, obligera, obligerons, obligerez, obligeront");
         st.bind(9, "obligerais, obligerais, obligerait, obligerions, obligeriez, obligeraient");
         st.bind(10, "oblige, obliges, oblige, obligions, obligiez, obligent");
+        st.bind(11, "obligeasse, obligeasses, obligeât, obligeassions, obligeassiez, obligeassent");
         st.exec();
         st.reset();
         st.clearBindings();
+    }
+    catch (std::exception &e)
+    {
+        std::cout << "Got exception: " << e.what() << std::endl;
+    }
 
+    secondHalf();
+
+}
+
+
+void DbManager::secondHalf() {
+    try {
+        auto st = getStmt("INSERT INTO frenchVerbs (infinitive, present, imperfect, passeCompose, pastParticiple, presParticiple, passeSimple, future, conditional, subjunctivePres, subjunctiveImpf) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         st.bind(1, "observer");
         st.bind(2, "observe, observes, observe, observons, observez, observent");
         st.bind(3, "observais, observais, observait, observions, observiez, observaient");
@@ -3774,6 +4025,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "observerai, observeras, observera, observerons, observerez, observeront");
         st.bind(9, "observerais, observerais, observerait, observerions, observeriez, observeraient");
         st.bind(10, "observe, observes, observe, observions, observiez, observent");
+        st.bind(11, "observasse, observasses, observât, observassions, observassiez, observassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3788,6 +4040,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "obtiendrai, obtiendras, obtiendra, obtiendrons, obtiendrez, obtiendront");
         st.bind(9, "obtiendrais, obtiendrais, obtiendrait, obtiendrions, obtiendriez, obtiendraient");
         st.bind(10, "obtienne, obtiennes, obtienne, obtenions, obteniez, obtiennent");
+        st.bind(11, "obtinsse, obtinsses, obtînt, obtinssions, obtinssiez, obtinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3802,6 +4055,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "occlurai, occluras, occlura, occlurons, occlurez, occluront");
         st.bind(9, "occlurais, occlurais, occlurait, occlurions, occluriez, occluraient");
         st.bind(10, "occlue, occlues, occlue, occluions, occluiez, occluent");
+        st.bind(11, "occlusse, occlusses, occlût, occlussions, occlussiez, occlussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3816,6 +4070,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "occuperai, occuperas, occupera, occuperons, occuperez, occuperont");
         st.bind(9, "occuperais, occuperais, occuperait, occuperions, occuperiez, occuperaient");
         st.bind(10, "occupe, occupes, occupe, occupions, occupiez, occupent");
+        st.bind(11, "occupasse, occupasses, occupât, occupassions, occupassiez, occupassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3830,6 +4085,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "offrirai, offriras, offrira, offrirons, offrirez, offriront");
         st.bind(9, "offrirais, offrirais, offrirait, offririons, offririez, offriraient");
         st.bind(10, "offre, offres, offre, offrions, offriez, offrent");
+        st.bind(11, "offrisse, offrisses, offrît, offrissions, offrissiez, offrissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3844,6 +4100,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "oserai, oseras, osera, oserons, oserez, oseront");
         st.bind(9, "oserais, oserais, oserait, oserions, oseriez, oseraient");
         st.bind(10, "ose, oses, ose, osions, osiez, osent");
+        st.bind(11, "osasse, osasses, osât, osassions, osassiez, osassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3858,6 +4115,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "oublierai, oublieras, oubliera, oublierons, oublierez, oublieront");
         st.bind(9, "oublierais, oublierais, oublierait, oublierions, oublieriez, oublieraient");
         st.bind(10, "oublie, oublies, oublie, oubliions, oubliiez, oublient");
+        st.bind(11, "oubliasse, oubliasses, oubliât, oubliassions, oubliassiez, oubliassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3872,6 +4130,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "ouvrirai, ouvriras, ouvrira, ouvrirons, ouvrirez, ouvriront");
         st.bind(9, "ouvrirais, ouvrirais, ouvrirait, ouvririons, ouvririez, ouvriraient");
         st.bind(10, "ouvre, ouvres, ouvre, ouvrions, ouvriez, ouvrent");
+        st.bind(11, "ouvrisse, ouvrisses, ouvrît, ouvrissions, ouvrissiez, ouvrissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3886,6 +4145,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "paraîtrai, paraîtras, paraîtra, paraîtrons, paraîtrez, paraîtront");
         st.bind(9, "paraîtrais, paraîtrais, paraîtrait, paraîtrions, paraîtriez, paraîtraient");
         st.bind(10, "paraisse, paraisses, paraisse, paraissions, paraissiez, paraissent");
+        st.bind(11, "parusse, parusses, parût, parussions, parussiez, parussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3900,6 +4160,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "parcourrai, parcourras, parcourra, parcourrons, parcourrez, parcourront");
         st.bind(9, "parcourrais, parcourrais, parcourrait, parcourrions, parcourriez, parcourraient");
         st.bind(10, "parcoure, parcoures, parcoure, parcourions, parcouriez, parcourent");
+        st.bind(11, "parcourusse, parcourusses, parcourût, parcourussions, parcourussiez, parcourussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3914,6 +4175,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "parlerai, parleras, parlera, parlerons, parlerez, parleront");
         st.bind(9, "parlerais, parlerais, parlerait, parlerions, parleriez, parleraient");
         st.bind(10, "parle, parles, parle, parlions, parliez, parlent");
+        st.bind(11, "parlasse, parlasses, parlât, parlassions, parlassiez, parlassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3928,6 +4190,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "partagerai, partageras, partagera, partagerons, partagerez, partageront");
         st.bind(9, "partagerais, partagerais, partagerait, partagerions, partageriez, partageraient");
         st.bind(10, "partage, partages, partage, partagions, partagiez, partagent");
+        st.bind(11, "partageasse, partageasses, partageât, partageassions, partageassiez, partageassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3942,6 +4205,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "partirai, partiras, partira, partirons, partirez, partiront");
         st.bind(9, "partirais, partirais, partirait, partirions, partiriez, partiraient");
         st.bind(10, "parte, partes, parte, partions, partiez, partent");
+        st.bind(11, "partisse, partisses, partît, partissions, partissiez, partissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3956,6 +4220,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "parviendrai, parviendras, parviendra, parviendrons, parviendrez, parviendront");
         st.bind(9, "parviendrais, parviendrais, parviendrait, parviendrions, parviendriez, parviendraient");
         st.bind(10, "parvienne, parviennes, parvienne, parvenions, parveniez, parviennent");
+        st.bind(11, "parvinsse, parvinsses, parvînt, parvinssions, parvinssiez, parvinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3970,6 +4235,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "passerai, passeras, passera, passerons, passerez, passeront");
         st.bind(9, "passerais, passerais, passerait, passerions, passeriez, passeraient");
         st.bind(10, "passe, passes, passe, passions, passiez, passent");
+        st.bind(11, "passasse, passasses, passât, passassions, passassiez, passassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3984,6 +4250,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "paierai, payerai, paieras, payeras, paiera, payera, paierons, payerons, paierez, payerez, paieront, payeront");
         st.bind(9, "paierais, payerais, paierais, payerais, paierait, payerait, paierions, payerions, paieriez, payeriez, paieraient, payeraient");
         st.bind(10, "paie, paye, paies, payes, paie, paye, payions, payiez, paient, payent");
+        st.bind(11, "payasse, payasses, payât, payassions, payassiez, payassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -3998,6 +4265,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "pencherai, pencheras, penchera, pencherons, pencherez, pencheront");
         st.bind(9, "pencherais, pencherais, pencherait, pencherions, pencheriez, pencheraient");
         st.bind(10, "penche, penches, penche, penchions, penchiez, penchent");
+        st.bind(11, "penchasse, penchasses, penchât, penchassions, penchassiez, penchassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4012,6 +4280,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "pendrai, pendras, pendra, pendrons, pendrez, pendront");
         st.bind(9, "pendrais, pendrais, pendrait, pendrions, pendriez, pendraient");
         st.bind(10, "pende, pendes, pende, pendions, pendiez, pendent");
+        st.bind(11, "pendisse, pendisses, pendît, pendissions, pendissiez, pendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4026,6 +4295,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "penserai, penseras, pensera, penserons, penserez, penseront");
         st.bind(9, "penserais, penserais, penserait, penserions, penseriez, penseraient");
         st.bind(10, "pense, penses, pense, pensions, pensiez, pensent");
+        st.bind(11, "pensasse, pensasses, pensât, pensassions, pensassiez, pensassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4040,6 +4310,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "percevrai, percevras, percevra, percevrons, percevrez, percevront");
         st.bind(9, "percevrais, percevrais, percevrait, percevrions, percevriez, percevraient");
         st.bind(10, "perçoive, perçoives, perçoive, percevions, perceviez, perçoivent");
+        st.bind(11, "perçusse, perçusses, perçût, perçussions, perçussiez, perçussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4054,6 +4325,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "perdrai, perdras, perdra, perdrons, perdrez, perdront");
         st.bind(9, "perdrais, perdrais, perdrait, perdrions, perdriez, perdraient");
         st.bind(10, "perde, perdes, perde, perdions, perdiez, perdent");
+        st.bind(11, "perdisse, perdisses, perdît, perdissions, perdissiez, perdissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4068,6 +4340,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "permettrai, permettras, permettra, permettrons, permettrez, permettront");
         st.bind(9, "permettrais, permettrais, permettrait, permettrions, permettriez, permettraient");
         st.bind(10, "permette, permettes, permette, permettions, permettiez, permettent");
+        st.bind(11, "permisse, permisses, permît, permissions, permissiez, permissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4082,6 +4355,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "pèserai, pèseras, pèsera, pèserons, pèserez, pèseront");
         st.bind(9, "pèserais, pèserais, pèserait, pèserions, pèseriez, pèseraient");
         st.bind(10, "pèse, pèses, pèse, pesions, pesiez, pèsent");
+        st.bind(11, "pesasse, pesasses, pesât, pesassions, pesassiez, pesassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4096,6 +4370,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "pénétrerai, pénétreras, pénétrera, pénétrerons, pénétrerez, pénétreront");
         st.bind(9, "pénétrerais, pénétrerais, pénétrerait, pénétrerions, pénétreriez, pénétreraient");
         st.bind(10, "pénètre, pénètres, pénètre, pénétrions, pénétriez, pénètrent");
+        st.bind(11, "pénétrasse, pénétrasses, pénétrât, pénétrassions, pénétrassiez, pénétrassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4110,6 +4385,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "placerai, placeras, placera, placerons, placerez, placeront");
         st.bind(9, "placerais, placerais, placerait, placerions, placeriez, placeraient");
         st.bind(10, "place, places, place, placions, placiez, placent");
+        st.bind(11, "plaçasse, plaçasses, plaçât, plaçassions, plaçassiez, plaçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4124,6 +4400,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "plaindrai, plaindras, plaindra, plaindrons, plaindrez, plaindront");
         st.bind(9, "plaindrais, plaindrais, plaindrait, plaindrions, plaindriez, plaindraient");
         st.bind(10, "plaigne, plaignes, plaigne, plaignions, plaigniez, plaignent");
+        st.bind(11, "plaignisse, plaignisses, plaignît, plaignissions, plaignissiez, plaignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4138,6 +4415,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "plairai, plairas, plaira, plairons, plairez, plairont");
         st.bind(9, "plairais, plairais, plairait, plairions, plairiez, plairaient");
         st.bind(10, "plaise, plaises, plaise, plaisions, plaisiez, plaisent");
+        st.bind(11, "plusse, plusses, plût, plussions, plussiez, plussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4152,6 +4430,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "pleurerai, pleureras, pleurera, pleurerons, pleurerez, pleureront");
         st.bind(9, "pleurerais, pleurerais, pleurerait, pleurerions, pleureriez, pleureraient");
         st.bind(10, "pleure, pleures, pleure, pleurions, pleuriez, pleurent");
+        st.bind(11, "pleurasse, pleurasses, pleurât, pleurassions, pleurassiez, pleurassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4166,6 +4445,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, ", , pleuvra, , , pleuvront");
         st.bind(9, ", , pleuvrait, , , pleuvraient");
         st.bind(10, ", , pleuve, , , pleuvent");
+        st.bind(11, ", , plût, , , plussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4180,6 +4460,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "plongerai, plongeras, plongera, plongerons, plongerez, plongeront");
         st.bind(9, "plongerais, plongerais, plongerait, plongerions, plongeriez, plongeraient");
         st.bind(10, "plonge, plonges, plonge, plongions, plongiez, plongent");
+        st.bind(11, "plongeasse, plongeasses, plongeât, plongeassions, plongeassiez, plongeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4194,6 +4475,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, ", , poindra, , , poindront");
         st.bind(9, ", , poindrait, , , poindraient");
         st.bind(10, ", , poigne, , , poignent");
+        st.bind(11, ", , poignît, , , poignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4208,6 +4490,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "porterai, porteras, portera, porterons, porterez, porteront");
         st.bind(9, "porterais, porterais, porterait, porterions, porteriez, porteraient");
         st.bind(10, "porte, portes, porte, portions, portiez, portent");
+        st.bind(11, "portasse, portasses, portât, portassions, portassiez, portassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4222,6 +4505,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "poserai, poseras, posera, poserons, poserez, poseront");
         st.bind(9, "poserais, poserais, poserait, poserions, poseriez, poseraient");
         st.bind(10, "pose, poses, pose, posions, posiez, posent");
+        st.bind(11, "posasse, posasses, posât, posassions, posassiez, posassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4236,6 +4520,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "posséderai, posséderas, possédera, posséderons, posséderez, posséderont");
         st.bind(9, "posséderais, posséderais, posséderait, posséderions, posséderiez, posséderaient");
         st.bind(10, "possède, possèdes, possède, possédions, possédiez, possèdent");
+        st.bind(11, "possédasse, possédasses, possédât, possédassions, possédassiez, possédassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4250,6 +4535,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "poursuivrai, poursuivras, poursuivra, poursuivrons, poursuivrez, poursuivront");
         st.bind(9, "poursuivrais, poursuivrais, poursuivrait, poursuivrions, poursuivriez, poursuivraient");
         st.bind(10, "poursuive, poursuives, poursuive, poursuivions, poursuiviez, poursuivent");
+        st.bind(11, "poursuivisse, poursuivisses, poursuivît, poursuivissions, poursuivissiez, poursuivissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4264,6 +4550,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "pourvoirai, pourvoiras, pourvoira, pourvoirons, pourvoirez, pourvoiront");
         st.bind(9, "pourvoirais, pourvoirais, pourvoirait, pourvoirions, pourvoiriez, pourvoiraient");
         st.bind(10, "pourvoie, pourvoies, pourvoie, pourvoyions, pourvoyiez, pourvoient");
+        st.bind(11, "pourvusse, pourvusses, pourvût, pourvussions, pourvussiez, pourvussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4278,6 +4565,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "pousserai, pousseras, poussera, pousserons, pousserez, pousseront");
         st.bind(9, "pousserais, pousserais, pousserait, pousserions, pousseriez, pousseraient");
         st.bind(10, "pousse, pousses, pousse, poussions, poussiez, poussent");
+        st.bind(11, "poussasse, poussasses, poussât, poussassions, poussassiez, poussassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4292,6 +4580,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "pourrai, pourras, pourra, pourrons, pourrez, pourront");
         st.bind(9, "pourrais, pourrais, pourrait, pourrions, pourriez, pourraient");
         st.bind(10, "puisse, puisses, puisse, puissions, puissiez, puissent");
+        st.bind(11, "pusse, pusses, pût, pussions, pussiez, pussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4306,6 +4595,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prendrai, prendras, prendra, prendrons, prendrez, prendront");
         st.bind(9, "prendrais, prendrais, prendrait, prendrions, prendriez, prendraient");
         st.bind(10, "prenne, prennes, prenne, prenions, preniez, prennent");
+        st.bind(11, "prisse, prisses, prît, prissions, prissiez, prissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4320,6 +4610,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "presserai, presseras, pressera, presserons, presserez, presseront");
         st.bind(9, "presserais, presserais, presserait, presserions, presseriez, presseraient");
         st.bind(10, "presse, presses, presse, pressions, pressiez, pressent");
+        st.bind(11, "pressasse, pressasses, pressât, pressassions, pressassiez, pressassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4334,6 +4625,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "précéderai, précéderas, précédera, précéderons, précéderez, précéderont");
         st.bind(9, "précéderais, précéderais, précéderait, précéderions, précéderiez, précéderaient");
         st.bind(10, "précède, précèdes, précède, précédions, précédiez, précèdent");
+        st.bind(11, "précédasse, précédasses, précédât, précédassions, précédassiez, précédassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4348,6 +4640,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "précipiterai, précipiteras, précipitera, précipiterons, précipiterez, précipiteront");
         st.bind(9, "précipiterais, précipiterais, précipiterait, précipiterions, précipiteriez, précipiteraient");
         st.bind(10, "précipite, précipites, précipite, précipitions, précipitiez, précipitent");
+        st.bind(11, "précipitasse, précipitasses, précipitât, précipitassions, précipitassiez, précipitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4362,6 +4655,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prédirai, prédiras, prédira, prédirons, prédirez, prédiront");
         st.bind(9, "prédirais, prédirais, prédirait, prédirions, prédiriez, prédiraient");
         st.bind(10, "prédise, prédises, prédise, prédisions, prédisiez, prédisent");
+        st.bind(11, "prédisse, prédisses, prédît, prédissions, prédissiez, prédissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4376,6 +4670,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "préférerai, préféreras, préférera, préférerons, préférerez, préféreront");
         st.bind(9, "préférerais, préférerais, préférerait, préférerions, préféreriez, préféreraient");
         st.bind(10, "préfère, préfères, préfère, préférions, préfériez, préfèrent");
+        st.bind(11, "préférasse, préférasses, préférât, préférassions, préférassiez, préférassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4390,6 +4685,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "préparerai, prépareras, préparera, préparerons, préparerez, prépareront");
         st.bind(9, "préparerais, préparerais, préparerait, préparerions, prépareriez, prépareraient");
         st.bind(10, "prépare, prépares, prépare, préparions, prépariez, préparent");
+        st.bind(11, "préparasse, préparasses, préparât, préparassions, préparassiez, préparassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4404,6 +4700,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "présenterai, présenteras, présentera, présenterons, présenterez, présenteront");
         st.bind(9, "présenterais, présenterais, présenterait, présenterions, présenteriez, présenteraient");
         st.bind(10, "présente, présentes, présente, présentions, présentiez, présentent");
+        st.bind(11, "présentasse, présentasses, présentât, présentassions, présentassiez, présentassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4418,6 +4715,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prétendrai, prétendras, prétendra, prétendrons, prétendrez, prétendront");
         st.bind(9, "prétendrais, prétendrais, prétendrait, prétendrions, prétendriez, prétendraient");
         st.bind(10, "prétende, prétendes, prétende, prétendions, prétendiez, prétendent");
+        st.bind(11, "prétendisse, prétendisses, prétendît, prétendissions, prétendissiez, prétendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4432,6 +4730,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prévaudrai, prévaudras, prévaudra, prévaudrons, prévaudrez, prévaudront");
         st.bind(9, "prévaudrais, prévaudrais, prévaudrait, prévaudrions, prévaudriez, prévaudraient");
         st.bind(10, "prévale, prévales, prévale, prévalions, prévaliez, prévalent");
+        st.bind(11, "prévalusse, prévalusses, prévalût, prévalussions, prévalussiez, prévalussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4446,6 +4745,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "préviendrai, préviendras, préviendra, préviendrons, préviendrez, préviendront");
         st.bind(9, "préviendrais, préviendrais, préviendrait, préviendrions, préviendriez, préviendraient");
         st.bind(10, "prévienne, préviennes, prévienne, prévenions, préveniez, préviennent");
+        st.bind(11, "prévinsse, prévinsses, prévînt, prévinssions, prévinssiez, prévinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4460,6 +4760,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prévoirai, prévoiras, prévoira, prévoirons, prévoirez, prévoiront");
         st.bind(9, "prévoirais, prévoirais, prévoirait, prévoirions, prévoiriez, prévoiraient");
         st.bind(10, "prévoie, prévoies, prévoie, prévoyions, prévoyiez, prévoient");
+        st.bind(11, "prévisse, prévisses, prévît, prévissions, prévissiez, prévissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4474,6 +4775,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prêterai, prêteras, prêtera, prêterons, prêterez, prêteront");
         st.bind(9, "prêterais, prêterais, prêterait, prêterions, prêteriez, prêteraient");
         st.bind(10, "prête, prêtes, prête, prêtions, prêtiez, prêtent");
+        st.bind(11, "prêtasse, prêtasses, prêtât, prêtassions, prêtassiez, prêtassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4488,6 +4790,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prierai, prieras, priera, prierons, prierez, prieront");
         st.bind(9, "prierais, prierais, prierait, prierions, prieriez, prieraient");
         st.bind(10, "prie, pries, prie, priions, priiez, prient");
+        st.bind(11, "priasse, priasses, priât, priassions, priassiez, priassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4502,6 +4805,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "produirai, produiras, produira, produirons, produirez, produiront");
         st.bind(9, "produirais, produirais, produirait, produirions, produiriez, produiraient");
         st.bind(10, "produise, produises, produise, produisions, produisiez, produisent");
+        st.bind(11, "produisisse, produisisses, produisît, produisissions, produisissiez, produisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4516,6 +4820,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "profiterai, profiteras, profitera, profiterons, profiterez, profiteront");
         st.bind(9, "profiterais, profiterais, profiterait, profiterions, profiteriez, profiteraient");
         st.bind(10, "profite, profites, profite, profitions, profitiez, profitent");
+        st.bind(11, "profitasse, profitasses, profitât, profitassions, profitassiez, profitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4530,6 +4835,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "promènerai, promèneras, promènera, promènerons, promènerez, promèneront");
         st.bind(9, "promènerais, promènerais, promènerait, promènerions, promèneriez, promèneraient");
         st.bind(10, "promène, promènes, promène, promenions, promeniez, promènent");
+        st.bind(11, "promenasse, promenasses, promenât, promenassions, promenassiez, promenassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4544,6 +4850,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "promettrai, promettras, promettra, promettrons, promettrez, promettront");
         st.bind(9, "promettrais, promettrais, promettrait, promettrions, promettriez, promettraient");
         st.bind(10, "promette, promettes, promette, promettions, promettiez, promettent");
+        st.bind(11, "promisse, promisses, promît, promissions, promissiez, promissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4558,6 +4865,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "promouvrai, promouvras, promouvra, promouvrons, promouvrez, promouvront");
         st.bind(9, "promouvrais, promouvrais, promouvrait, promouvrions, promouvriez, promouvraient");
         st.bind(10, "promeuve, promeuves, promeuve, promouvions, promouviez, promeuvent");
+        st.bind(11, "promusse, promusses, promût, promussions, promussiez, promussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4572,6 +4880,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prononcerai, prononceras, prononcera, prononcerons, prononcerez, prononceront");
         st.bind(9, "prononcerais, prononcerais, prononcerait, prononcerions, prononceriez, prononceraient");
         st.bind(10, "prononce, prononces, prononce, prononcions, prononciez, prononcent");
+        st.bind(11, "prononçasse, prononçasses, prononçât, prononçassions, prononçassiez, prononçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4586,6 +4895,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "proposerai, proposeras, proposera, proposerons, proposerez, proposeront");
         st.bind(9, "proposerais, proposerais, proposerait, proposerions, proposeriez, proposeraient");
         st.bind(10, "propose, proposes, propose, proposions, proposiez, proposent");
+        st.bind(11, "proposasse, proposasses, proposât, proposassions, proposassiez, proposassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4600,6 +4910,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "protégerai, protégeras, protégera, protégerons, protégerez, protégeront");
         st.bind(9, "protégerais, protégerais, protégerait, protégerions, protégeriez, protégeraient");
         st.bind(10, "protège, protèges, protège, protégions, protégiez, protègent");
+        st.bind(11, "protégeasse, protégeasses, protégeât, protégeassions, protégeassiez, protégeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4614,6 +4925,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "prouverai, prouveras, prouvera, prouverons, prouverez, prouveront");
         st.bind(9, "prouverais, prouverais, prouverait, prouverions, prouveriez, prouveraient");
         st.bind(10, "prouve, prouves, prouve, prouvions, prouviez, prouvent");
+        st.bind(11, "prouvasse, prouvasses, prouvât, prouvassions, prouvassiez, prouvassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4628,6 +4940,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "quitterai, quitteras, quittera, quitterons, quitterez, quitteront");
         st.bind(9, "quitterais, quitterais, quitterait, quitterions, quitteriez, quitteraient");
         st.bind(10, "quitte, quittes, quitte, quittions, quittiez, quittent");
+        st.bind(11, "quittasse, quittasses, quittât, quittassions, quittassiez, quittassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4642,6 +4955,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "raconterai, raconteras, racontera, raconterons, raconterez, raconteront");
         st.bind(9, "raconterais, raconterais, raconterait, raconterions, raconteriez, raconteraient");
         st.bind(10, "raconte, racontes, raconte, racontions, racontiez, racontent");
+        st.bind(11, "racontasse, racontasses, racontât, racontassions, racontassiez, racontassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4656,6 +4970,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "ramasserai, ramasseras, ramassera, ramasserons, ramasserez, ramasseront");
         st.bind(9, "ramasserais, ramasserais, ramasserait, ramasserions, ramasseriez, ramasseraient");
         st.bind(10, "ramasse, ramasses, ramasse, ramassions, ramassiez, ramassent");
+        st.bind(11, "ramassasse, ramassasses, ramassât, ramassassions, ramassassiez, ramassassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4670,6 +4985,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "ramènerai, ramèneras, ramènera, ramènerons, ramènerez, ramèneront");
         st.bind(9, "ramènerais, ramènerais, ramènerait, ramènerions, ramèneriez, ramèneraient");
         st.bind(10, "ramène, ramènes, ramène, ramenions, rameniez, ramènent");
+        st.bind(11, "ramenasse, ramenasses, ramenât, ramenassions, ramenassiez, ramenassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4684,6 +5000,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rappellerai, rappelleras, rappellera, rappellerons, rappellerez, rappelleront");
         st.bind(9, "rappellerais, rappellerais, rappellerait, rappellerions, rappelleriez, rappelleraient");
         st.bind(10, "rappelle, rappelles, rappelle, rappelions, rappeliez, rappellent");
+        st.bind(11, "rappelasse, rappelasses, rappelât, rappelassions, rappelassiez, rappelassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4698,6 +5015,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rapporterai, rapporteras, rapportera, rapporterons, rapporterez, rapporteront");
         st.bind(9, "rapporterais, rapporterais, rapporterait, rapporterions, rapporteriez, rapporteraient");
         st.bind(10, "rapporte, rapportes, rapporte, rapportions, rapportiez, rapportent");
+        st.bind(11, "rapportasse, rapportasses, rapportât, rapportassions, rapportassiez, rapportassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4712,6 +5030,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rassiérai, rassoirai, rasseyerai, rassiéras, rassoiras, rasseyeras, rassiéra, rassoira, rasseyera, rassiérons, rassoirons, rasseyerons, rassiérez, rassoirez, rasseyerez, rassiéront, rassoiront, rasseyeront");
         st.bind(9, "rassiérais, rassoirais, rasseyerais, rassiérais, rassoirais, rasseyerais, rassiérait, rassoirait, rasseyerait, rassiérions, rassoirions, rasseyerions, rassiériez, rassoiriez, rasseyeriez, rassiéraient, rassoiraient, rasseyeraient");
         st.bind(10, "rasseye, rassoie, rasseyes, rassoies, rasseye, rassoie, rasseyions, rassoyions, rasseyiez, rassoyiez, rasseyent, rassoient");
+        st.bind(11, "rassisse, rassisses, rassît, rassissions, rassissiez, rassissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4726,6 +5045,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rassiérai, rassoirai, rasseyerai, rassiéras, rassoiras, rasseyeras, rassiéra, rassoira, rasseyera, rassiérons, rassoirons, rasseyerons, rassiérez, rassoirez, rasseyerez, rassiéront, rassoiront, rasseyeront");
         st.bind(9, "rassiérais, rassoirais, rasseyerais, rassiérais, rassoirais, rasseyerais, rassiérait, rassoirait, rasseyerait, rassiérions, rassoirions, rasseyerions, rassiériez, rassoiriez, rasseyeriez, rassiéraient, rassoiraient, rasseyeraient");
         st.bind(10, "rasseye, rassoie, rasseyes, rassoies, rasseye, rassoie, rasseyions, rassoyions, rasseyiez, rassoyiez, rasseyent, rassoient");
+        st.bind(11, "rassisse, rassisses, rassît, rassissions, rassissiez, rassissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4740,6 +5060,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rassurerai, rassureras, rassurera, rassurerons, rassurerez, rassureront");
         st.bind(9, "rassurerais, rassurerais, rassurerait, rassurerions, rassureriez, rassureraient");
         st.bind(10, "rassure, rassures, rassure, rassurions, rassuriez, rassurent");
+        st.bind(11, "rassurasse, rassurasses, rassurât, rassurassions, rassurassiez, rassurassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4754,6 +5075,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rebouillirai, rebouilliras, rebouillira, rebouillirons, rebouillirez, rebouilliront");
         st.bind(9, "rebouillirais, rebouillirais, rebouillirait, rebouillirions, rebouilliriez, rebouilliraient");
         st.bind(10, "rebouille, rebouilles, rebouille, rebouillions, rebouilliez, rebouillent");
+        st.bind(11, "rebouillisse, rebouillisses, rebouillît, rebouillissions, rebouillissiez, rebouillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4768,6 +5090,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "recevrai, recevras, recevra, recevrons, recevrez, recevront");
         st.bind(9, "recevrais, recevrais, recevrait, recevrions, recevriez, recevraient");
         st.bind(10, "reçoive, reçoives, reçoive, recevions, receviez, reçoivent");
+        st.bind(11, "reçusse, reçusses, reçût, reçussions, reçussiez, reçussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4782,6 +5105,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "recommencerai, recommenceras, recommencera, recommencerons, recommencerez, recommenceront");
         st.bind(9, "recommencerais, recommencerais, recommencerait, recommencerions, recommenceriez, recommenceraient");
         st.bind(10, "recommence, recommences, recommence, recommencions, recommenciez, recommencent");
+        st.bind(11, "recommençasse, recommençasses, recommençât, recommençassions, recommençassiez, recommençassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4796,6 +5120,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reconcevrai, reconcevras, reconcevra, reconcevrons, reconcevrez, reconcevront");
         st.bind(9, "reconcevrais, reconcevrais, reconcevrait, reconcevrions, reconcevriez, reconcevraient");
         st.bind(10, "reconçoive, reconçoives, reconçoive, reconcevions, reconceviez, reconçoivent");
+        st.bind(11, "reconçusse, reconçusses, reconçût, reconçussions, reconçussiez, reconçussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4810,6 +5135,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reconnaîtrai, reconnaîtras, reconnaîtra, reconnaîtrons, reconnaîtrez, reconnaîtront");
         st.bind(9, "reconnaîtrais, reconnaîtrais, reconnaîtrait, reconnaîtrions, reconnaîtriez, reconnaîtraient");
         st.bind(10, "reconnaisse, reconnaisses, reconnaisse, reconnaissions, reconnaissiez, reconnaissent");
+        st.bind(11, "reconnusse, reconnusses, reconnût, reconnussions, reconnussiez, reconnussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4824,6 +5150,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reconquerrai, reconquerras, reconquerra, reconquerrons, reconquerrez, reconquerront");
         st.bind(9, "reconquerrais, reconquerrais, reconquerrait, reconquerrions, reconquerriez, reconquerraient");
         st.bind(10, "reconquière, reconquières, reconquière, reconquérions, reconquériez, reconquièrent");
+        st.bind(11, "reconquisse, reconquisses, reconquît, reconquissions, reconquissiez, reconquissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4838,6 +5165,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "recoudrai, recoudras, recoudra, recoudrons, recoudrez, recoudront");
         st.bind(9, "recoudrais, recoudrais, recoudrait, recoudrions, recoudriez, recoudraient");
         st.bind(10, "recouse, recouses, recouse, recousions, recousiez, recousent");
+        st.bind(11, "recousisse, recousisses, recousît, recousissions, recousissiez, recousissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4852,6 +5180,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "recourrai, recourras, recourra, recourrons, recourrez, recourront");
         st.bind(9, "recourrais, recourrais, recourrait, recourrions, recourriez, recourraient");
         st.bind(10, "recoure, recoures, recoure, recourions, recouriez, recourent");
+        st.bind(11, "recourusse, recourusses, recourût, recourussions, recourussiez, recourussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4866,6 +5195,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "recroîtrai, recroîtras, recroîtra, recroîtrons, recroîtrez, recroîtront");
         st.bind(9, "recroîtrais, recroîtrais, recroîtrait, recroîtrions, recroîtriez, recroîtraient");
         st.bind(10, "recroisse, recroisses, recroisse, recroissions, recroissiez, recroissent");
+        st.bind(11, "recrusse, recrusses, recrût, recrussions, recrussiez, recrussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4880,6 +5210,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "recueillerai, recueilleras, recueillera, recueillerons, recueillerez, recueilleront");
         st.bind(9, "recueillerais, recueillerais, recueillerait, recueillerions, recueilleriez, recueilleraient");
         st.bind(10, "recueille, recueilles, recueille, recueillions, recueilliez, recueillent");
+        st.bind(11, "recueillisse, recueillisses, recueillît, recueillissions, recueillissiez, recueillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4894,6 +5225,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reculerai, reculeras, reculera, reculerons, reculerez, reculeront");
         st.bind(9, "reculerais, reculerais, reculerait, reculerions, reculeriez, reculeraient");
         st.bind(10, "recule, recules, recule, reculions, reculiez, reculent");
+        st.bind(11, "reculasse, reculasses, reculât, reculassions, reculassiez, reculassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4908,6 +5240,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "redevrai, redevras, redevra, redevrons, redevrez, redevront");
         st.bind(9, "redevrais, redevrais, redevrait, redevrions, redevriez, redevraient");
         st.bind(10, "redoive, redoives, redoive, redevions, redeviez, redoivent");
+        st.bind(11, "redusse, redusses, redût, redussions, redussiez, redussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4922,6 +5255,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "redirai, rediras, redira, redirons, redirez, rediront");
         st.bind(9, "redirais, redirais, redirait, redirions, rediriez, rediraient");
         st.bind(10, "redise, redises, redise, redisions, redisiez, redisent");
+        st.bind(11, "redisse, redisses, redît, redissions, redissiez, redissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4936,6 +5270,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "redormirai, redormiras, redormira, redormirons, redormirez, redormiront");
         st.bind(9, "redormirais, redormirais, redormirait, redormirions, redormiriez, redormiraient");
         st.bind(10, "redorme, redormes, redorme, redormions, redormiez, redorment");
+        st.bind(11, "redormisse, redormisses, redormît, redormissions, redormissiez, redormissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4950,6 +5285,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "refuirai, refuiras, refuira, refuirons, refuirez, refuiront");
         st.bind(9, "refuirais, refuirais, refuirait, refuirions, refuiriez, refuiraient");
         st.bind(10, "refuie, refuies, refuie, refuyions, refuyiez, refuient");
+        st.bind(11, "refuisse, refuisses, refuît, refuissions, refuissiez, refuissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4964,6 +5300,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "refuserai, refuseras, refusera, refuserons, refuserez, refuseront");
         st.bind(9, "refuserais, refuserais, refuserait, refuserions, refuseriez, refuseraient");
         st.bind(10, "refuse, refuses, refuse, refusions, refusiez, refusent");
+        st.bind(11, "refusasse, refusasses, refusât, refusassions, refusassiez, refusassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4978,6 +5315,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "regarderai, regarderas, regardera, regarderons, regarderez, regarderont");
         st.bind(9, "regarderais, regarderais, regarderait, regarderions, regarderiez, regarderaient");
         st.bind(10, "regarde, regardes, regarde, regardions, regardiez, regardent");
+        st.bind(11, "regardasse, regardasses, regardât, regardassions, regardassiez, regardassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -4992,6 +5330,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "regèlerai, regèleras, regèlera, regèlerons, regèlerez, regèleront");
         st.bind(9, "regèlerais, regèlerais, regèlerait, regèlerions, regèleriez, regèleraient");
         st.bind(10, "regèle, regèles, regèle, regelions, regeliez, regèlent");
+        st.bind(11, "regelasse, regelasses, regelât, regelassions, regelassiez, regelassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5006,6 +5345,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "regretterai, regretteras, regrettera, regretterons, regretterez, regretteront");
         st.bind(9, "regretterais, regretterais, regretterait, regretterions, regretteriez, regretteraient");
         st.bind(10, "regrette, regrettes, regrette, regrettions, regrettiez, regrettent");
+        st.bind(11, "regrettasse, regrettasses, regrettât, regrettassions, regrettassiez, regrettassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5020,6 +5360,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rejetterai, rejetteras, rejettera, rejetterons, rejetterez, rejetteront");
         st.bind(9, "rejetterais, rejetterais, rejetterait, rejetterions, rejetteriez, rejetteraient");
         st.bind(10, "rejette, rejettes, rejette, rejetions, rejetiez, rejettent");
+        st.bind(11, "rejetasse, rejetasses, rejetât, rejetassions, rejetassiez, rejetassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5034,6 +5375,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rejoindrai, rejoindras, rejoindra, rejoindrons, rejoindrez, rejoindront");
         st.bind(9, "rejoindrais, rejoindrais, rejoindrait, rejoindrions, rejoindriez, rejoindraient");
         st.bind(10, "rejoigne, rejoignes, rejoigne, rejoignions, rejoigniez, rejoignent");
+        st.bind(11, "rejoignisse, rejoignisses, rejoignît, rejoignissions, rejoignissiez, rejoignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5048,6 +5390,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "relèverai, relèveras, relèvera, relèverons, relèverez, relèveront");
         st.bind(9, "relèverais, relèverais, relèverait, relèverions, relèveriez, relèveraient");
         st.bind(10, "relève, relèves, relève, relevions, releviez, relèvent");
+        st.bind(11, "relevasse, relevasses, relevât, relevassions, relevassiez, relevassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5062,6 +5405,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "relirai, reliras, relira, relirons, relirez, reliront");
         st.bind(9, "relirais, relirais, relirait, relirions, reliriez, reliraient");
         st.bind(10, "relise, relises, relise, relisions, relisiez, relisent");
+        st.bind(11, "relusse, relusses, relût, relussions, relussiez, relussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5076,6 +5420,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "remarquerai, remarqueras, remarquera, remarquerons, remarquerez, remarqueront");
         st.bind(9, "remarquerais, remarquerais, remarquerait, remarquerions, remarqueriez, remarqueraient");
         st.bind(10, "remarque, remarques, remarque, remarquions, remarquiez, remarquent");
+        st.bind(11, "remarquasse, remarquasses, remarquât, remarquassions, remarquassiez, remarquassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5090,6 +5435,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "remercierai, remercieras, remerciera, remercierons, remercierez, remercieront");
         st.bind(9, "remercierais, remercierais, remercierait, remercierions, remercieriez, remercieraient");
         st.bind(10, "remercie, remercies, remercie, remerciions, remerciiez, remercient");
+        st.bind(11, "remerciasse, remerciasses, remerciât, remerciassions, remerciassiez, remerciassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5104,6 +5450,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "remettrai, remettras, remettra, remettrons, remettrez, remettront");
         st.bind(9, "remettrais, remettrais, remettrait, remettrions, remettriez, remettraient");
         st.bind(10, "remette, remettes, remette, remettions, remettiez, remettent");
+        st.bind(11, "remisse, remisses, remît, remissions, remissiez, remissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5118,6 +5465,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "remonterai, remonteras, remontera, remonterons, remonterez, remonteront");
         st.bind(9, "remonterais, remonterais, remonterait, remonterions, remonteriez, remonteraient");
         st.bind(10, "remonte, remontes, remonte, remontions, remontiez, remontent");
+        st.bind(11, "remontasse, remontasses, remontât, remontassions, remontassiez, remontassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5132,6 +5480,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "remoudrai, remoudras, remoudra, remoudrons, remoudrez, remoudront");
         st.bind(9, "remoudrais, remoudrais, remoudrait, remoudrions, remoudriez, remoudraient");
         st.bind(10, "remoule, remoules, remoule, remoulions, remouliez, remoulent");
+        st.bind(11, "remoulusse, remoulusses, remoulût, remoulussions, remoulussiez, remoulussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5146,6 +5495,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "remplacerai, remplaceras, remplacera, remplacerons, remplacerez, remplaceront");
         st.bind(9, "remplacerais, remplacerais, remplacerait, remplacerions, remplaceriez, remplaceraient");
         st.bind(10, "remplace, remplaces, remplace, remplacions, remplaciez, remplacent");
+        st.bind(11, "remplaçasse, remplaçasses, remplaçât, remplaçassions, remplaçassiez, remplaçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5160,6 +5510,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "remplirai, rempliras, remplira, remplirons, remplirez, rempliront");
         st.bind(9, "remplirais, remplirais, remplirait, remplirions, rempliriez, rempliraient");
         st.bind(10, "remplisse, remplisses, remplisse, remplissions, remplissiez, remplissent");
+        st.bind(11, "remplisse, remplisses, remplît, remplissions, remplissiez, remplissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5174,6 +5525,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "renaîtrai, renaîtras, renaîtra, renaîtrons, renaîtrez, renaîtront");
         st.bind(9, "renaîtrais, renaîtrais, renaîtrait, renaîtrions, renaîtriez, renaîtraient");
         st.bind(10, "renaisse, renaisses, renaisse, renaissions, renaissiez, renaissent");
+        st.bind(11, "renaquisse, renaquisses, renaquît, renaquissions, renaquissiez, renaquissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5188,6 +5540,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rencontrerai, rencontreras, rencontrera, rencontrerons, rencontrerez, rencontreront");
         st.bind(9, "rencontrerais, rencontrerais, rencontrerait, rencontrerions, rencontreriez, rencontreraient");
         st.bind(10, "rencontre, rencontres, rencontre, rencontrions, rencontriez, rencontrent");
+        st.bind(11, "rencontrasse, rencontrasses, rencontrât, rencontrassions, rencontrassiez, rencontrassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5202,6 +5555,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rendormirai, rendormiras, rendormira, rendormirons, rendormirez, rendormiront");
         st.bind(9, "rendormirais, rendormirais, rendormirait, rendormirions, rendormiriez, rendormiraient");
         st.bind(10, "rendorme, rendormes, rendorme, rendormions, rendormiez, rendorment");
+        st.bind(11, "rendormisse, rendormisses, rendormît, rendormissions, rendormissiez, rendormissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5216,6 +5570,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rendrai, rendras, rendra, rendrons, rendrez, rendront");
         st.bind(9, "rendrais, rendrais, rendrait, rendrions, rendriez, rendraient");
         st.bind(10, "rende, rendes, rende, rendions, rendiez, rendent");
+        st.bind(11, "rendisse, rendisses, rendît, rendissions, rendissiez, rendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5230,6 +5585,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "renoncerai, renonceras, renoncera, renoncerons, renoncerez, renonceront");
         st.bind(9, "renoncerais, renoncerais, renoncerait, renoncerions, renonceriez, renonceraient");
         st.bind(10, "renonce, renonces, renonce, renoncions, renonciez, renoncent");
+        st.bind(11, "renonçasse, renonçasses, renonçât, renonçassions, renonçassiez, renonçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5244,6 +5600,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rentrerai, rentreras, rentrera, rentrerons, rentrerez, rentreront");
         st.bind(9, "rentrerais, rentrerais, rentrerait, rentrerions, rentreriez, rentreraient");
         st.bind(10, "rentre, rentres, rentre, rentrions, rentriez, rentrent");
+        st.bind(11, "rentrasse, rentrasses, rentrât, rentrassions, rentrassiez, rentrassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5258,6 +5615,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "renverserai, renverseras, renversera, renverserons, renverserez, renverseront");
         st.bind(9, "renverserais, renverserais, renverserait, renverserions, renverseriez, renverseraient");
         st.bind(10, "renverse, renverses, renverse, renversions, renversiez, renversent");
+        st.bind(11, "renversasse, renversasses, renversât, renversassions, renversassiez, renversassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5272,6 +5630,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "renverrai, renverras, renverra, renverrons, renverrez, renverront");
         st.bind(9, "renverrais, renverrais, renverrait, renverrions, renverriez, renverraient");
         st.bind(10, "renvoie, renvoies, renvoie, renvoyions, renvoyiez, renvoient");
+        st.bind(11, "renvoyasse, renvoyasses, renvoyât, renvoyassions, renvoyassiez, renvoyassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5286,6 +5645,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "repaîtrai, repaîtras, repaîtra, repaîtrons, repaîtrez, repaîtront");
         st.bind(9, "repaîtrais, repaîtrais, repaîtrait, repaîtrions, repaîtriez, repaîtraient");
         st.bind(10, "repaisse, repaisses, repaisse, repaissions, repaissiez, repaissent");
+        st.bind(11, "repusse, repusses, repût, repussions, repussiez, repussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5300,6 +5660,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reparaîtrai, reparaîtras, reparaîtra, reparaîtrons, reparaîtrez, reparaîtront");
         st.bind(9, "reparaîtrais, reparaîtrais, reparaîtrait, reparaîtrions, reparaîtriez, reparaîtraient");
         st.bind(10, "reparaisse, reparaisses, reparaisse, reparaissions, reparaissiez, reparaissent");
+        st.bind(11, "reparusse, reparusses, reparût, reparussions, reparussiez, reparussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5314,6 +5675,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, ", , repleuvra, , , ");
         st.bind(9, ", , repleuvrait, , , ");
         st.bind(10, ", , repleuve, , , ");
+        st.bind(11, ", , replût, , , ");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5328,6 +5690,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reposerai, reposeras, reposera, reposerons, reposerez, reposeront");
         st.bind(9, "reposerais, reposerais, reposerait, reposerions, reposeriez, reposeraient");
         st.bind(10, "repose, reposes, repose, reposions, reposiez, reposent");
+        st.bind(11, "reposasse, reposasses, reposât, reposassions, reposassiez, reposassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5342,6 +5705,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "repousserai, repousseras, repoussera, repousserons, repousserez, repousseront");
         st.bind(9, "repousserais, repousserais, repousserait, repousserions, repousseriez, repousseraient");
         st.bind(10, "repousse, repousses, repousse, repoussions, repoussiez, repoussent");
+        st.bind(11, "repoussasse, repoussasses, repoussât, repoussassions, repoussassiez, repoussassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5356,6 +5720,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reprendrai, reprendras, reprendra, reprendrons, reprendrez, reprendront");
         st.bind(9, "reprendrais, reprendrais, reprendrait, reprendrions, reprendriez, reprendraient");
         st.bind(10, "reprenne, reprennes, reprenne, reprenions, repreniez, reprennent");
+        st.bind(11, "reprisse, reprisses, reprît, reprissions, reprissiez, reprissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5370,6 +5735,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "représenterai, représenteras, représentera, représenterons, représenterez, représenteront");
         st.bind(9, "représenterais, représenterais, représenterait, représenterions, représenteriez, représenteraient");
         st.bind(10, "représente, représentes, représente, représentions, représentiez, représentent");
+        st.bind(11, "représentasse, représentasses, représentât, représentassions, représentassiez, représentassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5384,6 +5750,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "requerrai, requerras, requerra, requerrons, requerrez, requerront");
         st.bind(9, "requerrais, requerrais, requerrait, requerrions, requerriez, requerraient");
         st.bind(10, "requière, requières, requière, requérions, requériez, requièrent");
+        st.bind(11, "requisse, requisses, requît, requissions, requissiez, requissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5398,6 +5765,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "resaurai, resauras, resaura, resaurons, resaurez, resauront");
         st.bind(9, "resaurais, resaurais, resaurait, resaurions, resauriez, resauraient");
         st.bind(10, "resache, resaches, resache, resachions, resachiez, resachent");
+        st.bind(11, "resusse, resusses, resût, resussions, resussiez, resussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5412,6 +5780,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "respecterai, respecteras, respectera, respecterons, respecterez, respecteront");
         st.bind(9, "respecterais, respecterais, respecterait, respecterions, respecteriez, respecteraient");
         st.bind(10, "respecte, respectes, respecte, respections, respectiez, respectent");
+        st.bind(11, "respectasse, respectasses, respectât, respectassions, respectassiez, respectassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5426,6 +5795,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "respirerai, respireras, respirera, respirerons, respirerez, respireront");
         st.bind(9, "respirerais, respirerais, respirerait, respirerions, respireriez, respireraient");
         st.bind(10, "respire, respires, respire, respirions, respiriez, respirent");
+        st.bind(11, "respirasse, respirasses, respirât, respirassions, respirassiez, respirassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5440,6 +5810,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "ressemblerai, ressembleras, ressemblera, ressemblerons, ressemblerez, ressembleront");
         st.bind(9, "ressemblerais, ressemblerais, ressemblerait, ressemblerions, ressembleriez, ressembleraient");
         st.bind(10, "ressemble, ressembles, ressemble, ressemblions, ressembliez, ressemblent");
+        st.bind(11, "ressemblasse, ressemblasses, ressemblât, ressemblassions, ressemblassiez, ressemblassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5454,6 +5825,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "resservirai, resserviras, resservira, resservirons, resservirez, resserviront");
         st.bind(9, "resservirais, resservirais, resservirait, resservirions, resserviriez, resserviraient");
         st.bind(10, "resserve, resserves, resserve, resservions, resserviez, resservent");
+        st.bind(11, "resservisse, resservisses, resservît, resservissions, resservissiez, resservissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5468,6 +5840,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "resterai, resteras, restera, resterons, resterez, resteront");
         st.bind(9, "resterais, resterais, resterait, resterions, resteriez, resteraient");
         st.bind(10, "reste, restes, reste, restions, restiez, restent");
+        st.bind(11, "restasse, restasses, restât, restassions, restassiez, restassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5482,6 +5855,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reteindrai, reteindras, reteindra, reteindrons, reteindrez, reteindront");
         st.bind(9, "reteindrais, reteindrais, reteindrait, reteindrions, reteindriez, reteindraient");
         st.bind(10, "reteigne, reteignes, reteigne, reteignions, reteigniez, reteignent");
+        st.bind(11, "reteignisse, reteignisses, reteignît, reteignissions, reteignissiez, reteignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5496,6 +5870,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "retiendrai, retiendras, retiendra, retiendrons, retiendrez, retiendront");
         st.bind(9, "retiendrais, retiendrais, retiendrait, retiendrions, retiendriez, retiendraient");
         st.bind(10, "retienne, retiennes, retienne, retenions, reteniez, retiennent");
+        st.bind(11, "retinsse, retinsses, retînt, retinssions, retinssiez, retinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5510,6 +5885,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "retirerai, retireras, retirera, retirerons, retirerez, retireront");
         st.bind(9, "retirerais, retirerais, retirerait, retirerions, retireriez, retireraient");
         st.bind(10, "retire, retires, retire, retirions, retiriez, retirent");
+        st.bind(11, "retirasse, retirasses, retirât, retirassions, retirassiez, retirassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5524,6 +5900,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "retomberai, retomberas, retombera, retomberons, retomberez, retomberont");
         st.bind(9, "retomberais, retomberais, retomberait, retomberions, retomberiez, retomberaient");
         st.bind(10, "retombe, retombes, retombe, retombions, retombiez, retombent");
+        st.bind(11, "retombasse, retombasses, retombât, retombassions, retombassiez, retombassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5538,6 +5915,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "retournerai, retourneras, retournera, retournerons, retournerez, retourneront");
         st.bind(9, "retournerais, retournerais, retournerait, retournerions, retourneriez, retourneraient");
         st.bind(10, "retourne, retournes, retourne, retournions, retourniez, retournent");
+        st.bind(11, "retournasse, retournasses, retournât, retournassions, retournassiez, retournassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5552,6 +5930,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "retreindrai, retreindras, retreindra, retreindrons, retreindrez, retreindront");
         st.bind(9, "retreindrais, retreindrais, retreindrait, retreindrions, retreindriez, retreindraient");
         st.bind(10, "retreigne, retreignes, retreigne, retreignions, retreigniez, retreignent");
+        st.bind(11, "retreignisse, retreignisses, retreignît, retreignissions, retreignissiez, retreignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5566,6 +5945,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "retrouverai, retrouveras, retrouvera, retrouverons, retrouverez, retrouveront");
         st.bind(9, "retrouverais, retrouverais, retrouverait, retrouverions, retrouveriez, retrouveraient");
         st.bind(10, "retrouve, retrouves, retrouve, retrouvions, retrouviez, retrouvent");
+        st.bind(11, "retrouvasse, retrouvasses, retrouvât, retrouvassions, retrouvassiez, retrouvassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5580,6 +5960,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "revaudrai, revaudras, revaudra, revaudrons, revaudrez, revaudront");
         st.bind(9, "revaudrais, revaudrais, revaudrait, revaudrions, revaudriez, revaudraient");
         st.bind(10, "revaille, revailles, revaille, revalions, revaliez, revaillent");
+        st.bind(11, "revalusse, revalusses, revalût, revalussions, revalussiez, revalussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5594,6 +5975,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reviendrai, reviendras, reviendra, reviendrons, reviendrez, reviendront");
         st.bind(9, "reviendrais, reviendrais, reviendrait, reviendrions, reviendriez, reviendraient");
         st.bind(10, "revienne, reviennes, revienne, revenions, reveniez, reviennent");
+        st.bind(11, "revinsse, revinsses, revînt, revinssions, revinssiez, revinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5608,6 +5990,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "revêtirai, revêtiras, revêtira, revêtirons, revêtirez, revêtiront");
         st.bind(9, "revêtirais, revêtirais, revêtirait, revêtirions, revêtiriez, revêtiraient");
         st.bind(10, "revête, revêtes, revête, revêtions, revêtiez, revêtent");
+        st.bind(11, "revêtisse, revêtisses, revêtît, revêtissions, revêtissiez, revêtissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5622,6 +6005,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "revivrai, revivras, revivra, revivrons, revivrez, revivront");
         st.bind(9, "revivrais, revivrais, revivrait, revivrions, revivriez, revivraient");
         st.bind(10, "revive, revives, revive, revivions, reviviez, revivent");
+        st.bind(11, "revécusse, revécusses, revécût, revécussions, revécussiez, revécussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5636,6 +6020,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "reverrai, reverras, reverra, reverrons, reverrez, reverront");
         st.bind(9, "reverrais, reverrais, reverrait, reverrions, reverriez, reverraient");
         st.bind(10, "revoie, revoies, revoie, revoyions, revoyiez, revoient");
+        st.bind(11, "revisse, revisses, revît, revissions, revissiez, revissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5650,6 +6035,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "réclamerai, réclameras, réclamera, réclamerons, réclamerez, réclameront");
         st.bind(9, "réclamerais, réclamerais, réclamerait, réclamerions, réclameriez, réclameraient");
         st.bind(10, "réclame, réclames, réclame, réclamions, réclamiez, réclament");
+        st.bind(11, "réclamasse, réclamasses, réclamât, réclamassions, réclamassiez, réclamassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5664,6 +6050,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "réduirai, réduiras, réduira, réduirons, réduirez, réduiront");
         st.bind(9, "réduirais, réduirais, réduirait, réduirions, réduiriez, réduiraient");
         st.bind(10, "réduise, réduises, réduise, réduisions, réduisiez, réduisent");
+        st.bind(11, "réduisisse, réduisisses, réduisît, réduisissions, réduisissiez, réduisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5678,6 +6065,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "réélirai, rééliras, réélira, réélirons, réélirez, rééliront");
         st.bind(9, "réélirais, réélirais, réélirait, réélirions, rééliriez, rééliraient");
         st.bind(10, "réélise, réélises, réélise, réélisions, réélisiez, réélisent");
+        st.bind(11, "réélusse, réélusses, réélût, réélussions, réélussiez, réélussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5692,6 +6080,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "réfléchirai, réfléchiras, réfléchira, réfléchirons, réfléchirez, réfléchiront");
         st.bind(9, "réfléchirais, réfléchirais, réfléchirait, réfléchirions, réfléchiriez, réfléchiraient");
         st.bind(10, "réfléchisse, réfléchisses, réfléchisse, réfléchissions, réfléchissiez, réfléchissent");
+        st.bind(11, "réfléchisse, réfléchisses, réfléchît, réfléchissions, réfléchissiez, réfléchissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5706,6 +6095,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "répandrai, répandras, répandra, répandrons, répandrez, répandront");
         st.bind(9, "répandrais, répandrais, répandrait, répandrions, répandriez, répandraient");
         st.bind(10, "répande, répandes, répande, répandions, répandiez, répandent");
+        st.bind(11, "répandisse, répandisses, répandît, répandissions, répandissiez, répandissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5720,6 +6110,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "répéterai, répéteras, répétera, répéterons, répéterez, répéteront");
         st.bind(9, "répéterais, répéterais, répéterait, répéterions, répéteriez, répéteraient");
         st.bind(10, "répète, répètes, répète, répétions, répétiez, répètent");
+        st.bind(11, "répétasse, répétasses, répétât, répétassions, répétassiez, répétassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5734,6 +6125,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "répondrai, répondras, répondra, répondrons, répondrez, répondront");
         st.bind(9, "répondrais, répondrais, répondrait, répondrions, répondriez, répondraient");
         st.bind(10, "réponde, répondes, réponde, répondions, répondiez, répondent");
+        st.bind(11, "répondisse, répondisses, répondît, répondissions, répondissiez, répondissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5748,6 +6140,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "réserverai, réserveras, réservera, réserverons, réserverez, réserveront");
         st.bind(9, "réserverais, réserverais, réserverait, réserverions, réserveriez, réserveraient");
         st.bind(10, "réserve, réserves, réserve, réservions, réserviez, réservent");
+        st.bind(11, "réservasse, réservasses, réservât, réservassions, réservassiez, réservassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5762,6 +6155,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "résisterai, résisteras, résistera, résisterons, résisterez, résisteront");
         st.bind(9, "résisterais, résisterais, résisterait, résisterions, résisteriez, résisteraient");
         st.bind(10, "résiste, résistes, résiste, résistions, résistiez, résistent");
+        st.bind(11, "résistasse, résistasses, résistât, résistassions, résistassiez, résistassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5776,6 +6170,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "résoudrai, résoudras, résoudra, résoudrons, résoudrez, résoudront");
         st.bind(9, "résoudrais, résoudrais, résoudrait, résoudrions, résoudriez, résoudraient");
         st.bind(10, "résolve, résolves, résolve, résolvions, résolviez, résolvent");
+        st.bind(11, "résolusse, résolusses, résolût, résolussions, résolussiez, résolussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5790,6 +6185,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "réunirai, réuniras, réunira, réunirons, réunirez, réuniront");
         st.bind(9, "réunirais, réunirais, réunirait, réunirions, réuniriez, réuniraient");
         st.bind(10, "réunisse, réunisses, réunisse, réunissions, réunissiez, réunissent");
+        st.bind(11, "réunisse, réunisses, réunît, réunissions, réunissiez, réunissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5804,6 +6200,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "réussirai, réussiras, réussira, réussirons, réussirez, réussiront");
         st.bind(9, "réussirais, réussirais, réussirait, réussirions, réussiriez, réussiraient");
         st.bind(10, "réussisse, réussisses, réussisse, réussissions, réussissiez, réussissent");
+        st.bind(11, "réussisse, réussisses, réussît, réussissions, réussissiez, réussissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5818,6 +6215,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "réveillerai, réveilleras, réveillera, réveillerons, réveillerez, réveilleront");
         st.bind(9, "réveillerais, réveillerais, réveillerait, réveillerions, réveilleriez, réveilleraient");
         st.bind(10, "réveille, réveilles, réveille, réveillions, réveilliez, réveillent");
+        st.bind(11, "réveillasse, réveillasses, réveillât, réveillassions, réveillassiez, réveillassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5832,6 +6230,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "révélerai, révéleras, révélera, révélerons, révélerez, révéleront");
         st.bind(9, "révélerais, révélerais, révélerait, révélerions, révéleriez, révéleraient");
         st.bind(10, "révèle, révèles, révèle, révélions, révéliez, révèlent");
+        st.bind(11, "révélasse, révélasses, révélât, révélassions, révélassiez, révélassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5846,6 +6245,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rêverai, rêveras, rêvera, rêverons, rêverez, rêveront");
         st.bind(9, "rêverais, rêverais, rêverait, rêverions, rêveriez, rêveraient");
         st.bind(10, "rêve, rêves, rêve, rêvions, rêviez, rêvent");
+        st.bind(11, "rêvasse, rêvasses, rêvât, rêvassions, rêvassiez, rêvassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5860,6 +6260,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rirai, riras, rira, rirons, rirez, riront");
         st.bind(9, "rirais, rirais, rirait, ririons, ririez, riraient");
         st.bind(10, "rie, ries, rie, riions, riiez, rient");
+        st.bind(11, "risse, risses, rît, rissions, rissiez, rissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5874,6 +6275,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "risquerai, risqueras, risquera, risquerons, risquerez, risqueront");
         st.bind(9, "risquerais, risquerais, risquerait, risquerions, risqueriez, risqueraient");
         st.bind(10, "risque, risques, risque, risquions, risquiez, risquent");
+        st.bind(11, "risquasse, risquasses, risquât, risquassions, risquassiez, risquassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5888,6 +6290,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "romprai, rompras, rompra, romprons, romprez, rompront");
         st.bind(9, "romprais, romprais, romprait, romprions, rompriez, rompraient");
         st.bind(10, "rompe, rompes, rompe, rompions, rompiez, rompent");
+        st.bind(11, "rompisse, rompisses, rompît, rompissions, rompissiez, rompissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5902,6 +6305,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "roulerai, rouleras, roulera, roulerons, roulerez, rouleront");
         st.bind(9, "roulerais, roulerais, roulerait, roulerions, rouleriez, rouleraient");
         st.bind(10, "roule, roules, roule, roulions, rouliez, roulent");
+        st.bind(11, "roulasse, roulasses, roulât, roulassions, roulassiez, roulassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5916,6 +6320,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "rouvrirai, rouvriras, rouvrira, rouvrirons, rouvrirez, rouvriront");
         st.bind(9, "rouvrirais, rouvrirais, rouvrirait, rouvririons, rouvririez, rouvriraient");
         st.bind(10, "rouvre, rouvres, rouvre, rouvrions, rouvriez, rouvrent");
+        st.bind(11, "rouvrisse, rouvrisses, rouvrît, rouvrissions, rouvrissiez, rouvrissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5930,6 +6335,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "saillirai, sailliras, saillira, saillirons, saillirez, sailliront");
         st.bind(9, "saillirais, saillirais, saillirait, saillirions, sailliriez, sailliraient");
         st.bind(10, "saillisse, saillisses, saillisse, saillissions, saillissiez, saillissent");
+        st.bind(11, "saillisse, saillisses, saillît, saillissions, saillissiez, saillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5944,6 +6350,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "saisirai, saisiras, saisira, saisirons, saisirez, saisiront");
         st.bind(9, "saisirais, saisirais, saisirait, saisirions, saisiriez, saisiraient");
         st.bind(10, "saisisse, saisisses, saisisse, saisissions, saisissiez, saisissent");
+        st.bind(11, "saisisse, saisisses, saisît, saisissions, saisissiez, saisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5958,6 +6365,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "saluerai, salueras, saluera, saluerons, saluerez, salueront");
         st.bind(9, "saluerais, saluerais, saluerait, saluerions, salueriez, salueraient");
         st.bind(10, "salue, salues, salue, saluions, saluiez, saluent");
+        st.bind(11, "saluasse, saluasses, saluât, saluassions, saluassiez, saluassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5972,6 +6380,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "satisferai, satisferas, satisfera, satisferons, satisferez, satisferont");
         st.bind(9, "satisferais, satisferais, satisferait, satisferions, satisferiez, satisferaient");
         st.bind(10, "satisfasse, satisfasses, satisfasse, satisfassions, satisfassiez, satisfassent");
+        st.bind(11, "satisfisse, satisfisses, satisfît, satisfissions, satisfissiez, satisfissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -5986,6 +6395,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "sauterai, sauteras, sautera, sauterons, sauterez, sauteront");
         st.bind(9, "sauterais, sauterais, sauterait, sauterions, sauteriez, sauteraient");
         st.bind(10, "saute, sautes, saute, sautions, sautiez, sautent");
+        st.bind(11, "sautasse, sautasses, sautât, sautassions, sautassiez, sautassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6000,6 +6410,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "sauverai, sauveras, sauvera, sauverons, sauverez, sauveront");
         st.bind(9, "sauverais, sauverais, sauverait, sauverions, sauveriez, sauveraient");
         st.bind(10, "sauve, sauves, sauve, sauvions, sauviez, sauvent");
+        st.bind(11, "sauvasse, sauvasses, sauvât, sauvassions, sauvassiez, sauvassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6014,6 +6425,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "saurai, sauras, saura, saurons, saurez, sauront");
         st.bind(9, "saurais, saurais, saurait, saurions, sauriez, sauraient");
         st.bind(10, "sache, saches, sache, sachions, sachiez, sachent");
+        st.bind(11, "susse, susses, sût, sussions, sussiez, sussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6028,6 +6440,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "secourrai, secourras, secourra, secourrons, secourrez, secourront");
         st.bind(9, "secourrais, secourrais, secourrait, secourrions, secourriez, secourraient");
         st.bind(10, "secoure, secoures, secoure, secourions, secouriez, secourent");
+        st.bind(11, "secourusse, secourusses, secourût, secourussions, secourussiez, secourussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6042,6 +6455,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "semblerai, sembleras, semblera, semblerons, semblerez, sembleront");
         st.bind(9, "semblerais, semblerais, semblerait, semblerions, sembleriez, sembleraient");
         st.bind(10, "semble, sembles, semble, semblions, sembliez, semblent");
+        st.bind(11, "semblasse, semblasses, semblât, semblassions, semblassiez, semblassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6056,6 +6470,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "sentirai, sentiras, sentira, sentirons, sentirez, sentiront");
         st.bind(9, "sentirais, sentirais, sentirait, sentirions, sentiriez, sentiraient");
         st.bind(10, "sente, sentes, sente, sentions, sentiez, sentent");
+        st.bind(11, "sentisse, sentisses, sentît, sentissions, sentissiez, sentissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6070,6 +6485,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "serrerai, serreras, serrera, serrerons, serrerez, serreront");
         st.bind(9, "serrerais, serrerais, serrerait, serrerions, serreriez, serreraient");
         st.bind(10, "serre, serres, serre, serrions, serriez, serrent");
+        st.bind(11, "serrasse, serrasses, serrât, serrassions, serrassiez, serrassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6084,6 +6500,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "servirai, serviras, servira, servirons, servirez, serviront");
         st.bind(9, "servirais, servirais, servirait, servirions, serviriez, serviraient");
         st.bind(10, "serve, serves, serve, servions, serviez, servent");
+        st.bind(11, "servisse, servisses, servît, servissions, servissiez, servissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6098,6 +6515,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "séparerai, sépareras, séparera, séparerons, séparerez, sépareront");
         st.bind(9, "séparerais, séparerais, séparerait, séparerions, sépareriez, sépareraient");
         st.bind(10, "sépare, sépares, sépare, séparions, sépariez, séparent");
+        st.bind(11, "séparasse, séparasses, séparât, séparassions, séparassiez, séparassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6112,6 +6530,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "siégerai, siégeras, siégera, siégerons, siégerez, siégeront");
         st.bind(9, "siégerais, siégerais, siégerait, siégerions, siégeriez, siégeraient");
         st.bind(10, "siège, sièges, siège, siégions, siégiez, siègent");
+        st.bind(11, "siégeasse, siégeasses, siégeât, siégeassions, siégeassiez, siégeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6126,6 +6545,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "signerai, signeras, signera, signerons, signerez, signeront");
         st.bind(9, "signerais, signerais, signerait, signerions, signeriez, signeraient");
         st.bind(10, "signe, signes, signe, signions, signiez, signent");
+        st.bind(11, "signasse, signasses, signât, signassions, signassiez, signassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6140,6 +6560,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "signifierai, signifieras, signifiera, signifierons, signifierez, signifieront");
         st.bind(9, "signifierais, signifierais, signifierait, signifierions, signifieriez, signifieraient");
         st.bind(10, "signifie, signifies, signifie, signifiions, signifiiez, signifient");
+        st.bind(11, "signifiasse, signifiasses, signifiât, signifiassions, signifiassiez, signifiassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6154,6 +6575,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "songerai, songeras, songera, songerons, songerez, songeront");
         st.bind(9, "songerais, songerais, songerait, songerions, songeriez, songeraient");
         st.bind(10, "songe, songes, songe, songions, songiez, songent");
+        st.bind(11, "songeasse, songeasses, songeât, songeassions, songeassiez, songeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6168,6 +6590,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "sonnerai, sonneras, sonnera, sonnerons, sonnerez, sonneront");
         st.bind(9, "sonnerais, sonnerais, sonnerait, sonnerions, sonneriez, sonneraient");
         st.bind(10, "sonne, sonnes, sonne, sonnions, sonniez, sonnent");
+        st.bind(11, "sonnasse, sonnasses, sonnât, sonnassions, sonnassiez, sonnassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6182,6 +6605,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "sortirai, sortiras, sortira, sortirons, sortirez, sortiront");
         st.bind(9, "sortirais, sortirais, sortirait, sortirions, sortiriez, sortiraient");
         st.bind(10, "sorte, sortes, sorte, sortions, sortiez, sortent");
+        st.bind(11, "sortisse, sortisses, sortît, sortissions, sortissiez, sortissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6196,6 +6620,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "soufflerai, souffleras, soufflera, soufflerons, soufflerez, souffleront");
         st.bind(9, "soufflerais, soufflerais, soufflerait, soufflerions, souffleriez, souffleraient");
         st.bind(10, "souffle, souffles, souffle, soufflions, souffliez, soufflent");
+        st.bind(11, "soufflasse, soufflasses, soufflât, soufflassions, soufflassiez, soufflassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6210,6 +6635,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "souffrirai, souffriras, souffrira, souffrirons, souffrirez, souffriront");
         st.bind(9, "souffrirais, souffrirais, souffrirait, souffririons, souffririez, souffriraient");
         st.bind(10, "souffre, souffres, souffre, souffrions, souffriez, souffrent");
+        st.bind(11, "souffrisse, souffrisses, souffrît, souffrissions, souffrissiez, souffrissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6224,6 +6650,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "souhaiterai, souhaiteras, souhaitera, souhaiterons, souhaiterez, souhaiteront");
         st.bind(9, "souhaiterais, souhaiterais, souhaiterait, souhaiterions, souhaiteriez, souhaiteraient");
         st.bind(10, "souhaite, souhaites, souhaite, souhaitions, souhaitiez, souhaitent");
+        st.bind(11, "souhaitasse, souhaitasses, souhaitât, souhaitassions, souhaitassiez, souhaitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6238,6 +6665,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "soulèverai, soulèveras, soulèvera, soulèverons, soulèverez, soulèveront");
         st.bind(9, "soulèverais, soulèverais, soulèverait, soulèverions, soulèveriez, soulèveraient");
         st.bind(10, "soulève, soulèves, soulève, soulevions, souleviez, soulèvent");
+        st.bind(11, "soulevasse, soulevasses, soulevât, soulevassions, soulevassiez, soulevassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6252,6 +6680,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "soumettrai, soumettras, soumettra, soumettrons, soumettrez, soumettront");
         st.bind(9, "soumettrais, soumettrais, soumettrait, soumettrions, soumettriez, soumettraient");
         st.bind(10, "soumette, soumettes, soumette, soumettions, soumettiez, soumettent");
+        st.bind(11, "soumisse, soumisses, soumît, soumissions, soumissiez, soumissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6266,6 +6695,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "sourirai, souriras, sourira, sourirons, sourirez, souriront");
         st.bind(9, "sourirais, sourirais, sourirait, souririons, souririez, souriraient");
         st.bind(10, "sourie, souries, sourie, souriions, souriiez, sourient");
+        st.bind(11, "sourisse, sourisses, sourît, sourissions, sourissiez, sourissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6280,6 +6710,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "sous-traduirai, sous-traduiras, sous-traduira, sous-traduirons, sous-traduirez, sous-traduiront");
         st.bind(9, "sous-traduirais, sous-traduirais, sous-traduirait, sous-traduirions, sous-traduiriez, sous-traduiraient");
         st.bind(10, "sous-traduise, sous-traduises, sous-traduise, sous-traduisions, sous-traduisiez, sous-traduisent");
+        st.bind(11, "sous-traduisisse, sous-traduisisses, sous-traduisît, sous-traduisissions, sous-traduisissiez, sous-traduisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6294,6 +6725,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "souscrirai, souscriras, souscrira, souscrirons, souscrirez, souscriront");
         st.bind(9, "souscrirais, souscrirais, souscrirait, souscririons, souscririez, souscriraient");
         st.bind(10, "souscrive, souscrives, souscrive, souscrivions, souscriviez, souscrivent");
+        st.bind(11, "souscrivisse, souscrivisses, souscrivît, souscrivissions, souscrivissiez, souscrivissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6308,6 +6740,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "soutiendrai, soutiendras, soutiendra, soutiendrons, soutiendrez, soutiendront");
         st.bind(9, "soutiendrais, soutiendrais, soutiendrait, soutiendrions, soutiendriez, soutiendraient");
         st.bind(10, "soutienne, soutiennes, soutienne, soutenions, souteniez, soutiennent");
+        st.bind(11, "soutinsse, soutinsses, soutînt, soutinssions, soutinssiez, soutinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6322,6 +6755,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, ", , souviendra, , , ");
         st.bind(9, ", , souviendrait, , , ");
         st.bind(10, ", , souvienne, , , ");
+        st.bind(11, ", , souvînt, , , ");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6336,6 +6770,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "subirai, subiras, subira, subirons, subirez, subiront");
         st.bind(9, "subirais, subirais, subirait, subirions, subiriez, subiraient");
         st.bind(10, "subisse, subisses, subisse, subissions, subissiez, subissent");
+        st.bind(11, "subisse, subisses, subît, subissions, subissiez, subissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6350,6 +6785,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "suffirai, suffiras, suffira, suffirons, suffirez, suffiront");
         st.bind(9, "suffirais, suffirais, suffirait, suffirions, suffiriez, suffiraient");
         st.bind(10, "suffise, suffises, suffise, suffisions, suffisiez, suffisent");
+        st.bind(11, "suffisse, suffisses, suffît, suffissions, suffissiez, suffissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6364,6 +6800,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "suivrai, suivras, suivra, suivrons, suivrez, suivront");
         st.bind(9, "suivrais, suivrais, suivrait, suivrions, suivriez, suivraient");
         st.bind(10, "suive, suives, suive, suivions, suiviez, suivent");
+        st.bind(11, "suivisse, suivisses, suivît, suivissions, suivissiez, suivissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6378,6 +6815,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "suppléerai, suppléeras, suppléera, suppléerons, suppléerez, suppléeront");
         st.bind(9, "suppléerais, suppléerais, suppléerait, suppléerions, suppléeriez, suppléeraient");
         st.bind(10, "supplée, supplées, supplée, suppléions, suppléiez, suppléent");
+        st.bind(11, "suppléasse, suppléasses, suppléât, suppléassions, suppléassiez, suppléassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6392,6 +6830,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "supporterai, supporteras, supportera, supporterons, supporterez, supporteront");
         st.bind(9, "supporterais, supporterais, supporterait, supporterions, supporteriez, supporteraient");
         st.bind(10, "supporte, supportes, supporte, supportions, supportiez, supportent");
+        st.bind(11, "supportasse, supportasses, supportât, supportassions, supportassiez, supportassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6406,6 +6845,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "supposerai, supposeras, supposera, supposerons, supposerez, supposeront");
         st.bind(9, "supposerais, supposerais, supposerait, supposerions, supposeriez, supposeraient");
         st.bind(10, "suppose, supposes, suppose, supposions, supposiez, supposent");
+        st.bind(11, "supposasse, supposasses, supposât, supposassions, supposassiez, supposassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6420,6 +6860,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surferai, surferas, surfera, surferons, surferez, surferont");
         st.bind(9, "surferais, surferais, surferait, surferions, surferiez, surferaient");
         st.bind(10, "surfasse, surfasses, surfasse, surfassions, surfassiez, surfassent");
+        st.bind(11, "surfisse, surfisses, surfît, surfissions, surfissiez, surfissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6434,6 +6875,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surgèlerai, surgèleras, surgèlera, surgèlerons, surgèlerez, surgèleront");
         st.bind(9, "surgèlerais, surgèlerais, surgèlerait, surgèlerions, surgèleriez, surgèleraient");
         st.bind(10, "surgèle, surgèles, surgèle, surgelions, surgeliez, surgèlent");
+        st.bind(11, "surgelasse, surgelasses, surgelât, surgelassions, surgelassiez, surgelassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6448,6 +6890,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surmènerai, surmèneras, surmènera, surmènerons, surmènerez, surmèneront");
         st.bind(9, "surmènerais, surmènerais, surmènerait, surmènerions, surmèneriez, surmèneraient");
         st.bind(10, "surmène, surmènes, surmène, surmenions, surmeniez, surmènent");
+        st.bind(11, "surmenasse, surmenasses, surmenât, surmenassions, surmenassiez, surmenassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6462,6 +6905,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surpaierai, surpayerai, surpaieras, surpayeras, surpaiera, surpayera, surpaierons, surpayerons, surpaierez, surpayerez, surpaieront, surpayeront");
         st.bind(9, "surpaierais, surpayerais, surpaierais, surpayerais, surpaierait, surpayerait, surpaierions, surpayerions, surpaieriez, surpayeriez, surpaieraient, surpayeraient");
         st.bind(10, "surpaie, surpaye, surpaies, surpayes, surpaie, surpaye, surpayions, surpayiez, surpaient, surpayent");
+        st.bind(11, "surpayasse, surpayasses, surpayât, surpayassions, surpayassiez, surpayassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6476,6 +6920,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surprendrai, surprendras, surprendra, surprendrons, surprendrez, surprendront");
         st.bind(9, "surprendrais, surprendrais, surprendrait, surprendrions, surprendriez, surprendraient");
         st.bind(10, "surprenne, surprennes, surprenne, surprenions, surpreniez, surprennent");
+        st.bind(11, "surprisse, surprisses, surprît, surprissions, surprissiez, surprissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6490,6 +6935,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surproduirai, surproduiras, surproduira, surproduirons, surproduirez, surproduiront");
         st.bind(9, "surproduirais, surproduirais, surproduirait, surproduirions, surproduiriez, surproduiraient");
         st.bind(10, "surproduise, surproduises, surproduise, surproduisions, surproduisiez, surproduisent");
+        st.bind(11, "surproduisisse, surproduisisses, surproduisît, surproduisissions, surproduisissiez, surproduisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6504,6 +6950,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surprotégerai, surprotégeras, surprotégera, surprotégerons, surprotégerez, surprotégeront");
         st.bind(9, "surprotégerais, surprotégerais, surprotégerait, surprotégerions, surprotégeriez, surprotégeraient");
         st.bind(10, "surprotège, surprotèges, surprotège, surprotégions, surprotégiez, surprotègent");
+        st.bind(11, "surprotégeasse, surprotégeasses, surprotégeât, surprotégeassions, surprotégeassiez, surprotégeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6518,6 +6965,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "sursèmerai, sursèmeras, sursèmera, sursèmerons, sursèmerez, sursèmeront");
         st.bind(9, "sursèmerais, sursèmerais, sursèmerait, sursèmerions, sursèmeriez, sursèmeraient");
         st.bind(10, "sursème, sursèmes, sursème, sursemions, sursemiez, sursèment");
+        st.bind(11, "sursemasse, sursemasses, sursemât, sursemassions, sursemassiez, sursemassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6532,6 +6980,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surseoirai, surseoiras, surseoira, surseoirons, surseoirez, surseoiront");
         st.bind(9, "surseoirais, surseoirais, surseoirait, surseoirions, surseoiriez, surseoiraient");
         st.bind(10, "sursoie, sursoies, sursoie, sursoyions, sursoyiez, sursoient");
+        st.bind(11, "sursisse, sursisses, sursît, sursissions, sursissiez, sursissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6546,6 +6995,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surveillerai, surveilleras, surveillera, surveillerons, surveillerez, surveilleront");
         st.bind(9, "surveillerais, surveillerais, surveillerait, surveillerions, surveilleriez, surveilleraient");
         st.bind(10, "surveille, surveilles, surveille, surveillions, surveilliez, surveillent");
+        st.bind(11, "surveillasse, surveillasses, surveillât, surveillassions, surveillassiez, surveillassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6560,6 +7010,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "surviendrai, surviendras, surviendra, surviendrons, surviendrez, surviendront");
         st.bind(9, "surviendrais, surviendrais, surviendrait, surviendrions, surviendriez, surviendraient");
         st.bind(10, "survienne, surviennes, survienne, survenions, surveniez, surviennent");
+        st.bind(11, "survinsse, survinsses, survînt, survinssions, survinssiez, survinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6574,6 +7025,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "survivrai, survivras, survivra, survivrons, survivrez, survivront");
         st.bind(9, "survivrais, survivrais, survivrait, survivrions, survivriez, survivraient");
         st.bind(10, "survive, survives, survive, survivions, surviviez, survivent");
+        st.bind(11, "survécusse, survécusses, survécût, survécussions, survécussiez, survécussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6588,6 +7040,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tairai, tairas, taira, tairons, tairez, tairont");
         st.bind(9, "tairais, tairais, tairait, tairions, tairiez, tairaient");
         st.bind(10, "taise, taises, taise, taisions, taisiez, taisent");
+        st.bind(11, "tusse, tusses, tût, tussions, tussiez, tussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6602,6 +7055,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "teindrai, teindras, teindra, teindrons, teindrez, teindront");
         st.bind(9, "teindrais, teindrais, teindrait, teindrions, teindriez, teindraient");
         st.bind(10, "teigne, teignes, teigne, teignions, teigniez, teignent");
+        st.bind(11, "teignisse, teignisses, teignît, teignissions, teignissiez, teignissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6616,6 +7070,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tendrai, tendras, tendra, tendrons, tendrez, tendront");
         st.bind(9, "tendrais, tendrais, tendrait, tendrions, tendriez, tendraient");
         st.bind(10, "tende, tendes, tende, tendions, tendiez, tendent");
+        st.bind(11, "tendisse, tendisses, tendît, tendissions, tendissiez, tendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6630,6 +7085,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tiendrai, tiendras, tiendra, tiendrons, tiendrez, tiendront");
         st.bind(9, "tiendrais, tiendrais, tiendrait, tiendrions, tiendriez, tiendraient");
         st.bind(10, "tienne, tiennes, tienne, tenions, teniez, tiennent");
+        st.bind(11, "tinsse, tinsses, tînt, tinssions, tinssiez, tinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6644,6 +7100,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tenterai, tenteras, tentera, tenterons, tenterez, tenteront");
         st.bind(9, "tenterais, tenterais, tenterait, tenterions, tenteriez, tenteraient");
         st.bind(10, "tente, tentes, tente, tentions, tentiez, tentent");
+        st.bind(11, "tentasse, tentasses, tentât, tentassions, tentassiez, tentassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6658,6 +7115,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "terminerai, termineras, terminera, terminerons, terminerez, termineront");
         st.bind(9, "terminerais, terminerais, terminerait, terminerions, termineriez, termineraient");
         st.bind(10, "termine, termines, termine, terminions, terminiez, terminent");
+        st.bind(11, "terminasse, terminasses, terminât, terminassions, terminassiez, terminassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6672,6 +7130,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tirerai, tireras, tirera, tirerons, tirerez, tireront");
         st.bind(9, "tirerais, tirerais, tirerait, tirerions, tireriez, tireraient");
         st.bind(10, "tire, tires, tire, tirions, tiriez, tirent");
+        st.bind(11, "tirasse, tirasses, tirât, tirassions, tirassiez, tirassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6686,6 +7145,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tomberai, tomberas, tombera, tomberons, tomberez, tomberont");
         st.bind(9, "tomberais, tomberais, tomberait, tomberions, tomberiez, tomberaient");
         st.bind(10, "tombe, tombes, tombe, tombions, tombiez, tombent");
+        st.bind(11, "tombasse, tombasses, tombât, tombassions, tombassiez, tombassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6700,6 +7160,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "toréerai, toréeras, toréera, toréerons, toréerez, toréeront");
         st.bind(9, "toréerais, toréerais, toréerait, toréerions, toréeriez, toréeraient");
         st.bind(10, "torée, torées, torée, toréions, toréiez, toréent");
+        st.bind(11, "toréasse, toréasses, toréât, toréassions, toréassiez, toréassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6714,6 +7175,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "toucherai, toucheras, touchera, toucherons, toucherez, toucheront");
         st.bind(9, "toucherais, toucherais, toucherait, toucherions, toucheriez, toucheraient");
         st.bind(10, "touche, touches, touche, touchions, touchiez, touchent");
+        st.bind(11, "touchasse, touchasses, touchât, touchassions, touchassiez, touchassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6728,6 +7190,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tournerai, tourneras, tournera, tournerons, tournerez, tourneront");
         st.bind(9, "tournerais, tournerais, tournerait, tournerions, tourneriez, tourneraient");
         st.bind(10, "tourne, tournes, tourne, tournions, tourniez, tournent");
+        st.bind(11, "tournasse, tournasses, tournât, tournassions, tournassiez, tournassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6742,6 +7205,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tracerai, traceras, tracera, tracerons, tracerez, traceront");
         st.bind(9, "tracerais, tracerais, tracerait, tracerions, traceriez, traceraient");
         st.bind(10, "trace, traces, trace, tracions, traciez, tracent");
+        st.bind(11, "traçasse, traçasses, traçât, traçassions, traçassiez, traçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6756,6 +7220,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "traduirai, traduiras, traduira, traduirons, traduirez, traduiront");
         st.bind(9, "traduirais, traduirais, traduirait, traduirions, traduiriez, traduiraient");
         st.bind(10, "traduise, traduises, traduise, traduisions, traduisiez, traduisent");
+        st.bind(11, "traduisisse, traduisisses, traduisît, traduisissions, traduisissiez, traduisissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6770,6 +7235,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "traiterai, traiteras, traitera, traiterons, traiterez, traiteront");
         st.bind(9, "traiterais, traiterais, traiterait, traiterions, traiteriez, traiteraient");
         st.bind(10, "traite, traites, traite, traitions, traitiez, traitent");
+        st.bind(11, "traitasse, traitasses, traitât, traitassions, traitassiez, traitassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6784,6 +7250,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "traînerai, traîneras, traînera, traînerons, traînerez, traîneront");
         st.bind(9, "traînerais, traînerais, traînerait, traînerions, traîneriez, traîneraient");
         st.bind(10, "traîne, traînes, traîne, traînions, traîniez, traînent");
+        st.bind(11, "traînasse, traînasses, traînât, traînassions, traînassiez, traînassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6798,6 +7265,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "transcrirai, transcriras, transcrira, transcrirons, transcrirez, transcriront");
         st.bind(9, "transcrirais, transcrirais, transcrirait, transcririons, transcririez, transcriraient");
         st.bind(10, "transcrive, transcrives, transcrive, transcrivions, transcriviez, transcrivent");
+        st.bind(11, "transcrivisse, transcrivisses, transcrivît, transcrivissions, transcrivissiez, transcrivissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6812,6 +7280,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "transformerai, transformeras, transformera, transformerons, transformerez, transformeront");
         st.bind(9, "transformerais, transformerais, transformerait, transformerions, transformeriez, transformeraient");
         st.bind(10, "transforme, transformes, transforme, transformions, transformiez, transforment");
+        st.bind(11, "transformasse, transformasses, transformât, transformassions, transformassiez, transformassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6826,6 +7295,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "transmettrai, transmettras, transmettra, transmettrons, transmettrez, transmettront");
         st.bind(9, "transmettrais, transmettrais, transmettrait, transmettrions, transmettriez, transmettraient");
         st.bind(10, "transmette, transmettes, transmette, transmettions, transmettiez, transmettent");
+        st.bind(11, "transmisse, transmisses, transmît, transmissions, transmissiez, transmissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6840,6 +7310,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "transparaîtrai, transparaîtras, transparaîtra, transparaîtrons, transparaîtrez, transparaîtront");
         st.bind(9, "transparaîtrais, transparaîtrais, transparaîtrait, transparaîtrions, transparaîtriez, transparaîtraient");
         st.bind(10, "transparaisse, transparaisses, transparaisse, transparaissions, transparaissiez, transparaissent");
+        st.bind(11, "transparusse, transparusses, transparût, transparussions, transparussiez, transparussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6854,6 +7325,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "travaillerai, travailleras, travaillera, travaillerons, travaillerez, travailleront");
         st.bind(9, "travaillerais, travaillerais, travaillerait, travaillerions, travailleriez, travailleraient");
         st.bind(10, "travaille, travailles, travaille, travaillions, travailliez, travaillent");
+        st.bind(11, "travaillasse, travaillasses, travaillât, travaillassions, travaillassiez, travaillassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6868,6 +7340,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "traverserai, traverseras, traversera, traverserons, traverserez, traverseront");
         st.bind(9, "traverserais, traverserais, traverserait, traverserions, traverseriez, traverseraient");
         st.bind(10, "traverse, traverses, traverse, traversions, traversiez, traversent");
+        st.bind(11, "traversasse, traversasses, traversât, traversassions, traversassiez, traversassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6882,6 +7355,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tremblerai, trembleras, tremblera, tremblerons, tremblerez, trembleront");
         st.bind(9, "tremblerais, tremblerais, tremblerait, tremblerions, trembleriez, trembleraient");
         st.bind(10, "tremble, trembles, tremble, tremblions, trembliez, tremblent");
+        st.bind(11, "tremblasse, tremblasses, tremblât, tremblassions, tremblassiez, tremblassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6896,6 +7370,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tressaillirai, tressailliras, tressaillira, tressaillirons, tressaillirez, tressailliront");
         st.bind(9, "tressaillirais, tressaillirais, tressaillirait, tressaillirions, tressailliriez, tressailliraient");
         st.bind(10, "tressaille, tressailles, tressaille, tressaillions, tressailliez, tressaillent");
+        st.bind(11, "tressaillisse, tressaillisses, tressaillît, tressaillissions, tressaillissiez, tressaillissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6910,6 +7385,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tromperai, tromperas, trompera, tromperons, tromperez, tromperont");
         st.bind(9, "tromperais, tromperais, tromperait, tromperions, tromperiez, tromperaient");
         st.bind(10, "trompe, trompes, trompe, trompions, trompiez, trompent");
+        st.bind(11, "trompasse, trompasses, trompât, trompassions, trompassiez, trompassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6924,6 +7400,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "trompetterai, trompetteras, trompettera, trompetterons, trompetterez, trompetteront");
         st.bind(9, "trompetterais, trompetterais, trompetterait, trompetterions, trompetteriez, trompetteraient");
         st.bind(10, "trompette, trompettes, trompette, trompetions, trompetiez, trompettent");
+        st.bind(11, "trompetasse, trompetasses, trompetât, trompetassions, trompetassiez, trompetassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6938,6 +7415,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "troublerai, troubleras, troublera, troublerons, troublerez, troubleront");
         st.bind(9, "troublerais, troublerais, troublerait, troublerions, troubleriez, troubleraient");
         st.bind(10, "trouble, troubles, trouble, troublions, troubliez, troublent");
+        st.bind(11, "troublasse, troublasses, troublât, troublassions, troublassiez, troublassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6952,6 +7430,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "trouverai, trouveras, trouvera, trouverons, trouverez, trouveront");
         st.bind(9, "trouverais, trouverais, trouverait, trouverions, trouveriez, trouveraient");
         st.bind(10, "trouve, trouves, trouve, trouvions, trouviez, trouvent");
+        st.bind(11, "trouvasse, trouvasses, trouvât, trouvassions, trouvassiez, trouvassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6966,6 +7445,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "tuerai, tueras, tuera, tuerons, tuerez, tueront");
         st.bind(9, "tuerais, tuerais, tuerait, tuerions, tueriez, tueraient");
         st.bind(10, "tue, tues, tue, tuions, tuiez, tuent");
+        st.bind(11, "tuasse, tuasses, tuât, tuassions, tuassiez, tuassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6980,6 +7460,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "userai, useras, usera, userons, userez, useront");
         st.bind(9, "userais, userais, userait, userions, useriez, useraient");
         st.bind(10, "use, uses, use, usions, usiez, usent");
+        st.bind(11, "usasse, usasses, usât, usassions, usassiez, usassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -6994,6 +7475,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vaincrai, vaincras, vaincra, vaincrons, vaincrez, vaincront");
         st.bind(9, "vaincrais, vaincrais, vaincrait, vaincrions, vaincriez, vaincraient");
         st.bind(10, "vainque, vainques, vainque, vainquions, vainquiez, vainquent");
+        st.bind(11, "vainquisse, vainquisses, vainquît, vainquissions, vainquissiez, vainquissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7008,6 +7490,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vaudrai, vaudras, vaudra, vaudrons, vaudrez, vaudront");
         st.bind(9, "vaudrais, vaudrais, vaudrait, vaudrions, vaudriez, vaudraient");
         st.bind(10, "vaille, vailles, vaille, valions, valiez, vaillent");
+        st.bind(11, "valusse, valusses, valût, valussions, valussiez, valussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7022,6 +7505,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "veillerai, veilleras, veillera, veillerons, veillerez, veilleront");
         st.bind(9, "veillerais, veillerais, veillerait, veillerions, veilleriez, veilleraient");
         st.bind(10, "veille, veilles, veille, veillions, veilliez, veillent");
+        st.bind(11, "veillasse, veillasses, veillât, veillassions, veillassiez, veillassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7036,6 +7520,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vendrai, vendras, vendra, vendrons, vendrez, vendront");
         st.bind(9, "vendrais, vendrais, vendrait, vendrions, vendriez, vendraient");
         st.bind(10, "vende, vendes, vende, vendions, vendiez, vendent");
+        st.bind(11, "vendisse, vendisses, vendît, vendissions, vendissiez, vendissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7050,6 +7535,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "viendrai, viendras, viendra, viendrons, viendrez, viendront");
         st.bind(9, "viendrais, viendrais, viendrait, viendrions, viendriez, viendraient");
         st.bind(10, "vienne, viennes, vienne, venions, veniez, viennent");
+        st.bind(11, "vinsse, vinsses, vînt, vinssions, vinssiez, vinssent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7064,6 +7550,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, ", , verglacera, , , ");
         st.bind(9, ", , verglacerait, , , ");
         st.bind(10, ", , verglace, , , ");
+        st.bind(11, ", , verglaçât, , , ");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7078,6 +7565,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "verserai, verseras, versera, verserons, verserez, verseront");
         st.bind(9, "verserais, verserais, verserait, verserions, verseriez, verseraient");
         st.bind(10, "verse, verses, verse, versions, versiez, versent");
+        st.bind(11, "versasse, versasses, versât, versassions, versassiez, versassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7092,6 +7580,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vêtirai, vêtiras, vêtira, vêtirons, vêtirez, vêtiront");
         st.bind(9, "vêtirais, vêtirais, vêtirait, vêtirions, vêtiriez, vêtiraient");
         st.bind(10, "vête, vêtes, vête, vêtions, vêtiez, vêtent");
+        st.bind(11, "vêtisse, vêtisses, vêtît, vêtissions, vêtissiez, vêtissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7106,6 +7595,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "violacerai, violaceras, violacera, violacerons, violacerez, violaceront");
         st.bind(9, "violacerais, violacerais, violacerait, violacerions, violaceriez, violaceraient");
         st.bind(10, "violace, violaces, violace, violacions, violaciez, violacent");
+        st.bind(11, "violaçasse, violaçasses, violaçât, violaçassions, violaçassiez, violaçassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7120,6 +7610,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vitrifierai, vitrifieras, vitrifiera, vitrifierons, vitrifierez, vitrifieront");
         st.bind(9, "vitrifierais, vitrifierais, vitrifierait, vitrifierions, vitrifieriez, vitrifieraient");
         st.bind(10, "vitrifie, vitrifies, vitrifie, vitrifiions, vitrifiiez, vitrifient");
+        st.bind(11, "vitrifiasse, vitrifiasses, vitrifiât, vitrifiassions, vitrifiassiez, vitrifiassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7134,6 +7625,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vivifierai, vivifieras, vivifiera, vivifierons, vivifierez, vivifieront");
         st.bind(9, "vivifierais, vivifierais, vivifierait, vivifierions, vivifieriez, vivifieraient");
         st.bind(10, "vivifie, vivifies, vivifie, vivifiions, vivifiiez, vivifient");
+        st.bind(11, "vivifiasse, vivifiasses, vivifiât, vivifiassions, vivifiassiez, vivifiassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7148,6 +7640,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vivrai, vivras, vivra, vivrons, vivrez, vivront");
         st.bind(9, "vivrais, vivrais, vivrait, vivrions, vivriez, vivraient");
         st.bind(10, "vive, vives, vive, vivions, viviez, vivent");
+        st.bind(11, "vécusse, vécusses, vécût, vécussions, vécussiez, vécussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7162,6 +7655,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vociférerai, vociféreras, vociférera, vociférerons, vociférerez, vociféreront");
         st.bind(9, "vociférerais, vociférerais, vociférerait, vociférerions, vociféreriez, vociféreraient");
         st.bind(10, "vocifère, vocifères, vocifère, vociférions, vocifériez, vocifèrent");
+        st.bind(11, "vociférasse, vociférasses, vociférât, vociférassions, vociférassiez, vociférassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7176,6 +7670,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "verrai, verras, verra, verrons, verrez, verront");
         st.bind(9, "verrais, verrais, verrait, verrions, verriez, verraient");
         st.bind(10, "voie, voies, voie, voyions, voyiez, voient");
+        st.bind(11, "visse, visses, vît, vissions, vissiez, vissent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7190,6 +7685,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "volerai, voleras, volera, volerons, volerez, voleront");
         st.bind(9, "volerais, volerais, volerait, volerions, voleriez, voleraient");
         st.bind(10, "vole, voles, vole, volions, voliez, volent");
+        st.bind(11, "volasse, volasses, volât, volassions, volassiez, volassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7204,6 +7700,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "voletterai, voletteras, volettera, voletterons, voletterez, voletteront");
         st.bind(9, "voletterais, voletterais, voletterait, voletterions, voletteriez, voletteraient");
         st.bind(10, "volette, volettes, volette, voletions, voletiez, volettent");
+        st.bind(11, "voletasse, voletasses, voletât, voletassions, voletassiez, voletassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7218,6 +7715,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "voltigerai, voltigeras, voltigera, voltigerons, voltigerez, voltigeront");
         st.bind(9, "voltigerais, voltigerais, voltigerait, voltigerions, voltigeriez, voltigeraient");
         st.bind(10, "voltige, voltiges, voltige, voltigions, voltigiez, voltigent");
+        st.bind(11, "voltigeasse, voltigeasses, voltigeât, voltigeassions, voltigeassiez, voltigeassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7232,6 +7730,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "voudrai, voudras, voudra, voudrons, voudrez, voudront");
         st.bind(9, "voudrais, voudrais, voudrait, voudrions, voudriez, voudraient");
         st.bind(10, "veuille, veuilles, veuille, voulions, vouliez, veuillent");
+        st.bind(11, "voulusse, voulusses, voulût, voulussions, voulussiez, voulussent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7246,6 +7745,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "voussoierai, voussoieras, voussoiera, voussoierons, voussoierez, voussoieront");
         st.bind(9, "voussoierais, voussoierais, voussoierait, voussoierions, voussoieriez, voussoieraient");
         st.bind(10, "voussoie, voussoies, voussoie, voussoyions, voussoyiez, voussoient");
+        st.bind(11, "voussoyasse, voussoyasses, voussoyât, voussoyassions, voussoyassiez, voussoyassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7260,6 +7760,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "vouvoierai, vouvoieras, vouvoiera, vouvoierons, vouvoierez, vouvoieront");
         st.bind(9, "vouvoierais, vouvoierais, vouvoierait, vouvoierions, vouvoieriez, vouvoieraient");
         st.bind(10, "vouvoie, vouvoies, vouvoie, vouvoyions, vouvoyiez, vouvoient");
+        st.bind(11, "vouvoyasse, vouvoyasses, vouvoyât, vouvoyassions, vouvoyassiez, vouvoyassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7274,6 +7775,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "voyagerai, voyageras, voyagera, voyagerons, voyagerez, voyageront");
         st.bind(9, "voyagerais, voyagerais, voyagerait, voyagerions, voyageriez, voyageraient");
         st.bind(10, "voyage, voyages, voyage, voyagions, voyagiez, voyagent");
+        st.bind(11, "voyageasse, voyageasses, voyageât, voyageassions, voyageassiez, voyageassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7288,6 +7790,7 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "zébrerai, zébreras, zébrera, zébrerons, zébrerez, zébreront");
         st.bind(9, "zébrerais, zébrerais, zébrerait, zébrerions, zébreriez, zébreraient");
         st.bind(10, "zèbre, zèbres, zèbre, zébrions, zébriez, zèbrent");
+        st.bind(11, "zébrasse, zébrasses, zébrât, zébrassions, zébrassiez, zébrassent");
         st.exec();
         st.reset();
         st.clearBindings();
@@ -7302,22 +7805,15 @@ DbManager::DbManager(std::string dbFilename) : db(dbFilename, SQLite::OPEN_READW
         st.bind(8, "zézaierai, zézayerai, zézaieras, zézayeras, zézaiera, zézayera, zézaierons, zézayerons, zézaierez, zézayerez, zézaieront, zézayeront");
         st.bind(9, "zézaierais, zézayerais, zézaierais, zézayerais, zézaierait, zézayerait, zézaierions, zézayerions, zézaieriez, zézayeriez, zézaieraient, zézayeraient");
         st.bind(10, "zézaie, zézaye, zézaies, zézayes, zézaie, zézaye, zézayions, zézayiez, zézaient, zézayent");
+        st.bind(11, "zézayasse, zézayasses, zézayât, zézayassions, zézayassiez, zézayassent");
         st.exec();
         st.reset();
         st.clearBindings();
-
-
-
-
-
     }
-    catch (std::exception &e)
-    {
+
+    catch (std::exception &e) {
         std::cout << "Got exception: " << e.what() << std::endl;
     }
-    
-    
-
 }
 
 } // namespace gwr::frvb

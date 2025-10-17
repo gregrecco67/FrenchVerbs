@@ -1,24 +1,13 @@
 4. Parse input, parse db entry, mark.
-5. Make button for selecting which part of text, w/display.
-6. Make db column for part number from above.
+5. Make button for selecting section 1, 2, 3, 4, etc.
+6. Make db column for part number from above? or just forms?
 
--- Incorporate subjunctive present and imperfect
 -- imperative? participle?
 -- fit into display
 
 -- deal with asseoir, rasseoir (multiple entries)
 -- look around for other doubled entries (in conjugations.json)
 
--- update generate.py to pick up subjunctive imperfect
-
-
-header
-New / Mark / Infinitive
-
-body
-present ---- / imperfect / passComp
-
--------
-
-present
-pronouns editors pronouns editors
+-- 4) make separate fields for db answer and typed answer
+-- mark button will compare them, and color them?
+-- 
