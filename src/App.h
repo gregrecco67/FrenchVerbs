@@ -18,14 +18,14 @@ class App : public visage::ApplicationWindow {
 public:
     App();
     void newQuiz();
+    void markQuiz();
+    bool matches(std::string &userAnswer, std::string &dbAnswer);
     DbManager dbm;
     visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
     std::vector<std::string> splitForms(std::string entry);
     visage::UiButton newBtn{"New"}, markBtn{"Mark"};
-    // visage::TextEditor pres1s, pres2s, pres3s, pres1p, pres2p, pres3p;
     Label header, body, headword;
-    // Label headword, present, presSing, presPl, pronPresSing, pronPresPl;
     Conjugation conjPres, conjImpf, conjPc, conjFut, conjCond, conjPs, conjSubjPr, conjSubjImpf;
     visage::Frame left, right;
 };

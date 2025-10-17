@@ -31,7 +31,7 @@ App::App() : dbm(":memory:")
     newBtn.onMouseDown() = [&](const visage::MouseEvent &e) { newQuiz(); };
 
     markBtn.setFont(font.withSize(25.f));
-    // markBtn.onMouseDown() = [&](const visage::MouseEvent &e) { newQuiz(); };
+    markBtn.onMouseDown() = [&](const visage::MouseEvent &e) { markQuiz(); };
 
     headword.setFont(font.withSize(25.f));
     // ============================
@@ -103,8 +103,6 @@ App::App() : dbm(":memory:")
 
 void App::newQuiz()
 {
-
-    // CREATE TABLE frenchVerbs(
     // CREATE TABLE frenchVerbs(
     // verbID INTEGER PRIMARY KEY AUTOINCREMENT,
     // infinitive TEXT,
@@ -134,66 +132,75 @@ void App::newQuiz()
         ps = st.getColumn("passeSimple").getString();
         subjPres = st.getColumn("subjunctivePres").getString();
         subjImpf = st.getColumn("subjunctiveImpf").getString();
-
     }
     headword.setText(verb);
-    auto entries = splitForms(pres);
-    conjPres.e1.setText(entries[0]);
-    conjPres.e2.setText(entries[1]);
-    conjPres.e3.setText(entries[2]);
-    conjPres.e4.setText(entries[3]);
-    conjPres.e5.setText(entries[4]);
-    conjPres.e6.setText(entries[5]);
-    entries = splitForms(impf);
-    conjImpf.e1.setText(entries[0]);
-    conjImpf.e2.setText(entries[1]);
-    conjImpf.e3.setText(entries[2]);
-    conjImpf.e4.setText(entries[3]);
-    conjImpf.e5.setText(entries[4]);
-    conjImpf.e6.setText(entries[5]);
-    entries = splitForms(pc);
-    conjPc.e1.setText(entries[0]);
-    conjPc.e2.setText(entries[1]);
-    conjPc.e3.setText(entries[2]);
-    conjPc.e4.setText(entries[3]);
-    conjPc.e5.setText(entries[4]);
-    conjPc.e6.setText(entries[5]);
-    entries = splitForms(fut);
-    conjFut.e1.setText(entries[0]);
-    conjFut.e2.setText(entries[1]);
-    conjFut.e3.setText(entries[2]);
-    conjFut.e4.setText(entries[3]);
-    conjFut.e5.setText(entries[4]);
-    conjFut.e6.setText(entries[5]);
-    entries = splitForms(cond);
-    conjCond.e1.setText(entries[0]);
-    conjCond.e2.setText(entries[1]);
-    conjCond.e3.setText(entries[2]);
-    conjCond.e4.setText(entries[3]);
-    conjCond.e5.setText(entries[4]);
-    conjCond.e6.setText(entries[5]);
-    entries = splitForms(ps);
-    conjPs.e1.setText(entries[0]);
-    conjPs.e2.setText(entries[1]);
-    conjPs.e3.setText(entries[2]);
-    conjPs.e4.setText(entries[3]);
-    conjPs.e5.setText(entries[4]);
-    conjPs.e6.setText(entries[5]);
-    entries = splitForms(subjPres);
-    conjSubjPr.e1.setText(entries[0]);
-    conjSubjPr.e2.setText(entries[1]);
-    conjSubjPr.e3.setText(entries[2]);
-    conjSubjPr.e4.setText(entries[3]);
-    conjSubjPr.e5.setText(entries[4]);
-    conjSubjPr.e6.setText(entries[5]);
-    entries = splitForms(subjImpf);
-    conjSubjImpf.e1.setText(entries[0]);
-    conjSubjImpf.e2.setText(entries[1]);
-    conjSubjImpf.e3.setText(entries[2]);
-    conjSubjImpf.e4.setText(entries[3]);
-    conjSubjImpf.e5.setText(entries[4]);
-    conjSubjImpf.e6.setText(entries[5]);
-    
+
+    auto presForms = splitForms(pres);
+    auto impfForms = splitForms(impf);
+    auto pcForms = splitForms(pc);
+    auto futForms = splitForms(fut);
+    auto condForms = splitForms(cond);
+    auto psForms = splitForms(ps);
+    auto subjPresForms = splitForms(subjPres);
+    auto subjImpfForms = splitForms(subjImpf);
+
+    for (size_t i = 0; i < 6; ++i) {
+        conjPres.es[i]->clear();
+        conjImpf.es[i]->clear();
+        conjPc.es[i]->clear();
+        conjFut.es[i]->clear();
+        conjCond.es[i]->clear();
+        conjPs.es[i]->clear();
+        conjSubjPr.es[i]->clear();
+        conjSubjImpf.es[i]->clear();
+
+        conjPres.forms[i] = presForms[i];
+        conjImpf.forms[i] = impfForms[i];
+        conjPc.forms[i] = pcForms[i];
+        conjFut.forms[i] = futForms[i];
+        conjCond.forms[i] = condForms[i];
+        conjPs.forms[i] = psForms[i];
+        conjSubjPr.forms[i] = subjPresForms[i];
+        conjSubjImpf.forms[i] = subjImpfForms[i];
+    }
+}
+
+void App::markQuiz() {
+    for (size_t i = 0; i < 6; ++i) {
+        conjPres.ans[i] = conjPres.es[i]->text().toUtf8();
+        conjPres.es[i]->setText(conjPres.forms[i]);
+        if (matches(conjPres.ans[i], conjPres.forms[i])) {
+            // green
+        }
+        else {
+            // red 
+        }
+
+        conjImpf.ans[i] = conjImpf.es[i]->text().toUtf8();
+        conjImpf.es[i]->setText(conjImpf.forms[i]);
+
+        conjPc.ans[i] = conjPc.es[i]->text().toUtf8();
+        conjPc.es[i]->setText(conjPc.forms[i]);
+
+        conjFut.ans[i] = conjFut.es[i]->text().toUtf8();
+        conjFut.es[i]->setText(conjFut.forms[i]);
+        
+        conjCond.ans[i] = conjCond.es[i]->text().toUtf8();
+        conjCond.es[i]->setText(conjCond.forms[i]);
+
+        conjPs.ans[i] = conjPs.es[i]->text().toUtf8();
+        conjPs.es[i]->setText(conjPs.forms[i]);
+
+        conjSubjPr.ans[i] = conjSubjPr.es[i]->text().toUtf8();
+        conjSubjPr.es[i]->setText(conjSubjPr.forms[i]);
+
+        conjSubjImpf.ans[i] = conjSubjImpf.es[i]->text().toUtf8();
+        conjSubjImpf.es[i]->setText(conjSubjImpf.forms[i]);
+    }
+}
+
+bool App::matches(std::string &userAnswer, std::string &dbAnswer) { 
+    return false; 
 }
 
 void App::draw(visage::Canvas &canvas)

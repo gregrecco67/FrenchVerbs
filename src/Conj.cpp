@@ -66,6 +66,13 @@ Conjugation::Conjugation() {
             fr->setTextFieldEntry();
         }
 
+        es[0] = &e1;
+        es[1] = &e2;
+        es[2] = &e3;
+        es[3] = &e4;
+        es[4] = &e5;
+        es[5] = &e6;
+
 }
 
 void Conjugation::draw(visage::Canvas &canvas)
@@ -76,4 +83,11 @@ void Conjugation::draw(visage::Canvas &canvas)
         return;
     }
     canvas.text(name_, font, visage::Font::Justification::kCenter, 0, 0, 100_vw, 15_vh);
+}
+
+void Conjugation::clearAll() {
+    for (size_t i = 0; i < 6; ++i) {
+        es[i]->clear();
+        forms[i].clear();
+    }
 }
