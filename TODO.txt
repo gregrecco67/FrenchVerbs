@@ -1,9 +1,4 @@
-4. Parse input, parse db entry, mark.
-5. Make button for selecting section 1, 2, 3, 4, etc.
-6. Make db column for part number from above? or just forms?
-
 -- imperative? participle?
--- fit into display
 
 -- deal with asseoir, rasseoir (multiple entries)
 -- look around for other doubled entries (in conjugations.json)
