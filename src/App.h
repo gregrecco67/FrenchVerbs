@@ -26,11 +26,17 @@ class App : public visage::ApplicationWindow
     void readContents();
     void color();
     void clearColors();
+    void clearPronouns();
     void red(Label *l);
+    void red(visage::TextEditor *e);
     void grn(Label *l);
+    void grn(visage::TextEditor *e);
     void blk(Label *l);
+    void blk(visage::TextEditor *e);
     bool userInputIsShown{true}; // true when fields show USER input, false when they show DB answers
     bool quizIsMarked{false};
+    static const ::visage::theme::ColorId WrongBkgd;
+    static const ::visage::theme::ColorId RightBkgd;
     bool matches(std::string &userAnswer, std::string &dbAnswer);
     std::string replaceAccentedCharacters(std::string &input);
     std::string replaceUnaccentedCharacters(std::string &input);
