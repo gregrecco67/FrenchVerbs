@@ -169,9 +169,28 @@ void App::newQuiz(std::string &inverb) {
 
     auto likeV = replaceUnaccentedCharacters(inverb);
     auto st = dbm.getStmt(
-        "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
-        "subjunctivePres, subjunctiveImpf from frenchVerbs where infinitive like ? order by random() limit 1;");
+        "select infinitive from frenchVerbs where infinitive like ?;");
     st.bind(1, likeV);
+    std::vector<std::string> infs;
+    while (st.executeStep()) {
+        infs.push_back(st.getColumn("infinitive").getString());
+    }
+
+    std::string finalForm;
+    for (auto inf : infs) {
+        if (matches(inf, inverb)) {
+            finalForm = inf;
+        }
+    }
+    
+    if (finalForm.empty()) return;
+
+
+    st = dbm.getStmt(
+        "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
+        "subjunctivePres, subjunctiveImpf from frenchVerbs where infinitive = ?;");
+    st.bind(1, finalForm);
+
     std::string verb, pres, impf, pc, fut, cond, ps, subjPres, subjImpf;
     while (st.executeStep())
     {
@@ -436,7 +455,7 @@ std::string App::replaceUnaccentedCharacters(std::string &input) {
     std::string result;
     
     for (char ch : input) {
-        if (ch == 'a' || ch == 'e' || ch == 'i') { result.push_back('_'); }
+        if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'u') { result.push_back('_'); }
         else { result.push_back(ch); }
     }
 
