@@ -1,7 +1,2 @@
 -- imperative? participle?
 
--- deal with asseoir, rasseoir (multiple entries)
--- look around for other doubled entries (in conjugations.json)
-
--- 4) make separate fields for db answer and typed answer
--- mark button will compare them, and color them?
