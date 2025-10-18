@@ -1,2 +1,3 @@
 -- imperative? participle?
 
+-- add option to type in verb
