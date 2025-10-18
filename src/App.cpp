@@ -42,6 +42,10 @@ App::App() : dbm(":memory:")
     cmpBtn.setActive(false);
 
     headword.setFont(font.withSize(25.f));
+    headword.onEnterKey() = [this]() { 
+        auto head = headword.text().toUtf8();
+        newQuiz(head); 
+    };
     // ============================
 
     body.setFlexLayout(true);
@@ -158,22 +162,63 @@ void App::newQuiz()
 
     quizIsMarked = false;
     cmpBtn.setActive(false);
+}
 
-    // REMOVE
-    // std::string aaa{"à, â"};
-    // std::string eee{"é, è, ê, ë"};
-    // std::string iii{"î, ï"};
-    // std::string ooo{"ô"};
-    // std::string uuu{"ù, ü, û"};
-    // std::string cedilla{"ç"};
-    
-    // replaceAccentedCharacters(aaa);
-    // replaceAccentedCharacters(eee);
-    // replaceAccentedCharacters(iii);
-    // replaceAccentedCharacters(ooo);
-    // replaceAccentedCharacters(uuu);
-    // replaceAccentedCharacters(cedilla);
-    
+void App::newQuiz(std::string &inverb) {
+    clearColors();
+
+    auto likeV = replaceUnaccentedCharacters(inverb);
+    auto st = dbm.getStmt(
+        "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
+        "subjunctivePres, subjunctiveImpf from frenchVerbs where infinitive like ? order by random() limit 1;");
+    st.bind(1, likeV);
+    std::string verb, pres, impf, pc, fut, cond, ps, subjPres, subjImpf;
+    while (st.executeStep())
+    {
+        verb = st.getColumn("infinitive").getString();
+        pres = st.getColumn("present").getString();
+        impf = st.getColumn("imperfect").getString();
+        pc = st.getColumn("passeCompose").getString();
+        fut = st.getColumn("future").getString();
+        cond = st.getColumn("conditional").getString();
+        ps = st.getColumn("passeSimple").getString();
+        subjPres = st.getColumn("subjunctivePres").getString();
+        subjImpf = st.getColumn("subjunctiveImpf").getString();
+    }
+    headword.setText(verb);
+
+    auto presForms = splitForms(pres);
+    auto impfForms = splitForms(impf);
+    auto pcForms = splitForms(pc);
+    auto futForms = splitForms(fut);
+    auto condForms = splitForms(cond);
+    auto psForms = splitForms(ps);
+    auto subjPresForms = splitForms(subjPres);
+    auto subjImpfForms = splitForms(subjImpf);
+
+    for (size_t i = 0; i < 6; ++i)
+    {
+        conjPres.es[i]->clear();
+        conjImpf.es[i]->clear();
+        conjPc.es[i]->clear();
+        conjFut.es[i]->clear();
+        conjCond.es[i]->clear();
+        conjPs.es[i]->clear();
+        conjSubjPr.es[i]->clear();
+        conjSubjImpf.es[i]->clear();
+
+        conjPres.dbForms[i] = presForms[i];
+        conjImpf.dbForms[i] = impfForms[i];
+        conjPc.dbForms[i] = pcForms[i];
+        conjFut.dbForms[i] = futForms[i];
+        conjCond.dbForms[i] = condForms[i];
+        conjPs.dbForms[i] = psForms[i];
+        conjSubjPr.dbForms[i] = subjPresForms[i];
+        conjSubjImpf.dbForms[i] = subjImpfForms[i];
+    }
+
+    quizIsMarked = false;
+    cmpBtn.setActive(false);
 }
 
 void App::markQuiz()
@@ -383,6 +428,18 @@ std::string App::replaceAccentedCharacters(std::string& input) {
             }
         }
     }
+    return result;
+}
+
+std::string App::replaceUnaccentedCharacters(std::string &input) { 
+
+    std::string result;
+    
+    for (char ch : input) {
+        if (ch == 'a' || ch == 'e' || ch == 'i') { result.push_back('_'); }
+        else { result.push_back(ch); }
+    }
+
     return result;
 }
 
