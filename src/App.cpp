@@ -295,7 +295,7 @@ bool App::matches(std::string &userAnswer, std::string &dbAnswer)
 
 void App::draw(visage::Canvas &canvas)
 {
-    canvas.setColor(0xffffffff);
+    canvas.setColor(0xffbbbbbb);
     canvas.fill(0, 0, width(), height());
 }
 
@@ -379,30 +379,29 @@ void App::color() {
     for (size_t i = 0; i < 6; ++i)
     {
         if (conjPres.isCorrect[i]) { grn(conjPres.es[i]); grn(conjPres.pronouns[i]); }
-        else { if (!conjPres.userForms[i].empty()) {red(conjPres.es[i]); red(conjPres.pronouns[i]);} }
+        else { if (!conjPres.userForms[i].empty()) {red(conjPres.es[i]); red(conjPres.pronouns[i]); } }
 
-        if (conjImpf.isCorrect[i]) { grn(conjImpf.es[i]); }
-        else { if (!conjImpf.userForms[i].empty()) red(conjImpf.es[i]); }
+        if (conjImpf.isCorrect[i]) { grn(conjImpf.es[i]); grn(conjImpf.pronouns[i]); }
+        else { if (!conjImpf.userForms[i].empty()) {red(conjImpf.es[i]); red(conjImpf.pronouns[i]); } }
 
-        if (conjPc.isCorrect[i]) { grn(conjPc.es[i]); }
-        else { if (!conjPc.userForms[i].empty()) red(conjPc.es[i]); }
+        if (conjPc.isCorrect[i]) { grn(conjPc.es[i]); grn(conjPc.pronouns[i]); }
+        else { if (!conjPc.userForms[i].empty()) {red(conjPc.es[i]); red(conjPc.pronouns[i]); } }
 
-        if (conjFut.isCorrect[i]) { grn(conjFut.es[i]); }
-        else { if (!conjFut.userForms[i].empty()) red(conjFut.es[i]); }
+        if (conjFut.isCorrect[i]) { grn(conjFut.es[i]); grn(conjFut.pronouns[i]); }
+        else { if (!conjFut.userForms[i].empty()) {red(conjFut.es[i]); red(conjFut.pronouns[i]); } }
 
-        if (conjCond.isCorrect[i]) { grn(conjCond.es[i]); }
-        else { if (!conjCond.userForms[i].empty()) red(conjCond.es[i]); }
+        if (conjCond.isCorrect[i]) { grn(conjCond.es[i]); grn(conjCond.pronouns[i]); }
+        else { if (!conjCond.userForms[i].empty()) {red(conjCond.es[i]); red(conjCond.pronouns[i]); } }
 
-        if (conjPs.isCorrect[i]) { grn(conjPs.es[i]); }
-        else { if (!conjPs.userForms[i].empty()) red(conjPs.es[i]); }
+        if (conjPs.isCorrect[i]) { grn(conjPs.es[i]); grn(conjPs.pronouns[i]); }
+        else { if (!conjPs.userForms[i].empty()) {red(conjPs.es[i]); red(conjPs.pronouns[i]); } }
 
-        if (conjSubjPr.isCorrect[i]) { grn(conjSubjPr.es[i]); }
-        else { if (!conjSubjPr.userForms[i].empty()) red(conjSubjPr.es[i]); }
+        if (conjSubjPr.isCorrect[i]) { grn(conjSubjPr.es[i]); grn(conjSubjPr.pronouns[i]); }
+        else { if (!conjSubjPr.userForms[i].empty()) {red(conjSubjPr.es[i]); red(conjSubjPr.pronouns[i]); } }
 
-        if (conjSubjImpf.isCorrect[i]) { grn(conjSubjImpf.es[i]); }
-        else { if (!conjSubjImpf.userForms[i].empty()) red(conjSubjImpf.es[i]); }
+        if (conjSubjImpf.isCorrect[i]) { grn(conjSubjImpf.es[i]); grn(conjSubjImpf.pronouns[i]); }
+        else { if (!conjSubjImpf.userForms[i].empty()) {red(conjSubjImpf.es[i]); red(conjSubjImpf.pronouns[i]); } }
         
-        // conjPres.redraw();
     }
     redraw();
 }
