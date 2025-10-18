@@ -158,6 +158,22 @@ void App::newQuiz()
 
     quizIsMarked = false;
     cmpBtn.setActive(false);
+
+    // REMOVE
+    // std::string aaa{"à, â"};
+    // std::string eee{"é, è, ê, ë"};
+    // std::string iii{"î, ï"};
+    // std::string ooo{"ô"};
+    // std::string uuu{"ù, ü, û"};
+    // std::string cedilla{"ç"};
+    
+    // replaceAccentedCharacters(aaa);
+    // replaceAccentedCharacters(eee);
+    // replaceAccentedCharacters(iii);
+    // replaceAccentedCharacters(ooo);
+    // replaceAccentedCharacters(uuu);
+    // replaceAccentedCharacters(cedilla);
+    
 }
 
 void App::markQuiz()
@@ -203,7 +219,7 @@ void App::readContents()
 
 bool App::matches(std::string &userAnswer, std::string &dbAnswer)
 {
-    return (userAnswer.compare(dbAnswer) == 0);
+    return (replaceAccentedCharacters(userAnswer).compare(replaceAccentedCharacters(dbAnswer)) == 0);
 }
 
 void App::draw(visage::Canvas &canvas)
@@ -334,6 +350,40 @@ void App::compare() {
         }
     }
     userInputIsShown = !userInputIsShown;
+}
+
+std::string App::replaceAccentedCharacters(std::string& input) {
+
+    std::string result;
+    
+    for (size_t i = 0; i < input.size(); ++i) {
+        if ((int)input[i] >= 0) { 
+            result.append(1, input[i]); 
+        }
+        else { 
+            if ((int)input[i] == -61) { 
+                if (((int)input[i+1] >= -96) &&  ((int)input[i+1] <= -90)) {
+                    result.append("a");
+                }
+                if (((int)input[i+1] == -89)) {
+                    result.append("c");
+                }
+                if (((int)input[i+1] >= -88) &&  ((int)input[i+1] <= -85)) {
+                    result.append("e");
+                }
+                if (((int)input[i+1] >= -84) &&  ((int)input[i+1] <= -81)) {
+                    result.append("i");
+                }
+                if (((int)input[i+1] >= -78) &&  ((int)input[i+1] <= -72)) {
+                    result.append("o");
+                }
+                if (((int)input[i+1] >= -71) &&  ((int)input[i+1] <= -68)) {
+                    result.append("u");
+                }
+            }
+        }
+    }
+    return result;
 }
 
 } // namespace gwr::frvb

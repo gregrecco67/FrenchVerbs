@@ -10,6 +10,7 @@
 #include "Label.h"
 #include "Conj.h"
 #include <iostream>
+#include <string>
 
 namespace gwr::frvb
 {
@@ -30,6 +31,7 @@ class App : public visage::ApplicationWindow
     bool userInputIsShown{true}; // true when fields show USER input, false when they show DB answers
     bool quizIsMarked{false};
     bool matches(std::string &userAnswer, std::string &dbAnswer);
+    std::string replaceAccentedCharacters(std::string& input);
     DbManager dbm;
     visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
