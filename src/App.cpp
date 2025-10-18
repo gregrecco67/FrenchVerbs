@@ -22,12 +22,12 @@ App::App() : dbm(":memory:")
     header.addChild(newBtn, true);
     header.addChild(markBtn, true);
     header.addChild(headword, true);
-    header.addChild(swapBtn, true);
+    header.addChild(cmpBtn, true);
 
     newBtn.layout().setDimensions(15_vw, 100_vh);
     markBtn.layout().setDimensions(15_vw, 100_vh);
     headword.layout().setDimensions(35_vw, 100_vh);
-    swapBtn.layout().setDimensions(15_vw, 100_vh);
+    cmpBtn.layout().setDimensions(15_vw, 100_vh);
 
     newBtn.setFont(font.withSize(25.f));
     newBtn.onMouseDown() = [&](const visage::MouseEvent &e) { newQuiz(); };
@@ -35,9 +35,11 @@ App::App() : dbm(":memory:")
     markBtn.setFont(font.withSize(25.f));
     markBtn.onMouseDown() = [&](const visage::MouseEvent &e) { markQuiz(); };
 
-    swapBtn.setFont(font.withSize(25.f));
-    swapBtn.onMouseDown() = [&](const visage::MouseEvent &e) { swap(); };
-    swapBtn.setActive(false);
+    cmpBtn.setFont(font.withSize(25.f));
+    cmpBtn.onMouseDown() = [&](const visage::MouseEvent &e) { 
+        if (cmpBtn.isActive()) { compare(); }
+    };
+    cmpBtn.setActive(false);
 
     headword.setFont(font.withSize(25.f));
     // ============================
@@ -104,6 +106,8 @@ App::App() : dbm(":memory:")
 
 void App::newQuiz()
 {
+    clearColors();
+
     auto st = dbm.getStmt(
         "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
         "subjunctivePres, subjunctiveImpf from frenchVerbs order by random() limit 1;");
@@ -153,137 +157,33 @@ void App::newQuiz()
     }
 
     quizIsMarked = false;
-    swapBtn.setActive(false);
+    cmpBtn.setActive(false);
 }
 
 void App::markQuiz()
 {
+    clearColors();
     // read texteditor contents into userForms fields
     readContents();
-    std::cout << "read contents" << std::endl;
 
     // compare userForms with dbForms
     for (size_t i = 0; i < 6; ++i)
     {
         conjPres.isCorrect[i] = matches(conjPres.userForms[i], conjPres.dbForms[i]);
-        std::cout << "checked for match" << std::endl;
-
-        if (conjPres.isCorrect[i])
-        {
-            conjPres.pronouns[i]->setColor(visage::Color(0xff0ff000));
-        }
-        else
-        {
-            conjPres.pronouns[i]->setColor(visage::Color(0xffff0000));
-        }
-        std::cout << "set color" << std::endl;
-
         conjImpf.isCorrect[i] = matches(conjImpf.userForms[i], conjImpf.dbForms[i]);
-        if (conjImpf.isCorrect[i])
-        {
-            conjImpf.pronouns[i]->setColor(0xffff0000);
-        }
-        else
-        {
-            conjImpf.pronouns[i]->setColor(0xff00ff00);
-        }
         conjPc.isCorrect[i] = matches(conjPc.userForms[i], conjPc.dbForms[i]);
-        if (conjPc.isCorrect[i])
-        {
-            conjPc.pronouns[i]->setColor(0xffff0000);
-        }
-        else
-        {
-            conjPc.pronouns[i]->setColor(0xff00ff00);
-        }
         conjFut.isCorrect[i] = matches(conjFut.userForms[i], conjFut.dbForms[i]);
-        if (conjFut.isCorrect[i])
-        {
-            conjFut.pronouns[i]->setColor(0xffff0000);
-        }
-        else
-        {
-            conjPres.pronouns[i]->setColor(0xff00ff00);
-        }
         conjCond.isCorrect[i] = matches(conjCond.userForms[i], conjCond.dbForms[i]);
-        if (conjCond.isCorrect[i])
-        {
-            conjCond.pronouns[i]->setColor(0xffff0000);
-        }
-        else
-        {
-            conjPres.pronouns[i]->setColor(0xff00ff00);
-        }
         conjPs.isCorrect[i] = matches(conjPs.userForms[i], conjPs.dbForms[i]);
-        if (conjPs.isCorrect[i])
-        {
-            conjPs.pronouns[i]->setColor(0xffff0000);
-        }
-        else
-        {
-            conjPres.pronouns[i]->setColor(0xff00ff00);
-        }
         conjSubjPr.isCorrect[i] = matches(conjSubjPr.userForms[i], conjSubjPr.dbForms[i]);
-        if (conjSubjPr.isCorrect[i])
-        {
-            conjSubjPr.pronouns[i]->setColor(0xffff0000);
-        }
-        else
-        {
-            conjPres.pronouns[i]->setColor(0xff00ff00);
-        }
         conjSubjImpf.isCorrect[i] = matches(conjSubjImpf.userForms[i], conjSubjImpf.dbForms[i]);
-        if (conjSubjImpf.isCorrect[i])
-        {
-            conjSubjImpf.pronouns[i]->setColor(0xffff0000);
-        }
-        else
-        {
-            conjPres.pronouns[i]->setColor(0xff00ff00);
-        }
     }
 
-    std::cout << "compared forms, set colors" << std::endl;
-
-    // set quizIsMarked to true
+    // color fields by correctness
+    color();
     quizIsMarked = true;
-
-    // when a quiz is marked, then enable the "swap" button
-    swapBtn.setActive(true);
-    swapState = false;
-}
-
-void App::swap()
-{
-    if (swapState)
-    {
-        for (size_t i = 0; i < 6; ++i)
-        {
-            conjPres.es[i]->setText(conjPres.dbForms[i]);
-            conjImpf.es[i]->setText(conjImpf.dbForms[i]);
-            conjPc.es[i]->setText(conjPc.dbForms[i]);
-            conjFut.es[i]->setText(conjFut.dbForms[i]);
-            conjCond.es[i]->setText(conjCond.dbForms[i]);
-            conjPs.es[i]->setText(conjPs.dbForms[i]);
-            conjSubjPr.es[i]->setText(conjSubjPr.dbForms[i]);
-            conjSubjImpf.es[i]->setText(conjSubjImpf.dbForms[i]);
-        }
-    }
-    else
-    {
-        for (size_t i = 0; i < 6; ++i)
-        {
-            conjPres.es[i]->setText(conjPres.userForms[i]);
-            conjImpf.es[i]->setText(conjImpf.userForms[i]);
-            conjPc.es[i]->setText(conjPc.userForms[i]);
-            conjFut.es[i]->setText(conjFut.userForms[i]);
-            conjCond.es[i]->setText(conjCond.userForms[i]);
-            conjPs.es[i]->setText(conjPs.userForms[i]);
-            conjSubjPr.es[i]->setText(conjSubjPr.userForms[i]);
-            conjSubjImpf.es[i]->setText(conjSubjImpf.userForms[i]);
-        }
-    }
-    swapState = !swapState;
+    cmpBtn.setActive(true);
+    userInputIsShown = true;
 }
 
 void App::readContents()
@@ -303,7 +203,7 @@ void App::readContents()
 
 bool App::matches(std::string &userAnswer, std::string &dbAnswer)
 {
-    return userAnswer.compare(dbAnswer) == 0;
+    return (userAnswer.compare(dbAnswer) == 0);
 }
 
 void App::draw(visage::Canvas &canvas)
@@ -349,6 +249,91 @@ std::vector<std::string> App::splitForms(std::string entry)
     }
     entries.push_back(entry.substr(pos, n));
     return entries;
+}
+
+void App::clearColors() {
+for (size_t i = 0; i < 6; ++i)
+    {
+        blk(conjPres.pronouns[i]);
+        blk(conjImpf.pronouns[i]);
+        blk(conjPc.pronouns[i]);
+        blk(conjFut.pronouns[i]);
+        blk(conjCond.pronouns[i]);
+        blk(conjPs.pronouns[i]);
+        blk(conjSubjPr.pronouns[i]);
+        blk(conjSubjImpf.pronouns[i]);
+    }
+}
+
+void App::red(Label *l) { l->setColor(visage::Color(0xffff0000)); }
+
+void App::grn(Label *l) { l->setColor(visage::Color(0xff00ff00)); }
+
+void App::blk(Label *l) { l->setColor(visage::Color(0xff000000)); }
+
+void App::color() {
+    for (size_t i = 0; i < 6; ++i)
+    {
+        if (conjPres.isCorrect[i]) { grn(conjPres.pronouns[i]); }
+        else { if (!conjPres.userForms[i].empty()) red(conjPres.pronouns[i]); }
+
+        if (conjImpf.isCorrect[i]) { grn(conjImpf.pronouns[i]); }
+        else { if (!conjImpf.userForms[i].empty()) red(conjImpf.pronouns[i]); }
+
+        if (conjPc.isCorrect[i]) { grn(conjPc.pronouns[i]); }
+        else { if (!conjPc.userForms[i].empty()) red(conjPc.pronouns[i]); }
+
+        if (conjFut.isCorrect[i]) { grn(conjFut.pronouns[i]); }
+        else { if (!conjFut.userForms[i].empty()) red(conjFut.pronouns[i]); }
+
+        if (conjCond.isCorrect[i]) { grn(conjCond.pronouns[i]); }
+        else { if (!conjCond.userForms[i].empty()) red(conjCond.pronouns[i]); }
+
+        if (conjPs.isCorrect[i]) { grn(conjPs.pronouns[i]); }
+        else { if (!conjPs.userForms[i].empty()) red(conjPs.pronouns[i]); }
+
+        if (conjSubjPr.isCorrect[i]) { grn(conjSubjPr.pronouns[i]); }
+        else { if (!conjSubjPr.userForms[i].empty()) red(conjSubjPr.pronouns[i]); }
+
+        if (conjSubjImpf.isCorrect[i]) { grn(conjSubjImpf.pronouns[i]); }
+        else { if (!conjSubjImpf.userForms[i].empty()) red(conjSubjImpf.pronouns[i]); }
+    }
+}
+
+void App::compare() {
+    if (!quizIsMarked) { return; }
+
+    if (userInputIsShown)
+    {
+        clearColors();
+        for (size_t i = 0; i < 6; ++i)
+        {
+            conjPres.es[i]->setText(conjPres.dbForms[i]);
+            conjImpf.es[i]->setText(conjImpf.dbForms[i]);
+            conjPc.es[i]->setText(conjPc.dbForms[i]);
+            conjFut.es[i]->setText(conjFut.dbForms[i]);
+            conjCond.es[i]->setText(conjCond.dbForms[i]);
+            conjPs.es[i]->setText(conjPs.dbForms[i]);
+            conjSubjPr.es[i]->setText(conjSubjPr.dbForms[i]);
+            conjSubjImpf.es[i]->setText(conjSubjImpf.dbForms[i]);
+        }
+    }
+    else
+    {
+        color();
+        for (size_t i = 0; i < 6; ++i)
+        {
+            conjPres.es[i]->setText(conjPres.userForms[i]);
+            conjImpf.es[i]->setText(conjImpf.userForms[i]);
+            conjPc.es[i]->setText(conjPc.userForms[i]);
+            conjFut.es[i]->setText(conjFut.userForms[i]);
+            conjCond.es[i]->setText(conjCond.userForms[i]);
+            conjPs.es[i]->setText(conjPs.userForms[i]);
+            conjSubjPr.es[i]->setText(conjSubjPr.userForms[i]);
+            conjSubjImpf.es[i]->setText(conjSubjImpf.userForms[i]);
+        }
+    }
+    userInputIsShown = !userInputIsShown;
 }
 
 } // namespace gwr::frvb

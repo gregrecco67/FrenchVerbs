@@ -20,16 +20,21 @@ class App : public visage::ApplicationWindow
     App();
     void newQuiz();
     void markQuiz();
-    void swap();
+    void compare();
     void readContents();
-    bool swapState{true}; // true when fields show USER input, false when they show DB answers
+    void color();
+    void clearColors();
+    void red(Label *l);
+    void grn(Label *l);
+    void blk(Label *l);
+    bool userInputIsShown{true}; // true when fields show USER input, false when they show DB answers
     bool quizIsMarked{false};
     bool matches(std::string &userAnswer, std::string &dbAnswer);
     DbManager dbm;
     visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
     std::vector<std::string> splitForms(std::string entry);
-    visage::UiButton newBtn{"New"}, markBtn{"Mark"}, swapBtn{"Swap"};
+    visage::UiButton newBtn{"New"}, markBtn{"Mark"}, cmpBtn{"Compare"};
     Label header, body, headword;
     Conjugation conjPres, conjImpf, conjPc, conjFut, conjCond, conjPs, conjSubjPr, conjSubjImpf;
     visage::Frame left, right;
