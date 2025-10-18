@@ -6,17 +6,20 @@
 #include <visage_widgets/text_editor.h>
 #include <visage_utils/dimension.h>
 
-class Conjugation : public visage::Frame {
-public:
+class Conjugation : public visage::Frame
+{
+  public:
     std::string name_{""};
     visage::Font font{20, resources::fonts::Lato_Regular_ttf};
     Conjugation();
     void draw(visage::Canvas &canvas);
     void clearAll();
-    std::array<std::string, 6> forms, ans; // forms (db) and answers (db)
-    Label pn1, pn2, pn3, pn4, pn5, pn6; // pronouns
+    std::array<std::string, 6> userForms, dbForms; // forms (db) and answers (db)
+    std::array<bool, 6> isCorrect{true};
+    Label pn1, pn2, pn3, pn4, pn5, pn6;        // pronouns
     visage::TextEditor e1, e2, e3, e4, e5, e6; // editors
     std::array<visage::TextEditor *, 6> es;
+    std::array<Label *, 6> pronouns;
     visage::Frame singPns, plPns, singForms, plForms;
     visage::Frame header, body;
 };

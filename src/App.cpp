@@ -7,7 +7,7 @@ namespace gwr::frvb
 
 App::App() : dbm(":memory:")
 {
-    
+
     setFlexLayout(true);
     layout().setFlexRows(true);
     addChild(header, true);
@@ -22,16 +22,22 @@ App::App() : dbm(":memory:")
     header.addChild(newBtn, true);
     header.addChild(markBtn, true);
     header.addChild(headword, true);
+    header.addChild(swapBtn, true);
 
     newBtn.layout().setDimensions(15_vw, 100_vh);
     markBtn.layout().setDimensions(15_vw, 100_vh);
     headword.layout().setDimensions(35_vw, 100_vh);
+    swapBtn.layout().setDimensions(15_vw, 100_vh);
 
     newBtn.setFont(font.withSize(25.f));
     newBtn.onMouseDown() = [&](const visage::MouseEvent &e) { newQuiz(); };
 
     markBtn.setFont(font.withSize(25.f));
     markBtn.onMouseDown() = [&](const visage::MouseEvent &e) { markQuiz(); };
+
+    swapBtn.setFont(font.withSize(25.f));
+    swapBtn.onMouseDown() = [&](const visage::MouseEvent &e) { swap(); };
+    swapBtn.setActive(false);
 
     headword.setFont(font.withSize(25.f));
     // ============================
@@ -94,32 +100,13 @@ App::App() : dbm(":memory:")
     conjSubjImpf.setFlexLayout(true);
     conjSubjImpf.layout().setDimensions(100_vw, 24_vh);
     conjSubjImpf.name_ = "Subjunctive Imperfect";
-
-
-
-
-
 }
 
 void App::newQuiz()
 {
-    // CREATE TABLE frenchVerbs(
-    // verbID INTEGER PRIMARY KEY AUTOINCREMENT,
-    // infinitive TEXT,
-    // pastParticiple TEXT,
-    // presParticiple TEXT,
-    // auxiliary TEXT,
-    // present TEXT,
-    // imperfect TEXT,
-    // passeCompose TEXT,
-    // passeSimple TEXT,
-    // future TEXT,
-    // conditional TEXT,
-    // subjunctivePres TEXT,
-    // subjunctiveImpf TEXT
-    // );             
-
-    auto st = dbm.getStmt("select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, subjunctivePres, subjunctiveImpf from frenchVerbs order by random() limit 1;");
+    auto st = dbm.getStmt(
+        "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
+        "subjunctivePres, subjunctiveImpf from frenchVerbs order by random() limit 1;");
     std::string verb, pres, impf, pc, fut, cond, ps, subjPres, subjImpf;
     while (st.executeStep())
     {
@@ -144,7 +131,8 @@ void App::newQuiz()
     auto subjPresForms = splitForms(subjPres);
     auto subjImpfForms = splitForms(subjImpf);
 
-    for (size_t i = 0; i < 6; ++i) {
+    for (size_t i = 0; i < 6; ++i)
+    {
         conjPres.es[i]->clear();
         conjImpf.es[i]->clear();
         conjPc.es[i]->clear();
@@ -154,59 +142,174 @@ void App::newQuiz()
         conjSubjPr.es[i]->clear();
         conjSubjImpf.es[i]->clear();
 
-        conjPres.forms[i] = presForms[i];
-        conjImpf.forms[i] = impfForms[i];
-        conjPc.forms[i] = pcForms[i];
-        conjFut.forms[i] = futForms[i];
-        conjCond.forms[i] = condForms[i];
-        conjPs.forms[i] = psForms[i];
-        conjSubjPr.forms[i] = subjPresForms[i];
-        conjSubjImpf.forms[i] = subjImpfForms[i];
+        conjPres.dbForms[i] = presForms[i];
+        conjImpf.dbForms[i] = impfForms[i];
+        conjPc.dbForms[i] = pcForms[i];
+        conjFut.dbForms[i] = futForms[i];
+        conjCond.dbForms[i] = condForms[i];
+        conjPs.dbForms[i] = psForms[i];
+        conjSubjPr.dbForms[i] = subjPresForms[i];
+        conjSubjImpf.dbForms[i] = subjImpfForms[i];
+    }
+
+    quizIsMarked = false;
+    swapBtn.setActive(false);
+}
+
+void App::markQuiz()
+{
+    // read texteditor contents into userForms fields
+    readContents();
+    std::cout << "read contents" << std::endl;
+
+    // compare userForms with dbForms
+    for (size_t i = 0; i < 6; ++i)
+    {
+        conjPres.isCorrect[i] = matches(conjPres.userForms[i], conjPres.dbForms[i]);
+        std::cout << "checked for match" << std::endl;
+
+        if (conjPres.isCorrect[i])
+        {
+            conjPres.pronouns[i]->setColor(visage::Color(0xff0ff000));
+        }
+        else
+        {
+            conjPres.pronouns[i]->setColor(visage::Color(0xffff0000));
+        }
+        std::cout << "set color" << std::endl;
+
+        conjImpf.isCorrect[i] = matches(conjImpf.userForms[i], conjImpf.dbForms[i]);
+        if (conjImpf.isCorrect[i])
+        {
+            conjImpf.pronouns[i]->setColor(0xffff0000);
+        }
+        else
+        {
+            conjImpf.pronouns[i]->setColor(0xff00ff00);
+        }
+        conjPc.isCorrect[i] = matches(conjPc.userForms[i], conjPc.dbForms[i]);
+        if (conjPc.isCorrect[i])
+        {
+            conjPc.pronouns[i]->setColor(0xffff0000);
+        }
+        else
+        {
+            conjPc.pronouns[i]->setColor(0xff00ff00);
+        }
+        conjFut.isCorrect[i] = matches(conjFut.userForms[i], conjFut.dbForms[i]);
+        if (conjFut.isCorrect[i])
+        {
+            conjFut.pronouns[i]->setColor(0xffff0000);
+        }
+        else
+        {
+            conjPres.pronouns[i]->setColor(0xff00ff00);
+        }
+        conjCond.isCorrect[i] = matches(conjCond.userForms[i], conjCond.dbForms[i]);
+        if (conjCond.isCorrect[i])
+        {
+            conjCond.pronouns[i]->setColor(0xffff0000);
+        }
+        else
+        {
+            conjPres.pronouns[i]->setColor(0xff00ff00);
+        }
+        conjPs.isCorrect[i] = matches(conjPs.userForms[i], conjPs.dbForms[i]);
+        if (conjPs.isCorrect[i])
+        {
+            conjPs.pronouns[i]->setColor(0xffff0000);
+        }
+        else
+        {
+            conjPres.pronouns[i]->setColor(0xff00ff00);
+        }
+        conjSubjPr.isCorrect[i] = matches(conjSubjPr.userForms[i], conjSubjPr.dbForms[i]);
+        if (conjSubjPr.isCorrect[i])
+        {
+            conjSubjPr.pronouns[i]->setColor(0xffff0000);
+        }
+        else
+        {
+            conjPres.pronouns[i]->setColor(0xff00ff00);
+        }
+        conjSubjImpf.isCorrect[i] = matches(conjSubjImpf.userForms[i], conjSubjImpf.dbForms[i]);
+        if (conjSubjImpf.isCorrect[i])
+        {
+            conjSubjImpf.pronouns[i]->setColor(0xffff0000);
+        }
+        else
+        {
+            conjPres.pronouns[i]->setColor(0xff00ff00);
+        }
+    }
+
+    std::cout << "compared forms, set colors" << std::endl;
+
+    // set quizIsMarked to true
+    quizIsMarked = true;
+
+    // when a quiz is marked, then enable the "swap" button
+    swapBtn.setActive(true);
+    swapState = false;
+}
+
+void App::swap()
+{
+    if (swapState)
+    {
+        for (size_t i = 0; i < 6; ++i)
+        {
+            conjPres.es[i]->setText(conjPres.dbForms[i]);
+            conjImpf.es[i]->setText(conjImpf.dbForms[i]);
+            conjPc.es[i]->setText(conjPc.dbForms[i]);
+            conjFut.es[i]->setText(conjFut.dbForms[i]);
+            conjCond.es[i]->setText(conjCond.dbForms[i]);
+            conjPs.es[i]->setText(conjPs.dbForms[i]);
+            conjSubjPr.es[i]->setText(conjSubjPr.dbForms[i]);
+            conjSubjImpf.es[i]->setText(conjSubjImpf.dbForms[i]);
+        }
+    }
+    else
+    {
+        for (size_t i = 0; i < 6; ++i)
+        {
+            conjPres.es[i]->setText(conjPres.userForms[i]);
+            conjImpf.es[i]->setText(conjImpf.userForms[i]);
+            conjPc.es[i]->setText(conjPc.userForms[i]);
+            conjFut.es[i]->setText(conjFut.userForms[i]);
+            conjCond.es[i]->setText(conjCond.userForms[i]);
+            conjPs.es[i]->setText(conjPs.userForms[i]);
+            conjSubjPr.es[i]->setText(conjSubjPr.userForms[i]);
+            conjSubjImpf.es[i]->setText(conjSubjImpf.userForms[i]);
+        }
+    }
+    swapState = !swapState;
+}
+
+void App::readContents()
+{
+    for (size_t i = 0; i < 6; ++i)
+    {
+        conjPres.userForms[i] = conjPres.es[i]->text().toUtf8();
+        conjImpf.userForms[i] = conjImpf.es[i]->text().toUtf8();
+        conjPc.userForms[i] = conjPc.es[i]->text().toUtf8();
+        conjFut.userForms[i] = conjFut.es[i]->text().toUtf8();
+        conjCond.userForms[i] = conjCond.es[i]->text().toUtf8();
+        conjPs.userForms[i] = conjPs.es[i]->text().toUtf8();
+        conjSubjPr.userForms[i] = conjSubjPr.es[i]->text().toUtf8();
+        conjSubjImpf.userForms[i] = conjSubjImpf.es[i]->text().toUtf8();
     }
 }
 
-void App::markQuiz() {
-    for (size_t i = 0; i < 6; ++i) {
-        conjPres.ans[i] = conjPres.es[i]->text().toUtf8();
-        conjPres.es[i]->setText(conjPres.forms[i]);
-        if (matches(conjPres.ans[i], conjPres.forms[i])) {
-            // green
-        }
-        else {
-            // red 
-        }
-
-        conjImpf.ans[i] = conjImpf.es[i]->text().toUtf8();
-        conjImpf.es[i]->setText(conjImpf.forms[i]);
-
-        conjPc.ans[i] = conjPc.es[i]->text().toUtf8();
-        conjPc.es[i]->setText(conjPc.forms[i]);
-
-        conjFut.ans[i] = conjFut.es[i]->text().toUtf8();
-        conjFut.es[i]->setText(conjFut.forms[i]);
-        
-        conjCond.ans[i] = conjCond.es[i]->text().toUtf8();
-        conjCond.es[i]->setText(conjCond.forms[i]);
-
-        conjPs.ans[i] = conjPs.es[i]->text().toUtf8();
-        conjPs.es[i]->setText(conjPs.forms[i]);
-
-        conjSubjPr.ans[i] = conjSubjPr.es[i]->text().toUtf8();
-        conjSubjPr.es[i]->setText(conjSubjPr.forms[i]);
-
-        conjSubjImpf.ans[i] = conjSubjImpf.es[i]->text().toUtf8();
-        conjSubjImpf.es[i]->setText(conjSubjImpf.forms[i]);
-    }
-}
-
-bool App::matches(std::string &userAnswer, std::string &dbAnswer) { 
-    return false; 
+bool App::matches(std::string &userAnswer, std::string &dbAnswer)
+{
+    return userAnswer.compare(dbAnswer) == 0;
 }
 
 void App::draw(visage::Canvas &canvas)
 {
     canvas.setColor(0xffffffff);
-    canvas.fill(0, 0, 1200, 900);
+    canvas.fill(0, 0, width(), height());
 }
 
 std::vector<std::string> App::splitForms(std::string entry)
@@ -218,31 +321,31 @@ std::vector<std::string> App::splitForms(std::string entry)
     if (n != std::string::npos)
     {
         entries.push_back(entry.substr(0, n));
-        pos = n+2;
+        pos = n + 2;
     }
     n = entry.find(", ", pos);
     if (n != std::string::npos)
     {
         entries.push_back(entry.substr(pos, n - pos));
-        pos = n+2;
+        pos = n + 2;
     }
     n = entry.find(", ", pos);
     if (n != std::string::npos)
     {
         entries.push_back(entry.substr(pos, n - pos));
-        pos = n+2;
+        pos = n + 2;
     }
     n = entry.find(", ", pos);
     if (n != std::string::npos)
     {
         entries.push_back(entry.substr(pos, n - pos));
-        pos = n+2;
+        pos = n + 2;
     }
     n = entry.find(", ", pos);
     if (n != std::string::npos)
     {
         entries.push_back(entry.substr(pos, n - pos));
-        pos = n+2;
+        pos = n + 2;
     }
     entries.push_back(entry.substr(pos, n));
     return entries;

@@ -11,20 +11,25 @@
 #include "Conj.h"
 #include <iostream>
 
-namespace gwr::frvb 
+namespace gwr::frvb
 {
 
-class App : public visage::ApplicationWindow {
-public:
+class App : public visage::ApplicationWindow
+{
+  public:
     App();
     void newQuiz();
     void markQuiz();
+    void swap();
+    void readContents();
+    bool swapState{true}; // true when fields show USER input, false when they show DB answers
+    bool quizIsMarked{false};
     bool matches(std::string &userAnswer, std::string &dbAnswer);
     DbManager dbm;
     visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
     std::vector<std::string> splitForms(std::string entry);
-    visage::UiButton newBtn{"New"}, markBtn{"Mark"};
+    visage::UiButton newBtn{"New"}, markBtn{"Mark"}, swapBtn{"Swap"};
     Label header, body, headword;
     Conjugation conjPres, conjImpf, conjPc, conjFut, conjCond, conjPs, conjSubjPr, conjSubjImpf;
     visage::Frame left, right;
