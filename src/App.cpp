@@ -5,6 +5,9 @@ using namespace visage::dimension;
 namespace gwr::frvb
 {
 
+VISAGE_THEME_COLOR(WRONG, 0xff991212);
+VISAGE_THEME_COLOR(RIGHT, 0xff129912);
+
 App::App() : dbm(":memory:")
 {
 
@@ -42,6 +45,10 @@ App::App() : dbm(":memory:")
     cmpBtn.setActive(false);
 
     headword.setFont(font.withSize(25.f));
+    headword.onEnterKey() = [this]() { 
+        auto head = headword.text().toUtf8();
+        newQuiz(head); 
+    };
     // ============================
 
     body.setFlexLayout(true);
@@ -64,7 +71,7 @@ App::App() : dbm(":memory:")
     conjPres.setFlexLayout(true);
     conjPres.layout().setDimensions(100_vw, 24_vh);
     conjPres.name_ = "Present";
-
+    
     conjImpf.setFlexLayout(true);
     conjImpf.layout().setDimensions(100_vw, 24_vh);
     conjImpf.name_ = "Imperfect";
@@ -107,6 +114,7 @@ App::App() : dbm(":memory:")
 void App::newQuiz()
 {
     clearColors();
+    clearPronouns();
 
     auto st = dbm.getStmt(
         "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
@@ -158,29 +166,91 @@ void App::newQuiz()
 
     quizIsMarked = false;
     cmpBtn.setActive(false);
+    redraw();
+}
 
-    // REMOVE
-    // std::string aaa{"à, â"};
-    // std::string eee{"é, è, ê, ë"};
-    // std::string iii{"î, ï"};
-    // std::string ooo{"ô"};
-    // std::string uuu{"ù, ü, û"};
-    // std::string cedilla{"ç"};
+void App::newQuiz(std::string &inverb) {
+    clearColors();
+    clearPronouns();
+
+    auto likeV = replaceUnaccentedCharacters(inverb);
+    auto st = dbm.getStmt(
+        "select infinitive from frenchVerbs where infinitive like ?;");
+    st.bind(1, likeV);
+    std::vector<std::string> infs;
+    while (st.executeStep()) {
+        infs.push_back(st.getColumn("infinitive").getString());
+    }
+
+    std::string finalForm;
+    for (auto inf : infs) {
+        if (matches(inf, inverb)) {
+            finalForm = inf;
+        }
+    }
     
-    // replaceAccentedCharacters(aaa);
-    // replaceAccentedCharacters(eee);
-    // replaceAccentedCharacters(iii);
-    // replaceAccentedCharacters(ooo);
-    // replaceAccentedCharacters(uuu);
-    // replaceAccentedCharacters(cedilla);
-    
+    if (finalForm.empty()) return;
+
+
+    st = dbm.getStmt(
+        "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
+        "subjunctivePres, subjunctiveImpf from frenchVerbs where infinitive = ?;");
+    st.bind(1, finalForm);
+
+    std::string verb, pres, impf, pc, fut, cond, ps, subjPres, subjImpf;
+    while (st.executeStep())
+    {
+        verb = st.getColumn("infinitive").getString();
+        pres = st.getColumn("present").getString();
+        impf = st.getColumn("imperfect").getString();
+        pc = st.getColumn("passeCompose").getString();
+        fut = st.getColumn("future").getString();
+        cond = st.getColumn("conditional").getString();
+        ps = st.getColumn("passeSimple").getString();
+        subjPres = st.getColumn("subjunctivePres").getString();
+        subjImpf = st.getColumn("subjunctiveImpf").getString();
+    }
+    headword.setText(verb);
+
+    auto presForms = splitForms(pres);
+    auto impfForms = splitForms(impf);
+    auto pcForms = splitForms(pc);
+    auto futForms = splitForms(fut);
+    auto condForms = splitForms(cond);
+    auto psForms = splitForms(ps);
+    auto subjPresForms = splitForms(subjPres);
+    auto subjImpfForms = splitForms(subjImpf);
+
+    for (size_t i = 0; i < 6; ++i)
+    {
+        conjPres.es[i]->clear();
+        conjImpf.es[i]->clear();
+        conjPc.es[i]->clear();
+        conjFut.es[i]->clear();
+        conjCond.es[i]->clear();
+        conjPs.es[i]->clear();
+        conjSubjPr.es[i]->clear();
+        conjSubjImpf.es[i]->clear();
+
+        conjPres.dbForms[i] = presForms[i];
+        conjImpf.dbForms[i] = impfForms[i];
+        conjPc.dbForms[i] = pcForms[i];
+        conjFut.dbForms[i] = futForms[i];
+        conjCond.dbForms[i] = condForms[i];
+        conjPs.dbForms[i] = psForms[i];
+        conjSubjPr.dbForms[i] = subjPresForms[i];
+        conjSubjImpf.dbForms[i] = subjImpfForms[i];
+    }
+
+    quizIsMarked = false;
+    cmpBtn.setActive(false);
+    redraw();
 }
 
 void App::markQuiz()
 {
-    clearColors();
-    // read texteditor contents into userForms fields
     readContents();
+    clearColors();
 
     // compare userForms with dbForms
     for (size_t i = 0; i < 6; ++i)
@@ -196,10 +266,11 @@ void App::markQuiz()
     }
 
     // color fields by correctness
-    color();
+    userInputIsShown = true;
     quizIsMarked = true;
     cmpBtn.setActive(true);
-    userInputIsShown = true;
+    color();
+    redraw();
 }
 
 void App::readContents()
@@ -224,7 +295,7 @@ bool App::matches(std::string &userAnswer, std::string &dbAnswer)
 
 void App::draw(visage::Canvas &canvas)
 {
-    canvas.setColor(0xffffffff);
+    canvas.setColor(0xffbbbbbb);
     canvas.fill(0, 0, width(), height());
 }
 
@@ -268,52 +339,71 @@ std::vector<std::string> App::splitForms(std::string entry)
 }
 
 void App::clearColors() {
-for (size_t i = 0; i < 6; ++i)
+    for (size_t i = 0; i < 6; ++i)
     {
-        blk(conjPres.pronouns[i]);
-        blk(conjImpf.pronouns[i]);
-        blk(conjPc.pronouns[i]);
-        blk(conjFut.pronouns[i]);
-        blk(conjCond.pronouns[i]);
-        blk(conjPs.pronouns[i]);
-        blk(conjSubjPr.pronouns[i]);
-        blk(conjSubjImpf.pronouns[i]);
+        conjPres.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        conjImpf.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        conjPc.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        conjFut.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        conjCond.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        conjPs.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        conjSubjPr.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        conjSubjImpf.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+    }
+    redraw();
+}
+
+void App::clearPronouns() {
+    for (size_t i = 0; i < 6; ++i) {
+        conjPres.pronouns[i]->setColor(visage::Color(0xff000000));
+        conjImpf.pronouns[i]->setColor(visage::Color(0xff000000));
+        conjPc.pronouns[i]->setColor(visage::Color(0xff000000));
+        conjFut.pronouns[i]->setColor(visage::Color(0xff000000));
+        conjCond.pronouns[i]->setColor(visage::Color(0xff000000));
+        conjPs.pronouns[i]->setColor(visage::Color(0xff000000));
+        conjSubjPr.pronouns[i]->setColor(visage::Color(0xff000000));
+        conjSubjImpf.pronouns[i]->setColor(visage::Color(0xff000000));
     }
 }
 
-void App::red(Label *l) { l->setColor(visage::Color(0xffff0000)); }
+void App::red(Label *l) { l->setColor(visage::Color(0xffbb3232)); l->redraw(); }
+void App::red(visage::TextEditor *e) { e->setBackgroundColorId(WRONG); e->redraw(); }
 
-void App::grn(Label *l) { l->setColor(visage::Color(0xff00ff00)); }
+void App::grn(Label *l) { l->setColor(visage::Color(0xff32bb32)); l->redraw(); }
+void App::grn(visage::TextEditor *e) { e->setBackgroundColorId(RIGHT); e->redraw(); }
 
-void App::blk(Label *l) { l->setColor(visage::Color(0xff000000)); }
+void App::blk(Label *l) { l->setColor(visage::Color(0xff000000)); l->redraw(); }
+void App::blk(visage::TextEditor *e) { e->setBackgroundColorId(visage::TextEditor::TextEditorBackground); e->redraw();}
 
 void App::color() {
     for (size_t i = 0; i < 6; ++i)
     {
-        if (conjPres.isCorrect[i]) { grn(conjPres.pronouns[i]); }
-        else { if (!conjPres.userForms[i].empty()) red(conjPres.pronouns[i]); }
+        if (conjPres.isCorrect[i]) { grn(conjPres.es[i]); grn(conjPres.pronouns[i]); }
+        else { if (!conjPres.userForms[i].empty()) {red(conjPres.es[i]); red(conjPres.pronouns[i]); } }
 
-        if (conjImpf.isCorrect[i]) { grn(conjImpf.pronouns[i]); }
-        else { if (!conjImpf.userForms[i].empty()) red(conjImpf.pronouns[i]); }
+        if (conjImpf.isCorrect[i]) { grn(conjImpf.es[i]); grn(conjImpf.pronouns[i]); }
+        else { if (!conjImpf.userForms[i].empty()) {red(conjImpf.es[i]); red(conjImpf.pronouns[i]); } }
 
-        if (conjPc.isCorrect[i]) { grn(conjPc.pronouns[i]); }
-        else { if (!conjPc.userForms[i].empty()) red(conjPc.pronouns[i]); }
+        if (conjPc.isCorrect[i]) { grn(conjPc.es[i]); grn(conjPc.pronouns[i]); }
+        else { if (!conjPc.userForms[i].empty()) {red(conjPc.es[i]); red(conjPc.pronouns[i]); } }
 
-        if (conjFut.isCorrect[i]) { grn(conjFut.pronouns[i]); }
-        else { if (!conjFut.userForms[i].empty()) red(conjFut.pronouns[i]); }
+        if (conjFut.isCorrect[i]) { grn(conjFut.es[i]); grn(conjFut.pronouns[i]); }
+        else { if (!conjFut.userForms[i].empty()) {red(conjFut.es[i]); red(conjFut.pronouns[i]); } }
 
-        if (conjCond.isCorrect[i]) { grn(conjCond.pronouns[i]); }
-        else { if (!conjCond.userForms[i].empty()) red(conjCond.pronouns[i]); }
+        if (conjCond.isCorrect[i]) { grn(conjCond.es[i]); grn(conjCond.pronouns[i]); }
+        else { if (!conjCond.userForms[i].empty()) {red(conjCond.es[i]); red(conjCond.pronouns[i]); } }
 
-        if (conjPs.isCorrect[i]) { grn(conjPs.pronouns[i]); }
-        else { if (!conjPs.userForms[i].empty()) red(conjPs.pronouns[i]); }
+        if (conjPs.isCorrect[i]) { grn(conjPs.es[i]); grn(conjPs.pronouns[i]); }
+        else { if (!conjPs.userForms[i].empty()) {red(conjPs.es[i]); red(conjPs.pronouns[i]); } }
 
-        if (conjSubjPr.isCorrect[i]) { grn(conjSubjPr.pronouns[i]); }
-        else { if (!conjSubjPr.userForms[i].empty()) red(conjSubjPr.pronouns[i]); }
+        if (conjSubjPr.isCorrect[i]) { grn(conjSubjPr.es[i]); grn(conjSubjPr.pronouns[i]); }
+        else { if (!conjSubjPr.userForms[i].empty()) {red(conjSubjPr.es[i]); red(conjSubjPr.pronouns[i]); } }
 
-        if (conjSubjImpf.isCorrect[i]) { grn(conjSubjImpf.pronouns[i]); }
-        else { if (!conjSubjImpf.userForms[i].empty()) red(conjSubjImpf.pronouns[i]); }
+        if (conjSubjImpf.isCorrect[i]) { grn(conjSubjImpf.es[i]); grn(conjSubjImpf.pronouns[i]); }
+        else { if (!conjSubjImpf.userForms[i].empty()) {red(conjSubjImpf.es[i]); red(conjSubjImpf.pronouns[i]); } }
+        
     }
+    redraw();
 }
 
 void App::compare() {
@@ -321,7 +411,6 @@ void App::compare() {
 
     if (userInputIsShown)
     {
-        clearColors();
         for (size_t i = 0; i < 6; ++i)
         {
             conjPres.es[i]->setText(conjPres.dbForms[i]);
@@ -333,10 +422,10 @@ void App::compare() {
             conjSubjPr.es[i]->setText(conjSubjPr.dbForms[i]);
             conjSubjImpf.es[i]->setText(conjSubjImpf.dbForms[i]);
         }
+        clearColors();
     }
     else
     {
-        color();
         for (size_t i = 0; i < 6; ++i)
         {
             conjPres.es[i]->setText(conjPres.userForms[i]);
@@ -348,8 +437,10 @@ void App::compare() {
             conjSubjPr.es[i]->setText(conjSubjPr.userForms[i]);
             conjSubjImpf.es[i]->setText(conjSubjImpf.userForms[i]);
         }
+        color();
     }
     userInputIsShown = !userInputIsShown;
+    redraw();
 }
 
 std::string App::replaceAccentedCharacters(std::string& input) {
@@ -382,6 +473,15 @@ std::string App::replaceAccentedCharacters(std::string& input) {
                 }
             }
         }
+    }
+    return result;
+}
+
+std::string App::replaceUnaccentedCharacters(std::string &input) { 
+    std::string result;
+    for (char ch : input) {
+        if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'u') { result.push_back('_'); }
+        else { result.push_back(ch); }
     }
     return result;
 }
