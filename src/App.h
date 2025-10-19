@@ -48,6 +48,7 @@ class App : public visage::ApplicationWindow
     Label header, body; // , headword;
     visage::TextEditor headword;
     Conjugation conjPres, conjImpf, conjPc, conjFut, conjCond, conjPs, conjSubjPr, conjSubjImpf;
+    std::array<Conjugation *, 8> conjs;
     visage::Frame left, right;
 };
 

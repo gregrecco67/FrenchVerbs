@@ -109,6 +109,8 @@ App::App() : dbm(":memory:")
     conjSubjImpf.setFlexLayout(true);
     conjSubjImpf.layout().setDimensions(100_vw, 24_vh);
     conjSubjImpf.name_ = "Subjunctive Imperfect";
+
+    conjs = {&conjPres, &conjImpf, &conjPc, &conjPs, &conjFut, &conjCond, &conjSubjPr, &conjSubjImpf};
 }
 
 void App::newQuiz()
@@ -145,15 +147,9 @@ void App::newQuiz()
 
     for (size_t i = 0; i < 6; ++i)
     {
-        conjPres.es[i]->clear();
-        conjImpf.es[i]->clear();
-        conjPc.es[i]->clear();
-        conjFut.es[i]->clear();
-        conjCond.es[i]->clear();
-        conjPs.es[i]->clear();
-        conjSubjPr.es[i]->clear();
-        conjSubjImpf.es[i]->clear();
-
+        for (auto conj : conjs) {
+            conj->es[i]->clear();
+        }
         conjPres.dbForms[i] = presForms[i];
         conjImpf.dbForms[i] = impfForms[i];
         conjPc.dbForms[i] = pcForms[i];
@@ -188,7 +184,6 @@ void App::newQuiz(std::string &inverb) {
             finalForm = inf;
         }
     }
-    
     if (finalForm.empty()) return;
 
 
@@ -223,14 +218,9 @@ void App::newQuiz(std::string &inverb) {
 
     for (size_t i = 0; i < 6; ++i)
     {
-        conjPres.es[i]->clear();
-        conjImpf.es[i]->clear();
-        conjPc.es[i]->clear();
-        conjFut.es[i]->clear();
-        conjCond.es[i]->clear();
-        conjPs.es[i]->clear();
-        conjSubjPr.es[i]->clear();
-        conjSubjImpf.es[i]->clear();
+        for (auto conj : conjs) {
+            conj->es[i]->clear();
+        }
 
         conjPres.dbForms[i] = presForms[i];
         conjImpf.dbForms[i] = impfForms[i];
@@ -256,14 +246,9 @@ void App::markQuiz()
     // compare userForms with dbForms
     for (size_t i = 0; i < 6; ++i)
     {
-        conjPres.isCorrect[i] = matches(conjPres.userForms[i], conjPres.dbForms[i]);
-        conjImpf.isCorrect[i] = matches(conjImpf.userForms[i], conjImpf.dbForms[i]);
-        conjPc.isCorrect[i] = matches(conjPc.userForms[i], conjPc.dbForms[i]);
-        conjFut.isCorrect[i] = matches(conjFut.userForms[i], conjFut.dbForms[i]);
-        conjCond.isCorrect[i] = matches(conjCond.userForms[i], conjCond.dbForms[i]);
-        conjPs.isCorrect[i] = matches(conjPs.userForms[i], conjPs.dbForms[i]);
-        conjSubjPr.isCorrect[i] = matches(conjSubjPr.userForms[i], conjSubjPr.dbForms[i]);
-        conjSubjImpf.isCorrect[i] = matches(conjSubjImpf.userForms[i], conjSubjImpf.dbForms[i]);
+        for (auto conj : conjs) {
+            conj->isCorrect[i] = matches(conj->userForms[i], conj->dbForms[i]);
+        }
     }
 
     // color fields by correctness
@@ -278,14 +263,10 @@ void App::readContents()
 {
     for (size_t i = 0; i < 6; ++i)
     {
-        conjPres.userForms[i] = conjPres.es[i]->text().toUtf8();
-        conjImpf.userForms[i] = conjImpf.es[i]->text().toUtf8();
-        conjPc.userForms[i] = conjPc.es[i]->text().toUtf8();
-        conjFut.userForms[i] = conjFut.es[i]->text().toUtf8();
-        conjCond.userForms[i] = conjCond.es[i]->text().toUtf8();
-        conjPs.userForms[i] = conjPs.es[i]->text().toUtf8();
-        conjSubjPr.userForms[i] = conjSubjPr.es[i]->text().toUtf8();
-        conjSubjImpf.userForms[i] = conjSubjImpf.es[i]->text().toUtf8();
+        for (auto conj : conjs) {
+            auto aa = conj->es[i]->text().toUtf8();
+            conj->userForms[i] = aa;
+        }
     }
 }
 
@@ -342,28 +323,18 @@ std::vector<std::string> App::splitForms(std::string entry)
 void App::clearColors() {
     for (size_t i = 0; i < 6; ++i)
     {
-        conjPres.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
-        conjImpf.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
-        conjPc.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
-        conjFut.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
-        conjCond.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
-        conjPs.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
-        conjSubjPr.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
-        conjSubjImpf.es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        for (auto conj : conjs) {
+            conj->es[i]->setBackgroundColorId(visage::TextEditor::TextEditorBackground);
+        }
     }
     redraw();
 }
 
 void App::clearPronouns() {
     for (size_t i = 0; i < 6; ++i) {
-        conjPres.pronouns[i]->setColor(visage::Color(0xff000000));
-        conjImpf.pronouns[i]->setColor(visage::Color(0xff000000));
-        conjPc.pronouns[i]->setColor(visage::Color(0xff000000));
-        conjFut.pronouns[i]->setColor(visage::Color(0xff000000));
-        conjCond.pronouns[i]->setColor(visage::Color(0xff000000));
-        conjPs.pronouns[i]->setColor(visage::Color(0xff000000));
-        conjSubjPr.pronouns[i]->setColor(visage::Color(0xff000000));
-        conjSubjImpf.pronouns[i]->setColor(visage::Color(0xff000000));
+        for (auto conj : conjs) {
+            conj->pronouns[i]->setColor(visage::Color(0xff000000));
+        }
     }
 }
 
@@ -379,30 +350,10 @@ void App::blk(visage::TextEditor *e) { e->setBackgroundColorId(visage::TextEdito
 void App::color() {
     for (size_t i = 0; i < 6; ++i)
     {
-        if (conjPres.isCorrect[i]) { grn(conjPres.es[i]); grn(conjPres.pronouns[i]); }
-        else { if (!conjPres.userForms[i].empty()) {red(conjPres.es[i]); red(conjPres.pronouns[i]); } }
-
-        if (conjImpf.isCorrect[i]) { grn(conjImpf.es[i]); grn(conjImpf.pronouns[i]); }
-        else { if (!conjImpf.userForms[i].empty()) {red(conjImpf.es[i]); red(conjImpf.pronouns[i]); } }
-
-        if (conjPc.isCorrect[i]) { grn(conjPc.es[i]); grn(conjPc.pronouns[i]); }
-        else { if (!conjPc.userForms[i].empty()) {red(conjPc.es[i]); red(conjPc.pronouns[i]); } }
-
-        if (conjFut.isCorrect[i]) { grn(conjFut.es[i]); grn(conjFut.pronouns[i]); }
-        else { if (!conjFut.userForms[i].empty()) {red(conjFut.es[i]); red(conjFut.pronouns[i]); } }
-
-        if (conjCond.isCorrect[i]) { grn(conjCond.es[i]); grn(conjCond.pronouns[i]); }
-        else { if (!conjCond.userForms[i].empty()) {red(conjCond.es[i]); red(conjCond.pronouns[i]); } }
-
-        if (conjPs.isCorrect[i]) { grn(conjPs.es[i]); grn(conjPs.pronouns[i]); }
-        else { if (!conjPs.userForms[i].empty()) {red(conjPs.es[i]); red(conjPs.pronouns[i]); } }
-
-        if (conjSubjPr.isCorrect[i]) { grn(conjSubjPr.es[i]); grn(conjSubjPr.pronouns[i]); }
-        else { if (!conjSubjPr.userForms[i].empty()) {red(conjSubjPr.es[i]); red(conjSubjPr.pronouns[i]); } }
-
-        if (conjSubjImpf.isCorrect[i]) { grn(conjSubjImpf.es[i]); grn(conjSubjImpf.pronouns[i]); }
-        else { if (!conjSubjImpf.userForms[i].empty()) {red(conjSubjImpf.es[i]); red(conjSubjImpf.pronouns[i]); } }
-        
+        for (auto conj : conjs) {
+            if (conj->isCorrect[i]) { grn(conj->es[i]); grn(conj->pronouns[i]); }
+            else { if (!conj->userForms[i].empty()) {red(conj->es[i]); red(conj->pronouns[i]); } }
+        }        
     }
     redraw();
 }
@@ -414,14 +365,9 @@ void App::compare() {
     {
         for (size_t i = 0; i < 6; ++i)
         {
-            conjPres.es[i]->setText(conjPres.dbForms[i]);
-            conjImpf.es[i]->setText(conjImpf.dbForms[i]);
-            conjPc.es[i]->setText(conjPc.dbForms[i]);
-            conjFut.es[i]->setText(conjFut.dbForms[i]);
-            conjCond.es[i]->setText(conjCond.dbForms[i]);
-            conjPs.es[i]->setText(conjPs.dbForms[i]);
-            conjSubjPr.es[i]->setText(conjSubjPr.dbForms[i]);
-            conjSubjImpf.es[i]->setText(conjSubjImpf.dbForms[i]);
+            for (auto conj : conjs) {
+                conj->es[i]->setText(conj->dbForms[i]);
+            }
         }
         clearColors();
     }
@@ -429,14 +375,9 @@ void App::compare() {
     {
         for (size_t i = 0; i < 6; ++i)
         {
-            conjPres.es[i]->setText(conjPres.userForms[i]);
-            conjImpf.es[i]->setText(conjImpf.userForms[i]);
-            conjPc.es[i]->setText(conjPc.userForms[i]);
-            conjFut.es[i]->setText(conjFut.userForms[i]);
-            conjCond.es[i]->setText(conjCond.userForms[i]);
-            conjPs.es[i]->setText(conjPs.userForms[i]);
-            conjSubjPr.es[i]->setText(conjSubjPr.userForms[i]);
-            conjSubjImpf.es[i]->setText(conjSubjImpf.userForms[i]);
+            for (auto conj : conjs) {
+                conj->es[i]->setText(conj->userForms[i]);
+            }
         }
         color();
     }
