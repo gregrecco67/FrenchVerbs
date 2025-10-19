@@ -160,6 +160,7 @@ void App::newQuiz()
         conjSubjImpf.dbForms[i] = subjImpfForms[i];
     }
 
+    userInputIsShown = true;
     quizIsMarked = false;
     cmpBtn.setActive(false);
     redraw();
@@ -232,6 +233,7 @@ void App::newQuiz(std::string &inverb) {
         conjSubjImpf.dbForms[i] = subjImpfForms[i];
     }
 
+    userInputIsShown = true;
     quizIsMarked = false;
     cmpBtn.setActive(false);
     redraw();
