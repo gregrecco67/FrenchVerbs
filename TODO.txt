@@ -1,3 +1,7 @@
 -- imperative? participle?
 
 -- tweak script to generate wordlist.txt, too
+-- order correctly, w/o accents
+
+-- replace the passe compose with the imperative
+-- have spots for present and past participles and auxiliary verb
