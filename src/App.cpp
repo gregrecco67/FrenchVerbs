@@ -249,6 +249,7 @@ void App::newQuiz(std::string &inverb) {
 
 void App::markQuiz()
 {
+    if (!userInputIsShown) return;
     readContents();
     clearColors();
 
