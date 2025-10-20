@@ -26,12 +26,14 @@ App::App() : dbm(":memory:")
     header.addChild(markBtn, true);
     header.addChild(headword, true);
     header.addChild(cmpBtn, true);
+    header.addChild(quizUnderway, false);
 
     newBtn.layout().setDimensions(15_vw, 100_vh);
     markBtn.layout().setDimensions(15_vw, 100_vh);
     headword.layout().setDimensions(35_vw, 100_vh);
     cmpBtn.layout().setDimensions(15_vw, 100_vh);
-
+    quizUnderway.layout().setDimensions(10_vw, 100_vh);
+    
     newBtn.setFont(font.withSize(25.f));
     newBtn.onMouseDown() = [&](const visage::MouseEvent &e) { newQuiz(); };
 
@@ -43,6 +45,12 @@ App::App() : dbm(":memory:")
         if (cmpBtn.isActive()) { compare(); }
     };
     cmpBtn.setActive(false);
+
+    
+    quizUnderway.setText("Quiz underway");
+    quizUnderway.setFont(font.withSize(14.f));
+    quizUnderway.centered = false;
+    quizUnderway.outline = false;
 
     headword.setFont(font.withSize(25.f));
     headword.onEnterKey() = [this]() { 
@@ -65,8 +73,8 @@ App::App() : dbm(":memory:")
 
     left.addChild(conjPres, true);
     left.addChild(conjImpf, true);
-    left.addChild(conjPc, true);
     left.addChild(conjPs, true);
+    left.addChild(conjImper, true);
 
     conjPres.setFlexLayout(true);
     conjPres.layout().setDimensions(100_vw, 24_vh);
@@ -76,9 +84,15 @@ App::App() : dbm(":memory:")
     conjImpf.layout().setDimensions(100_vw, 24_vh);
     conjImpf.name_ = "Imperfect";
 
-    conjPc.setFlexLayout(true);
-    conjPc.layout().setDimensions(100_vw, 24_vh);
-    conjPc.name_ = "Compound Past";
+    conjImper.setFlexLayout(true);
+    conjImper.layout().setDimensions(100_vw, 24_vh);
+    conjImper.name_ = "Imperative  /  Participles+";
+    conjImper.pn1.setText("(tu)");
+    conjImper.pn2.setText("(nous)");
+    conjImper.pn3.setText("(vous)");
+    conjImper.pn4.setText("pres.");
+    conjImper.pn5.setText("past");
+    conjImper.pn6.setText("aux.");
 
     conjPs.setFlexLayout(true);
     conjPs.layout().setDimensions(100_vw, 24_vh);
@@ -110,96 +124,61 @@ App::App() : dbm(":memory:")
     conjSubjImpf.layout().setDimensions(100_vw, 24_vh);
     conjSubjImpf.name_ = "Subjunctive Imperfect";
 
-    conjs = {&conjPres, &conjImpf, &conjPc, &conjPs, &conjFut, &conjCond, &conjSubjPr, &conjSubjImpf};
+    conjs = {&conjPres, &conjImpf, &conjPs, &conjImper, &conjFut, &conjCond, &conjSubjPr, &conjSubjImpf};
 }
 
 void App::newQuiz()
 {
-    clearColors();
-    clearPronouns();
+    std::string dummy;
+    newQuiz(dummy);
+}
 
-    auto st = dbm.getStmt(
-        "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
-        "subjunctivePres, subjunctiveImpf from frenchVerbs order by random() limit 1;");
-    std::string verb, pres, impf, pc, fut, cond, ps, subjPres, subjImpf;
-    while (st.executeStep())
-    {
-        verb = st.getColumn("infinitive").getString();
-        pres = st.getColumn("present").getString();
-        impf = st.getColumn("imperfect").getString();
-        pc = st.getColumn("passeCompose").getString();
-        fut = st.getColumn("future").getString();
-        cond = st.getColumn("conditional").getString();
-        ps = st.getColumn("passeSimple").getString();
-        subjPres = st.getColumn("subjunctivePres").getString();
-        subjImpf = st.getColumn("subjunctiveImpf").getString();
-    }
-    headword.setText(verb);
-
-    auto presForms = splitForms(pres);
-    auto impfForms = splitForms(impf);
-    auto pcForms = splitForms(pc);
-    auto futForms = splitForms(fut);
-    auto condForms = splitForms(cond);
-    auto psForms = splitForms(ps);
-    auto subjPresForms = splitForms(subjPres);
-    auto subjImpfForms = splitForms(subjImpf);
-
-    for (size_t i = 0; i < 6; ++i)
-    {
-        for (auto conj : conjs) {
-            conj->es[i]->clear();
+SQLite::Statement App::getRightStatment(std::string &inverb) {
+    if (!inverb.empty()) {
+        auto likeV = replaceUnaccentedCharacters(inverb);
+        auto st = dbm.getStmt("select infinitive from frenchVerbs where infinitive like ?;");
+        st.bind(1, likeV);
+        std::vector<std::string> infs;
+        while (st.executeStep()) {
+            infs.push_back(st.getColumn("infinitive").getString());
         }
-        conjPres.dbForms[i] = presForms[i];
-        conjImpf.dbForms[i] = impfForms[i];
-        conjPc.dbForms[i] = pcForms[i];
-        conjFut.dbForms[i] = futForms[i];
-        conjCond.dbForms[i] = condForms[i];
-        conjPs.dbForms[i] = psForms[i];
-        conjSubjPr.dbForms[i] = subjPresForms[i];
-        conjSubjImpf.dbForms[i] = subjImpfForms[i];
-    }
 
-    userInputIsShown = true;
-    quizIsMarked = false;
-    cmpBtn.setActive(false);
-    redraw();
+        std::string finalForm;
+        for (auto inf : infs) {
+            if (matches(inf, inverb)) {
+                finalForm = inf;
+            }
+        }
+        if (!finalForm.empty()) {
+            st = dbm.getStmt(
+                "select infinitive, present, imperfect, presParticiple, pastParticiple, auxiliary, imperative, future, conditional, passeSimple, "
+                "subjunctivePres, subjunctiveImpf from frenchVerbs where infinitive = ?;");
+            st.bind(1, finalForm);
+            return st;
+        }
+    }
+    auto st = dbm.getStmt(
+        "select infinitive, present, imperfect, presParticiple, pastParticiple, auxiliary, imperative, future, conditional, passeSimple, "
+        "subjunctivePres, subjunctiveImpf from frenchVerbs order by random() limit 1;");
+    return st;
 }
 
 void App::newQuiz(std::string &inverb) {
     clearColors();
     clearPronouns();
 
-    auto likeV = replaceUnaccentedCharacters(inverb);
-    auto st = dbm.getStmt(
-        "select infinitive from frenchVerbs where infinitive like ?;");
-    st.bind(1, likeV);
-    std::vector<std::string> infs;
-    while (st.executeStep()) {
-        infs.push_back(st.getColumn("infinitive").getString());
-    }
+    auto st = getRightStatment(inverb);
 
-    std::string finalForm;
-    for (auto inf : infs) {
-        if (matches(inf, inverb)) {
-            finalForm = inf;
-        }
-    }
-    if (finalForm.empty()) return;
-
-
-    st = dbm.getStmt(
-        "select infinitive, present, imperfect, passeCompose, future, conditional, passeSimple, "
-        "subjunctivePres, subjunctiveImpf from frenchVerbs where infinitive = ?;");
-    st.bind(1, finalForm);
-
-    std::string verb, pres, impf, pc, fut, cond, ps, subjPres, subjImpf;
+    std::string verb, pres, impf, imperat, pastPart, presPart, aux, fut, cond, ps, subjPres, subjImpf;
     while (st.executeStep())
     {
         verb = st.getColumn("infinitive").getString();
         pres = st.getColumn("present").getString();
         impf = st.getColumn("imperfect").getString();
-        pc = st.getColumn("passeCompose").getString();
+        imperat = st.getColumn("imperative").getString();
+        pastPart = st.getColumn("pastParticiple").getString();
+        presPart = st.getColumn("presParticiple").getString();
+        aux = st.getColumn("auxiliary").getString();
         fut = st.getColumn("future").getString();
         cond = st.getColumn("conditional").getString();
         ps = st.getColumn("passeSimple").getString();
@@ -210,7 +189,14 @@ void App::newQuiz(std::string &inverb) {
 
     auto presForms = splitForms(pres);
     auto impfForms = splitForms(impf);
-    auto pcForms = splitForms(pc);
+    auto imperForms = splitForms(imperat);
+    std::vector<std::string> impPartForms;
+    impPartForms.push_back(imperForms[1]); // 2nd sg imperat. to first position
+    impPartForms.push_back(imperForms[3]); // 1st pl imperat. to second
+    impPartForms.push_back(imperForms[4]); // 2nd pl imp. to third
+    impPartForms.push_back(presPart);
+    impPartForms.push_back(pastPart);
+    impPartForms.push_back(aux);
     auto futForms = splitForms(fut);
     auto condForms = splitForms(cond);
     auto psForms = splitForms(ps);
@@ -225,10 +211,10 @@ void App::newQuiz(std::string &inverb) {
 
         conjPres.dbForms[i] = presForms[i];
         conjImpf.dbForms[i] = impfForms[i];
-        conjPc.dbForms[i] = pcForms[i];
+        conjPs.dbForms[i] = psForms[i];
+        conjImper.dbForms[i] = impPartForms[i];
         conjFut.dbForms[i] = futForms[i];
         conjCond.dbForms[i] = condForms[i];
-        conjPs.dbForms[i] = psForms[i];
         conjSubjPr.dbForms[i] = subjPresForms[i];
         conjSubjImpf.dbForms[i] = subjImpfForms[i];
     }
@@ -236,6 +222,7 @@ void App::newQuiz(std::string &inverb) {
     userInputIsShown = true;
     quizIsMarked = false;
     cmpBtn.setActive(false);
+    quizUnderway.setVisible(true);
     redraw();
 }
 
@@ -256,6 +243,7 @@ void App::markQuiz()
     // color fields by correctness
     userInputIsShown = true;
     quizIsMarked = true;
+    quizUnderway.setVisible(false);
     cmpBtn.setActive(true);
     color();
     redraw();
