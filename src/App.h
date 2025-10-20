@@ -35,11 +35,13 @@ class App : public visage::ApplicationWindow
     void blk(visage::TextEditor *e);
     bool userInputIsShown{true}; // true when fields show USER input, false when they show DB answers
     bool quizIsMarked{false};
+    Label quizUnderway;
     static const ::visage::theme::ColorId WrongBkgd;
     static const ::visage::theme::ColorId RightBkgd;
     bool matches(std::string &userAnswer, std::string &dbAnswer);
     std::string replaceAccentedCharacters(std::string &input);
     std::string replaceUnaccentedCharacters(std::string &input);
+    SQLite::Statement getRightStatment(std::string &inverb);
     DbManager dbm;
     visage::Font font{80, resources::fonts::Lato_Regular_ttf};
     void draw(visage::Canvas &canvas) override;
@@ -47,7 +49,7 @@ class App : public visage::ApplicationWindow
     visage::UiButton newBtn{"New"}, markBtn{"Mark"}, cmpBtn{"Compare"};
     Label header, body; // , headword;
     visage::TextEditor headword;
-    Conjugation conjPres, conjImpf, conjPc, conjFut, conjCond, conjPs, conjSubjPr, conjSubjImpf;
+    Conjugation conjPres, conjImpf, conjImper, conjFut, conjCond, conjPs, conjSubjPr, conjSubjImpf;
     std::array<Conjugation *, 8> conjs;
     visage::Frame left, right;
 };

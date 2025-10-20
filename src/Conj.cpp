@@ -60,6 +60,11 @@ Conjugation::Conjugation()
     plForms.addChild(e5, true);
     plForms.addChild(e6, true);
 
+    for (auto &fr : {&pn1, &pn2, &pn3, &pn4, &pn5, &pn6})
+    {
+        fr->setFont(font.withSize(20.f));
+    }
+    
     for (auto &fr : {&e1, &e2, &e3, &e4, &e5, &e6})
     {
         fr->setFlexLayout(true);

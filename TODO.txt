@@ -5,3 +5,9 @@
 
 -- replace the passe compose with the imperative
 -- have spots for present and past participles and auxiliary verb
+
+1. change pronouns: tu/nous/vous and pres/past/aux
+2. change newQuiz variants (both) to put together imper/partic conj fields
+3. marking looks the same(?)
+
+-- update generate.py to include auxiliary verb
