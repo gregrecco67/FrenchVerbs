@@ -1,6 +1,6 @@
 #include <visage/app.h>
 #include <string>
-#include "App.h"
+#include "App2.h"
 int main()
 {
     gwr::frvb::App2 app;

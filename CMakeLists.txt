@@ -41,21 +41,45 @@ add_executable(${EXEC1}
   src/Conj.cpp
 )
 
+add_executable(${EXEC2}
+  src/main-rcg.cpp
+  src/App2.cpp
+  src/DbManager.cpp
+  src/Recognition.cpp
+)
+
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_LINUX")
+    target_compile_definitions(${EXEC1} PUBLIC "IS_LINUX")
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_MACOS")
+    target_compile_definitions(${EXEC1} PUBLIC "IS_MACOS")
     add_compile_options(-mmacosx-version-min=15.0)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC -D_GLIBCXX_USE_CXX11_ABI=1)
+    target_compile_definitions(${EXEC1} PUBLIC -D_GLIBCXX_USE_CXX11_ABI=1)
 endif()
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    target_compile_definitions(${PROJECT_NAME} PUBLIC "IS_WINDOWS")
+    target_compile_definitions(${EXEC1} PUBLIC "IS_WINDOWS")
 endif()
+
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_compile_definitions(${EXEC2} PUBLIC "IS_LINUX")
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    target_compile_definitions(${EXEC2} PUBLIC "IS_MACOS")
+    add_compile_options(-mmacosx-version-min=15.0)
+    target_compile_definitions(${EXEC2} PUBLIC -D_GLIBCXX_USE_CXX11_ABI=1)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_compile_definitions(${EXEC2} PUBLIC "IS_WINDOWS")
+endif()
+
 
 set_target_properties(${EXEC1} PROPERTIES MACOSX_BUNDLE TRUE)
 set_property(TARGET ${EXEC1} PROPERTY CXX_STANDARD 20)
+set_target_properties(${EXEC2} PROPERTIES MACOSX_BUNDLE TRUE)
+set_property(TARGET ${EXEC2} PROPERTY CXX_STANDARD 20)
 include_directories(libs/visage libs/SQLiteCpp src)
 
 if (EMSCRIPTEN)
@@ -77,9 +101,36 @@ if (EMSCRIPTEN)
     OUTPUT_NAME "paradigms"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/builds/${EXAMPLE}"
   )
+
+  target_link_options(${EXEC2}
+    PRIVATE
+    --shell-file ${CMAKE_CURRENT_SOURCE_DIR}/minshell.html
+    -sGL_ENABLE_GET_PROC_ADDRESS
+    -sALLOW_MEMORY_GROWTH=1
+    --bind
+    -s STACK_SIZE=48MB
+    "-sEXPORTED_FUNCTIONS=['_main', '_pasteCallback']"
+    "-sEXPORTED_RUNTIME_METHODS=['ccall', 'cwrap', 'UTF8ToString']"
+    "-sNO_DISABLE_EXCEPTION_CATCHING"
+  )
+
+  set_target_properties(${EXEC2} PROPERTIES
+    SUFFIX ".html"
+    OUTPUT_NAME "recognitions"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/builds/${EXAMPLE}"
+  )
+
 endif()
 
 target_link_libraries(${EXEC1} PRIVATE
+  visage
+  EmbeddedFontResources
+  EmbeddedImageResources
+  SQLiteCpp
+  sqlite3 # ${SQL} 
+)
+
+target_link_libraries(${EXEC2} PRIVATE
   visage
   EmbeddedFontResources
   EmbeddedImageResources
