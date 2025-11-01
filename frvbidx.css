@@ -1,0 +1,31 @@
+body { 
+    background-color: darkslategray;
+    text-align: center;
+    color: bisque;
+}
+
+div {
+    font: 2em sans-serif;
+}
+
+a {
+    font: 3em sans-serif;
+    color:bisque;
+}
+
+div {
+    text-align: justify;
+    padding-left: 8%;
+    padding-right: 8%;
+    margin-bottom: 0.5em;
+}
+
+div.fn {
+    font: 1em sans-serif;
+    text-indent: 0em;
+    padding-left: 10%;
+}
+
+div#links {
+    font: 1em sans-serif;
+}

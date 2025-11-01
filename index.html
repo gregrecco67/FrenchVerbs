@@ -1,43 +1,34 @@
-<!doctype html>
-<html lang="EN-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<link rel="stylesheet" href="frvbidx.css" />
+<title>French Verbs</title>
+</head>
+<body>
+<h1>Select one:</h1>
+<div id="links">
+    <p><a href="http://localhost:8000/site/paradigms.html">(1) Fill out paradigms for individual verbs.</a></p>
+    <p><a href="http://localhost:8000/site/recognitions.html">(2) Identify given forms of verbs.</a></p>
+</div>
+<hr>
+<div>Press "New" to generate a new quiz, "Mark" to mark it, and "Compare" to toggle between your input and the answers.</div>
+<div>For (1), the infinitive will appear at the top (or you can enter your own). Fill in any verb forms you like and only 
+    those will be marked, no accents required.</div>
+    
+<div class="fn">(If you want to enter accented characters, alt+c for cedilla, alt+e for acute, 
+    alt+` for grave, alt+i for circumflex, alt+u for diaeresis, followed by the letter. Your browser or operating system may
+    interfere with this. ¯\_(ツ)_/¯ )
+</div>
+<div>
+    For (2), you have to provide the infinitive ("head") and parse the verb form. Use the abbrevations below:
+    <ul>
+        <li>Person: 1st, 2nd, 3rd</li>
+        <li>Number: sg, pl</li>
+        <li>Tense/mood: pres, impf, past, fut, cond, subj, subj impf, pres part, past part</li>
+    </ul>
+</div>
+<hr>
 
-    <title>French Verbs</title>
 
-    <meta name="title" content="French Verbs">
-    <meta name="description" content="Test your knowledge.">
-    <meta name="viewport" content="width=device-width">
-
-    <style>
-        body { margin: 0px; overflow: hidden; background-color: black; }
-        canvas.emscripten { border: 0px none; background-color: black; }
-    </style>
-    </head>
-    <body>
-        <canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas>
-        <p id="output" />
-        <script>
-            var Module = {
-                print: (function() {
-                    var element = document.getElementById('output');
-                    if (element) element.value = ''; // clear browser cache
-                    return function(text) {
-                        if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
-                        console.log(text);
-                        if (element) {
-                          element.value += text + "\n";
-                          element.scrollTop = element.scrollHeight; // focus on bottom
-                        }
-                    };
-                })(),
-                canvas: (function() {
-                    var canvas = document.getElementById('canvas');
-                    return canvas;
-                })()
-            };
-        </script>
-        <script async type="text/javascript" src="index.js"></script>
-    </body>
-</html>
+</body></html>
