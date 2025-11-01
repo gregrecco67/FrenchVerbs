@@ -44,7 +44,7 @@ add_executable(${EXEC1}
 add_executable(${EXEC2}
   src/main-rcg.cpp
   src/App2.cpp
-  src/DbManager.cpp
+  src/DbManager2.cpp
   src/Recognition.cpp
 )
 

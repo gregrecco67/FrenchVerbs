@@ -109,42 +109,20 @@ void App2::newQuiz()
 {
     clearColors();
 
-    std::string str;
-    auto st = getRightStatment(str);
+    // std::string str;
+    // auto st = getRightStatment(str);
+    auto st = dbm.getStmt("select head, form, parse from recogs order by random() limit 8;");
 
-    std::string verb, pres, impf, imperat, pastPart, presPart, aux, fut, cond, ps, subjPres,
-        subjImpf;
+    std::array<std::string, 8> heads, forms, parses;
+    size_t idx{0};
     while (st.executeStep())
     {
-        verb = st.getColumn("infinitive").getString();
-        pres = st.getColumn("present").getString();
-        impf = st.getColumn("imperfect").getString();
-        imperat = st.getColumn("imperative").getString();
-        pastPart = st.getColumn("pastParticiple").getString();
-        presPart = st.getColumn("presParticiple").getString();
-        aux = st.getColumn("auxiliary").getString();
-        fut = st.getColumn("future").getString();
-        cond = st.getColumn("conditional").getString();
-        ps = st.getColumn("passeSimple").getString();
-        subjPres = st.getColumn("subjunctivePres").getString();
-        subjImpf = st.getColumn("subjunctiveImpf").getString();
+        heads[idx] = st.getColumn("head").getString();
+        forms[idx] = st.getColumn("form").getString();
+        parses[idx] = st.getColumn("parse").getString();
+        recogs[idx]->form.setText(forms[idx]);
+        ++idx;
     }
-
-    auto presForms = splitForms(pres);
-    auto impfForms = splitForms(impf);
-    auto imperForms = splitForms(imperat);
-    std::vector<std::string> impPartForms;
-    impPartForms.push_back(imperForms[1]); // 2nd sg imperat. to first position
-    impPartForms.push_back(imperForms[3]); // 1st pl imperat. to second
-    impPartForms.push_back(imperForms[4]); // 2nd pl imp. to third
-    impPartForms.push_back(presPart);
-    impPartForms.push_back(pastPart);
-    impPartForms.push_back(aux);
-    auto futForms = splitForms(fut);
-    auto condForms = splitForms(cond);
-    auto psForms = splitForms(ps);
-    auto subjPresForms = splitForms(subjPres);
-    auto subjImpfForms = splitForms(subjImpf);
 
     for (auto recog : recogs)
     {
