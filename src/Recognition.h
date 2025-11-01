@@ -18,8 +18,8 @@ class Recognition : public visage::Frame
     Recognition();
     void draw(visage::Canvas &canvas);
     void clearAll();
-    std::string userForm, dbForm; // forms (db) and answers (db)
-    bool isCorrect{true};
+    std::string userHead, userParse, dbHead, dbParse; // forms (db) and answers (db)
+    bool parseIsCorrect{true}, headIsCorrect{true};
     Label form;                     // pronouns
     visage::TextEditor head, parse; // editors
 };

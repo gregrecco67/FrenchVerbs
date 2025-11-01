@@ -1,4 +1,3 @@
 
 2nd app: recognitions
--- implement newQuiz, markQuiz, and compare
--- fork SQLiteCpp to add deserialization code?
+-- implement markQuiz, and compare

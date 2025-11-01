@@ -145,7 +145,8 @@ void App2::markQuiz()
     // compare userForms with dbForms
     for (auto recog : recogs)
     {
-        recog->isCorrect = matches(recog->userForm, recog->dbForm);
+        recog->headIsCorrect = matches(recog->userHead, recog->dbHead);
+        recog->parseIsCorrect = matches(recog->userParse, recog->dbParse);
     }
 
     // color fields by correctness
@@ -161,7 +162,9 @@ void App2::readContents()
     for (auto &recog : recogs)
     {
         auto aa = recog->head.text().toUtf8();
-        recog->userForm = aa;
+        recog->userHead = aa;
+        auto bb = recog->parse.text().toUtf8();
+        recog->userParse = bb;
     }
 }
 
@@ -274,7 +277,8 @@ void App2::compare()
     {
         for (auto &recog : recogs)
         {
-            recog->head.setText(recog->dbForm);
+            recog->head.setText(recog->dbHead);
+            recog->parse.setText(recog->dbParse);
         }
         clearColors();
     }
@@ -282,7 +286,8 @@ void App2::compare()
     {
         for (auto &recog : recogs)
         {
-            recog->head.setText(recog->userForm);
+            recog->head.setText(recog->userHead);
+            recog->parse.setText(recog->userParse);
         }
         color();
     }
