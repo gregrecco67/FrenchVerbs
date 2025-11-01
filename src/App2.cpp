@@ -121,6 +121,8 @@ void App2::newQuiz()
         forms[idx] = st.getColumn("form").getString();
         parses[idx] = st.getColumn("parse").getString();
         recogs[idx]->form.setText(forms[idx]);
+        recogs[idx]->dbHead = heads[idx];
+        recogs[idx]->dbParse = parses[idx];
         ++idx;
     }
 
