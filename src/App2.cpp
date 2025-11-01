@@ -221,12 +221,10 @@ std::vector<std::string> App2::splitForms(std::string entry)
 
 void App2::clearColors()
 {
-    for (size_t i = 0; i < 6; ++i)
+    for (auto recog : recogs)
     {
-        for (auto recog : recogs)
-        {
-            recog->parse.setBackgroundColorId(visage::TextEditor::TextEditorBackground);
-        }
+        blk(&(recog->parse));
+        blk(&(recog->head));
     }
     redraw();
 }
@@ -264,7 +262,29 @@ void App2::blk(visage::TextEditor *e)
     e->redraw();
 }
 
-void App2::color() { redraw(); }
+void App2::color()
+{
+    for (auto &recog : recogs)
+    {
+        if (recog->headIsCorrect)
+        {
+            grn(&(recog->head));
+        }
+        else
+        {
+            red(&(recog->head));
+        }
+        if (recog->parseIsCorrect)
+        {
+            grn(&(recog->parse));
+        }
+        else
+        {
+            red(&(recog->parse));
+        }
+    }
+    redraw();
+}
 
 void App2::compare()
 {
